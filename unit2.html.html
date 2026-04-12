@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>IVR Debate Room</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  <style>
+  body { margin: 0; font-family: Arial, sans-serif; }
+
+  #ui {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10000;
+    pointer-events: auto;
+    background: rgba(255,255,255,0.97);
+    padding: 12px;
+    border-radius: 10px;
+    width: 320px;
+  }
+
+  a-scene {
+    pointer-events: none;
+  }
+
+  button {
+    margin-top: 6px;
+    margin-right: 6px;
+    padding: 8px 10px;
+    cursor: pointer;
+  }
+
+  #status {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  #timer {
+    font-weight: bold;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div id="ui">
+  <div><strong>Scenario:</strong> Unit 2 - Social Media and Cultural Promotion</div>
+  <div><strong>Motion:</strong> Social media is an effective way to preserve and promote Kepulauan Riau local culture.</div>
+  <div id="timer">Timer: 03:00</div>
+
+  <button id="startTimerBtn">Start Timer</button>
+  <button id="showPromptBtn">Show Opponent Prompt</button>
+  <button id="startRecBtn">Start Recording</button>
+  <button id="stopRecBtn">Stop Recording</button>
+
+  <div id="promptBox" style="margin-top:10px; display:none;">
+    <strong>Opponent Prompt:</strong><br>
+    Some people argue that social media only turns culture into entertainment and does not preserve it deeply.
+  </div>
+
+  <div id="status">Status: Ready</div>
+  <a id="downloadLink" style="display:none;" download="debate-audio.webm">Download Recording</a>
+</div>
+<button onclick="window.location.href='file:///C:/DESI/PFR%202026/ivr-debate-room/index.html'" style="margin-top:8px; padding:8px 10px; cursor:pointer;">Back to Home</button>
+</div>
+<a-scene>
+  <!-- Camera -->
+  <a-entity position="0 1.6 4">
+    <a-camera></a-camera>
+  </a-entity>
+
+  <!-- Floor -->
+  <a-plane position="0 0 0" rotation="-90 0 0" width="14" height="14" color="#D9D9D9"></a-plane>
+
+  <!-- Walls -->
+  <a-box position="0 2 -5" depth="0.2" height="4" width="10" color="#EAEAEA"></a-box>
+  <a-box position="-5 2 0" depth="10" height="4" width="0.2" color="#F2F2F2"></a-box>
+  <a-box position="5 2 0" depth="10" height="4" width="0.2" color="#F2F2F2"></a-box>
+
+  <!-- Main motion panel -->
+  <a-plane position="0 2.3 -4.8" width="6.5" height="2" color="#FFFFFF"></a-plane>
+  <a-text
+  <a-text
+  value="Motion:\nSocial media is an effective way to preserve and promote Kepulauan Riau local culture."
+  position="0 2.65 -4.7"
+  width="5.2"
+  wrap-count="26"
+  align="center"
+  anchor="center"
+  color="#111111">
+</a-text>
+
+  <!-- Speaker stand -->
+  <a-cylinder position="0 0.5 -1.5" radius="0.6" height="1" color="#7BC8A4"></a-cylinder>
+  <a-text value="Speaker Spot" position="-0.6 1.3 -1.5" width="3" color="#111111"></a-text>
+
+  <!-- Opponent panel -->
+  <a-plane position="3 2 -3" width="2.8" height="1.6" color="#FFF5CC"></a-plane>
+  <a-text
+    value="Opponent\nPrompt Area"
+    position="2.2 2.3 -2.9"
+    width="2.2"
+    color="#111111">
+  </a-text>
+
+  <!-- Timer panel -->
+  <a-plane position="-3 2 -3" width="2.8" height="1.6" color="#DDEEFF"></a-plane>
+  <a-text
+    value="Timer"
+    position="-3.5 2.3 -2.9"
+    width="2.2"
+    color="#111111">
+  </a-text>
+
+  <!-- Lights -->
+  <a-light type="ambient" color="#BBBBBB"></a-light>
+  <a-light type="directional" intensity="0.8" position="1 4 2"></a-light>
+</a-scene>
+
+<script>
+  const statusEl = document.getElementById("status");
+  const timerEl = document.getElementById("timer");
+  const promptBox = document.getElementById("promptBox");
+
+  let timerInterval = null;
+  let seconds = 180;
+
+  document.getElementById("startTimerBtn").onclick = () => {
+    clearInterval(timerInterval);
+    seconds = 180;
+    updateTimer();
+    timerInterval = setInterval(() => {
+      seconds--;
+      updateTimer();
+      if (seconds <= 0) {
+        clearInterval(timerInterval);
+        statusEl.textContent = "Status: Time is up";
+      }
+    }, 1000);
+    statusEl.textContent = "Status: Timer started";
+  };
+
+  function updateTimer() {
+    const min = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const sec = String(seconds % 60).padStart(2, "0");
+    timerEl.textContent = `Timer: ${min}:${sec}`;
+  }
+
+  document.getElementById("showPromptBtn").onclick = () => {
+    promptBox.style.display = "block";
+    statusEl.textContent = "Status: Opponent prompt shown";
+  };
+
+  let mediaRecorder;
+  let audioChunks = [];
+
+  document.getElementById("startRecBtn").onclick = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+
+      mediaRecorder.ondataavailable = event => {
+        if (event.data.size > 0) audioChunks.push(event.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const downloadLink = document.getElementById("downloadLink");
+        downloadLink.href = audioUrl;
+        downloadLink.style.display = "inline-block";
+        downloadLink.textContent = "Download Recording";
+      };
+
+      mediaRecorder.start();
+      statusEl.textContent = "Status: Recording started";
+    } catch (err) {
+      statusEl.textContent = "Status: Microphone access failed";
+      console.error(err);
+    }
+  };
+
+  document.getElementById("stopRecBtn").onclick = () => {
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
+      mediaRecorder.stop();
+      statusEl.textContent = "Status: Recording stopped";
+    }
+  };
+</script>
+
+</body>
+</html>
