@@ -18,7 +18,7 @@
       background:
         linear-gradient(rgba(5, 14, 35, 0.78), rgba(5, 14, 35, 0.92)),
         radial-gradient(circle at top left, #1d4ed8 0, transparent 34%),
-        radial-gradient(circle at bottom right, #f59e0b 0, transparent 30%),
+        radial-gradient(circle at bottom right, #d4af37 0, transparent 30%),
         #08111f;
       color: #ffffff;
     }
@@ -127,15 +127,32 @@
 
     .virtual-room {
       position: relative;
-      min-height: 470px;
-      border-radius: 28px;
+      min-height: 520px;
+      border-radius: 30px;
       overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(255, 220, 150, 0.16) 0%, rgba(8, 17, 31, 0.92) 100%),
+      background-image:
+        linear-gradient(rgba(8, 17, 31, 0.28), rgba(8, 17, 31, 0.72)),
+        url("images/bg-unit4.jpg"),
         linear-gradient(135deg, #16315f, #08111f);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 1px solid rgba(255, 255, 255, 0.20);
       margin-bottom: 22px;
-      box-shadow: inset 0 -50px 90px rgba(0, 0, 0, 0.35);
+      box-shadow:
+        inset 0 -70px 100px rgba(0, 0, 0, 0.45),
+        0 20px 45px rgba(0, 0, 0, 0.28);
+    }
+
+    .virtual-room::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top center, rgba(255, 255, 255, 0.20), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.25));
+      z-index: 1;
+      pointer-events: none;
     }
 
     .room-screen {
@@ -143,84 +160,135 @@
       top: 26px;
       left: 50%;
       transform: translateX(-50%);
-      width: 68%;
+      width: 70%;
       padding: 16px;
       border-radius: 18px;
       text-align: center;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #dbeafe;
-      font-weight: 700;
-      z-index: 3;
+      background: rgba(8, 17, 31, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff7d6;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      z-index: 5;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.25);
     }
 
     .room-banner {
       position: absolute;
-      top: 78px;
+      top: 80px;
       left: 50%;
       transform: translateX(-50%);
       padding: 8px 18px;
       border-radius: 999px;
-      background: rgba(245, 158, 11, 0.28);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: #eaf2ff;
+      background: rgba(212, 175, 55, 0.34);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff7d6;
       font-size: 13px;
-      font-weight: 600;
-      z-index: 3;
+      font-weight: 700;
+      z-index: 5;
+    }
+
+    .ornament {
+      position: absolute;
+      width: 170px;
+      opacity: 0.36;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .ornament-top {
+      top: 18px;
+      right: 20px;
+    }
+
+    .ornament-bottom {
+      bottom: 18px;
+      left: 20px;
+      transform: rotate(180deg);
     }
 
     .stage-platform {
       position: absolute;
       left: 50%;
-      bottom: 78px;
+      bottom: 90px;
       transform: translateX(-50%);
-      width: 82%;
-      height: 155px;
-      border-radius: 26px 26px 16px 16px;
+      width: 84%;
+      height: 175px;
+      border-radius: 32px 32px 18px 18px;
       background:
-        linear-gradient(180deg, rgba(245, 158, 11, 0.88), rgba(20, 31, 56, 0.98));
-      border: 1px solid rgba(255, 255, 255, 0.18);
+        linear-gradient(180deg, rgba(212, 175, 55, 0.78), rgba(38, 51, 86, 0.98)),
+        linear-gradient(135deg, #1d4ed8, #111827);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       box-shadow:
-        0 18px 34px rgba(0, 0, 0, 0.34),
-        inset 0 8px 18px rgba(255,255,255,0.08);
+        0 22px 40px rgba(0, 0, 0, 0.38),
+        inset 0 10px 20px rgba(255,255,255,0.10);
       z-index: 2;
     }
 
     .stage-front {
       position: absolute;
       left: 50%;
-      bottom: 52px;
+      bottom: 60px;
       transform: translateX(-50%);
-      width: 88%;
-      height: 32px;
-      border-radius: 0 0 26px 26px;
+      width: 90%;
+      height: 38px;
+      border-radius: 0 0 28px 28px;
       background: linear-gradient(180deg, #1b2640, #0c1222);
-      z-index: 1;
+      border: 1px solid rgba(255,255,255,0.12);
+      z-index: 2;
     }
 
     .stage-label {
       position: absolute;
       left: 50%;
-      bottom: 192px;
+      bottom: 215px;
       transform: translateX(-50%);
       padding: 8px 16px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.12);
-      color: #dbeafe;
+      border-radius: 999px;
+      background: rgba(8, 17, 31, 0.62);
+      border: 1px solid rgba(255,255,255,0.20);
+      color: #fff7d6;
       font-size: 13px;
-      font-weight: 700;
-      z-index: 4;
+      font-weight: 800;
+      z-index: 6;
     }
 
-    .character {
+    .avatar-img {
+      position: absolute;
+      z-index: 7;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 22px rgba(0,0,0,0.45));
+    }
+
+    .moderator-avatar {
+      width: 130px;
+      left: 50%;
+      bottom: 150px;
+      transform: translateX(-50%);
+    }
+
+    .speaker-a-avatar {
+      width: 120px;
+      left: 17%;
+      bottom: 132px;
+    }
+
+    .speaker-b-avatar {
+      width: 120px;
+      right: 17%;
+      bottom: 132px;
+    }
+
+    .fallback-character {
       position: absolute;
       width: 86px;
       height: 150px;
-      z-index: 5;
+      z-index: 6;
       text-align: center;
+      display: none;
     }
 
-    .character .head {
+    .fallback-character .head {
       width: 42px;
       height: 42px;
       border-radius: 50%;
@@ -229,7 +297,7 @@
       border: 2px solid rgba(255,255,255,0.2);
     }
 
-    .character .body {
+    .fallback-character .body {
       width: 56px;
       height: 70px;
       margin: 8px auto 0 auto;
@@ -237,15 +305,15 @@
       background: linear-gradient(180deg, #4aa3ff, #1f56b5);
     }
 
-    .character .legs {
+    .fallback-character .legs {
       position: relative;
       width: 40px;
       height: 28px;
       margin: 0 auto;
     }
 
-    .character .legs::before,
-    .character .legs::after {
+    .fallback-character .legs::before,
+    .fallback-character .legs::after {
       content: "";
       position: absolute;
       top: 0;
@@ -255,77 +323,100 @@
       border-radius: 8px;
     }
 
-    .character .legs::before {
+    .fallback-character .legs::before {
       left: 7px;
     }
 
-    .character .legs::after {
+    .fallback-character .legs::after {
       right: 7px;
     }
 
-    .character .label {
+    .fallback-character .label,
+    .avatar-label {
       margin-top: 6px;
       font-size: 12px;
-      font-weight: 700;
-      color: #e6efff;
-      background: rgba(0,0,0,0.24);
-      padding: 4px 8px;
+      font-weight: 800;
+      color: #fff7d6;
+      background: rgba(0,0,0,0.42);
+      padding: 5px 10px;
       border-radius: 999px;
       display: inline-block;
+      border: 1px solid rgba(255,255,255,0.14);
     }
 
-    .moderator {
+    .fallback-moderator {
       left: 50%;
-      bottom: 116px;
+      bottom: 132px;
       transform: translateX(-50%);
     }
 
-    .moderator .body {
+    .fallback-moderator .body {
       background: linear-gradient(180deg, #8b5cf6, #5b21b6);
     }
 
-    .speaker-left {
-      left: 19%;
-      bottom: 102px;
+    .fallback-speaker-a {
+      left: 18%;
+      bottom: 116px;
     }
 
-    .speaker-left .body {
+    .fallback-speaker-a .body {
       background: linear-gradient(180deg, #14b8a6, #0f766e);
     }
 
-    .speaker-right {
-      right: 19%;
-      bottom: 102px;
+    .fallback-speaker-b {
+      right: 18%;
+      bottom: 116px;
     }
 
-    .speaker-right .body {
+    .fallback-speaker-b .body {
       background: linear-gradient(180deg, #f59e0b, #d97706);
+    }
+
+    .avatar-label {
+      position: absolute;
+      z-index: 8;
+    }
+
+    .moderator-name {
+      left: 50%;
+      bottom: 124px;
+      transform: translateX(-50%);
+    }
+
+    .speaker-a-name {
+      left: 18%;
+      bottom: 108px;
+    }
+
+    .speaker-b-name {
+      right: 18%;
+      bottom: 108px;
     }
 
     .debate-desk {
       position: absolute;
-      width: 120px;
-      height: 40px;
+      width: 125px;
+      height: 42px;
       border-radius: 14px;
       background: linear-gradient(180deg, #233454, #111827);
-      border: 1px solid rgba(255,255,255,0.16);
-      z-index: 4;
+      border: 1px solid rgba(255,255,255,0.18);
+      z-index: 5;
       color: #dbeafe;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .desk-left {
-      left: 16%;
-      bottom: 88px;
+      left: 15%;
+      bottom: 102px;
     }
 
     .desk-right {
-      right: 16%;
-      bottom: 88px;
+      right: 15%;
+      bottom: 102px;
     }
 
     .audience-row {
@@ -336,17 +427,17 @@
       display: flex;
       justify-content: center;
       gap: 18px;
-      z-index: 0;
+      z-index: 3;
     }
 
     .audience-row.back {
-      bottom: 24px;
-      opacity: 0.45;
+      bottom: 34px;
+      opacity: 0.42;
     }
 
     .audience-row.front {
-      bottom: 6px;
-      opacity: 0.65;
+      bottom: 12px;
+      opacity: 0.62;
     }
 
     .audience {
@@ -364,7 +455,7 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.68);
+      background: rgba(255,255,255,0.70);
     }
 
     .audience::after {
@@ -376,13 +467,13 @@
       width: 24px;
       height: 26px;
       border-radius: 12px 12px 6px 6px;
-      background: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.42);
     }
 
     .topic-card {
       padding: 22px;
       border-radius: 22px;
-      background: linear-gradient(135deg, #1d4ed8, #f59e0b);
+      background: linear-gradient(135deg, #1d4ed8, #d4af37);
       margin-bottom: 20px;
     }
 
@@ -396,7 +487,7 @@
       margin: 0;
       color: #ffffff;
       font-size: 20px;
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.4;
     }
 
@@ -413,7 +504,7 @@
       border: none;
       cursor: pointer;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 800;
       color: #ffffff;
       transition: 0.25s;
     }
@@ -433,16 +524,20 @@
       filter: brightness(1.1);
     }
 
-    .performance-box {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.1);
+    .instruction-box,
+    .performance-box,
+    .instruction-media,
+    .record-box,
+    .feedback-box {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.10);
       border: 1px solid rgba(255, 255, 255, 0.16);
       margin-top: 18px;
     }
 
-    .performance-box ul,
     .instruction-box ul,
+    .performance-box ul,
     .feedback-box ul {
       margin: 10px 0 0 20px;
       padding: 0;
@@ -450,12 +545,17 @@
       line-height: 1.7;
     }
 
-    .instruction-box {
-      padding: 20px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      margin-top: 18px;
+    .instruction-media video,
+    .instruction-media audio {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 16px;
+    }
+
+    .media-note {
+      font-size: 13px;
+      color: #b8c7e8;
+      margin-bottom: 0;
     }
 
     textarea {
@@ -477,14 +577,6 @@
       color: #b8c7e8;
     }
 
-    .record-box {
-      margin-top: 18px;
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-    }
-
     .record-buttons {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -497,7 +589,7 @@
       border-radius: 16px;
       border: none;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 800;
       color: #ffffff;
       transition: 0.25s;
     }
@@ -536,23 +628,11 @@
       font-size: 14px;
     }
 
-    .feedback-box {
-      margin-top: 18px;
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-    }
-
-    .feedback-box h3 {
-      margin-top: 0;
-    }
-
     .ai-note {
       margin-top: 14px;
       padding: 14px;
       border-radius: 16px;
-      background: rgba(245, 158, 11, 0.18);
+      background: rgba(212, 175, 55, 0.18);
       color: #dbeafe;
       font-size: 14px;
       line-height: 1.5;
@@ -585,28 +665,49 @@
       }
 
       .virtual-room {
-        min-height: 520px;
+        min-height: 540px;
       }
 
       .room-screen {
         width: 86%;
       }
 
+      .room-banner {
+        top: 86px;
+      }
+
       .stage-platform {
-        width: 90%;
-        height: 170px;
+        width: 92%;
+        height: 180px;
       }
 
       .stage-front {
-        width: 94%;
+        width: 96%;
       }
 
-      .speaker-left {
-        left: 8%;
+      .speaker-a-avatar,
+      .speaker-b-avatar {
+        width: 95px;
       }
 
-      .speaker-right {
-        right: 8%;
+      .moderator-avatar {
+        width: 105px;
+      }
+
+      .speaker-a-avatar {
+        left: 7%;
+      }
+
+      .speaker-b-avatar {
+        right: 7%;
+      }
+
+      .speaker-a-name {
+        left: 7%;
+      }
+
+      .speaker-b-name {
+        right: 7%;
       }
 
       .desk-left {
@@ -617,17 +718,13 @@
         right: 4%;
       }
 
-      .character {
-        width: 74px;
-      }
-
-      .character .body {
-        width: 48px;
-      }
-
       .debate-desk {
         width: 96px;
         font-size: 11px;
+      }
+
+      .ornament {
+        width: 120px;
       }
     }
   </style>
@@ -663,34 +760,45 @@
         <div class="virtual-room">
           <div class="room-screen">Virtual Debate Room</div>
           <div class="room-banner">Final Debate Performance</div>
-          <div class="stage-label">Final Debate Stage</div>
 
+          <img src="images/melayu-ornament.png" class="ornament ornament-top" alt="Malay cultural ornament" onerror="this.style.display='none'">
+          <img src="images/melayu-ornament.png" class="ornament ornament-bottom" alt="Malay cultural ornament" onerror="this.style.display='none'">
+
+          <div class="stage-label">Final Malay Culture Debate Stage</div>
           <div class="stage-platform"></div>
           <div class="stage-front"></div>
 
           <div class="debate-desk desk-left">Speaker A</div>
           <div class="debate-desk desk-right">Speaker B</div>
 
-          <div class="character speaker-left">
+          <img src="images/speaker-a.png" class="avatar-img speaker-a-avatar" alt="Speaker A" onerror="this.style.display='none'; document.querySelector('.fallback-speaker-a').style.display='block';">
+          <img src="images/moderator.png" class="avatar-img moderator-avatar" alt="Moderator" onerror="this.style.display='none'; document.querySelector('.fallback-moderator').style.display='block';">
+          <img src="images/speaker-b.png" class="avatar-img speaker-b-avatar" alt="Speaker B" onerror="this.style.display='none'; document.querySelector('.fallback-speaker-b').style.display='block';">
+
+          <div class="fallback-character fallback-speaker-a">
             <div class="head"></div>
             <div class="body"></div>
             <div class="legs"></div>
             <div class="label">Speaker A</div>
           </div>
 
-          <div class="character moderator">
+          <div class="fallback-character fallback-moderator">
             <div class="head"></div>
             <div class="body"></div>
             <div class="legs"></div>
             <div class="label">Moderator</div>
           </div>
 
-          <div class="character speaker-right">
+          <div class="fallback-character fallback-speaker-b">
             <div class="head"></div>
             <div class="body"></div>
             <div class="legs"></div>
             <div class="label">Speaker B</div>
           </div>
+
+          <div class="avatar-label speaker-a-name">Speaker A</div>
+          <div class="avatar-label moderator-name">Moderator</div>
+          <div class="avatar-label speaker-b-name">Speaker B</div>
 
           <div class="audience-row back">
             <div class="audience"></div>
@@ -770,6 +878,30 @@
         </p>
 
         <textarea placeholder="Example: I agree with the motion. First, prioritising local Malay culture can strengthen local identity and make tourism more meaningful. For example, visitors can learn about Malay traditions, local arts, traditional performances, and community values. However, some people may argue that modern entertainment attracts more tourists. I believe local culture can also be attractive if it is presented creatively..."></textarea>
+
+        <div class="instruction-media">
+          <h2>Moderator Audio Instruction</h2>
+          <p class="media-note">
+            Add the file <strong>audio/unit4-instruction.mp3</strong> to activate this audio instruction.
+          </p>
+
+          <audio controls>
+            <source src="audio/unit4-instruction.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+
+        <div class="instruction-media">
+          <h2>Moderator Video Instruction</h2>
+          <p class="media-note">
+            Add the file <strong>video/unit4-moderator.mp4</strong> if you want to use an avatar video instruction.
+          </p>
+
+          <video controls>
+            <source src="video/unit4-moderator.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
 
         <div class="record-box">
           <h2>Final Speaking Recording</h2>
@@ -896,6 +1028,7 @@
       audioPlayback.src = '';
       startBtn.disabled = false;
       stopBtn.disabled = true;
+
       status.innerText = 'Status: Recording reset. You may try again.';
     }
   </script>
