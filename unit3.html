@@ -14,28 +14,35 @@
       font-family: "Segoe UI", Arial, sans-serif;
       min-height: 100vh;
       margin: 0;
-      padding: 30px 20px;
+      padding: 0;
       background:
-        linear-gradient(rgba(5, 14, 35, 0.78), rgba(5, 14, 35, 0.92)),
+        linear-gradient(rgba(5, 14, 35, 0.86), rgba(5, 14, 35, 0.96)),
         radial-gradient(circle at top left, #7b5cff 0, transparent 34%),
         radial-gradient(circle at bottom right, #d4af37 0, transparent 30%),
         #08111f;
       color: #ffffff;
+      overflow-x: hidden;
     }
 
     .page {
-      max-width: 1180px;
-      margin: 0 auto;
+      width: 100%;
+      margin: 0;
+      padding: 0;
     }
 
     .topbar {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
       gap: 12px;
-      position: relative;
+      padding: 18px 28px;
+      position: sticky;
+      top: 0;
       z-index: 999;
+      background: rgba(5, 14, 35, 0.72);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
     }
 
     .back-btn,
@@ -52,8 +59,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      z-index: 999;
+      white-space: nowrap;
     }
 
     .back-btn:hover,
@@ -67,8 +73,8 @@
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.14);
       border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #dbeafe;
-      font-weight: 700;
+      color: #fff7d6;
+      font-weight: 800;
       font-size: 13px;
       letter-spacing: 0.8px;
       text-transform: uppercase;
@@ -76,431 +82,148 @@
     }
 
     .hero {
-      padding: 34px;
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(14px);
-      margin-bottom: 24px;
+      width: 100%;
+      padding: 34px 40px 30px 40px;
+      background: rgba(255, 255, 255, 0.10);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
     }
 
     h1 {
-      margin: 0 0 10px 0;
-      font-size: 42px;
+      margin: 0 0 12px 0;
+      font-size: clamp(28px, 3vw, 42px);
       color: #ffffff;
     }
 
     .subtitle {
       margin: 0;
-      max-width: 820px;
-      font-size: 18px;
+      max-width: 1100px;
+      font-size: clamp(15px, 1.2vw, 18px);
       line-height: 1.6;
       color: #d8e3ff;
     }
 
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
+    .full-section {
+      width: 100%;
+      padding: 26px 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
 
-    .panel {
-      padding: 28px;
+    .section-card {
+      width: 100%;
+      padding: 24px;
       border-radius: 28px;
-      background: rgba(255, 255, 255, 0.11);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.26);
       backdrop-filter: blur(14px);
     }
 
-    .panel h2 {
+    .section-card h2 {
       margin-top: 0;
       margin-bottom: 14px;
-      font-size: 24px;
+      font-size: clamp(21px, 1.8vw, 28px);
+      color: #ffffff;
     }
 
-    .panel p {
+    .section-card p {
+      color: #d8e3ff;
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 170px;
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.10);
+      color: #ffffff;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      outline: none;
+      resize: vertical;
+    }
+
+    textarea::placeholder {
+      color: #b8c7e8;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      width: 100%;
+    }
+
+    .instruction-media {
+      width: 100%;
+      padding: 24px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+    }
+
+    .instruction-media h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: clamp(21px, 1.7vw, 28px);
+    }
+
+    .instruction-media p {
       color: #d8e3ff;
       line-height: 1.6;
+      font-size: 15px;
     }
 
-    .virtual-room {
-      position: relative;
-      min-height: 520px;
-      border-radius: 30px;
-      overflow: hidden;
-      background-image:
-        linear-gradient(rgba(8, 17, 31, 0.30), rgba(8, 17, 31, 0.70)),
-        url("images/bg-unit3.jpg"),
-        linear-gradient(135deg, #2d1b69, #08111f);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border: 1px solid rgba(255, 255, 255, 0.20);
-      margin-bottom: 22px;
-      box-shadow:
-        inset 0 -70px 100px rgba(0, 0, 0, 0.45),
-        0 20px 45px rgba(0, 0, 0, 0.28);
-    }
-
-    .virtual-room::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top center, rgba(255, 255, 255, 0.18), transparent 32%),
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.25));
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .room-screen {
-      position: absolute;
-      top: 26px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 70%;
-      padding: 16px;
+    .instruction-media audio,
+    .instruction-media video {
+      width: 100%;
+      margin-top: 12px;
       border-radius: 18px;
-      text-align: center;
-      background: rgba(8, 17, 31, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff7d6;
-      font-weight: 800;
-      letter-spacing: 0.4px;
-      z-index: 5;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.25);
     }
 
-    .room-banner {
-      position: absolute;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 8px 18px;
-      border-radius: 999px;
-      background: rgba(123, 92, 255, 0.30);
-      border: 1px solid rgba(255,255,255,0.22);
-      color: #fff7d6;
-      font-size: 13px;
-      font-weight: 700;
-      z-index: 5;
-    }
-
-    .ornament {
-      position: absolute;
-      width: 170px;
-      opacity: 0.34;
-      z-index: 4;
-      pointer-events: none;
-    }
-
-    .ornament-top {
-      top: 18px;
-      right: 20px;
-    }
-
-    .ornament-bottom {
-      bottom: 18px;
-      left: 20px;
-      transform: rotate(180deg);
-    }
-
-    .stage-platform {
-      position: absolute;
-      left: 50%;
-      bottom: 90px;
-      transform: translateX(-50%);
-      width: 84%;
-      height: 175px;
-      border-radius: 32px 32px 18px 18px;
-      background:
-        linear-gradient(180deg, rgba(123, 92, 255, 0.72), rgba(38, 51, 86, 0.98)),
-        linear-gradient(135deg, #7b5cff, #111827);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      box-shadow:
-        0 22px 40px rgba(0, 0, 0, 0.38),
-        inset 0 10px 20px rgba(255,255,255,0.10);
-      z-index: 2;
-    }
-
-    .stage-front {
-      position: absolute;
-      left: 50%;
-      bottom: 60px;
-      transform: translateX(-50%);
-      width: 90%;
-      height: 38px;
-      border-radius: 0 0 28px 28px;
-      background: linear-gradient(180deg, #1b2640, #0c1222);
-      border: 1px solid rgba(255,255,255,0.12);
-      z-index: 2;
-    }
-
-    .stage-label {
-      position: absolute;
-      left: 50%;
-      bottom: 215px;
-      transform: translateX(-50%);
-      padding: 8px 16px;
-      border-radius: 999px;
-      background: rgba(8, 17, 31, 0.62);
-      border: 1px solid rgba(255,255,255,0.20);
-      color: #fff7d6;
-      font-size: 13px;
-      font-weight: 800;
-      z-index: 6;
-    }
-
-    .avatar-img {
-      position: absolute;
-      z-index: 7;
-      object-fit: contain;
-      filter: drop-shadow(0 15px 22px rgba(0,0,0,0.45));
-    }
-
-    .moderator-avatar {
-      width: 130px;
-      left: 50%;
-      bottom: 150px;
-      transform: translateX(-50%);
-    }
-
-    .speaker-a-avatar {
-      width: 120px;
-      left: 17%;
-      bottom: 132px;
-    }
-
-    .speaker-b-avatar {
-      width: 120px;
-      right: 17%;
-      bottom: 132px;
-    }
-
-    .fallback-character {
-      position: absolute;
-      width: 86px;
-      height: 150px;
-      z-index: 6;
-      text-align: center;
-      display: none;
-    }
-
-    .fallback-character .head {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      margin: 0 auto;
-      background: #f3c9a1;
-      border: 2px solid rgba(255,255,255,0.2);
-    }
-
-    .fallback-character .body {
-      width: 56px;
-      height: 70px;
-      margin: 8px auto 0 auto;
-      border-radius: 18px 18px 12px 12px;
-      background: linear-gradient(180deg, #4aa3ff, #1f56b5);
-    }
-
-    .fallback-character .legs {
-      position: relative;
-      width: 40px;
-      height: 28px;
-      margin: 0 auto;
-    }
-
-    .fallback-character .legs::before,
-    .fallback-character .legs::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 10px;
-      height: 28px;
-      background: #1f2937;
-      border-radius: 8px;
-    }
-
-    .fallback-character .legs::before {
-      left: 7px;
-    }
-
-    .fallback-character .legs::after {
-      right: 7px;
-    }
-
-    .fallback-character .label,
-    .avatar-label {
-      margin-top: 6px;
-      font-size: 12px;
-      font-weight: 800;
-      color: #fff7d6;
-      background: rgba(0,0,0,0.42);
-      padding: 5px 10px;
-      border-radius: 999px;
-      display: inline-block;
-      border: 1px solid rgba(255,255,255,0.14);
-    }
-
-    .fallback-moderator {
-      left: 50%;
-      bottom: 132px;
-      transform: translateX(-50%);
-    }
-
-    .fallback-moderator .body {
-      background: linear-gradient(180deg, #8b5cf6, #5b21b6);
-    }
-
-    .fallback-speaker-a {
-      left: 18%;
-      bottom: 116px;
-    }
-
-    .fallback-speaker-a .body {
-      background: linear-gradient(180deg, #14b8a6, #0f766e);
-    }
-
-    .fallback-speaker-b {
-      right: 18%;
-      bottom: 116px;
-    }
-
-    .fallback-speaker-b .body {
-      background: linear-gradient(180deg, #f59e0b, #d97706);
-    }
-
-    .avatar-label {
-      position: absolute;
-      z-index: 8;
-    }
-
-    .moderator-name {
-      left: 50%;
-      bottom: 124px;
-      transform: translateX(-50%);
-    }
-
-    .speaker-a-name {
-      left: 18%;
-      bottom: 108px;
-    }
-
-    .speaker-b-name {
-      right: 18%;
-      bottom: 108px;
-    }
-
-    .debate-desk {
-      position: absolute;
-      width: 125px;
-      height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, #233454, #111827);
-      border: 1px solid rgba(255,255,255,0.18);
-      z-index: 5;
-      color: #dbeafe;
-      font-size: 12px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .desk-left {
-      left: 15%;
-      bottom: 102px;
-    }
-
-    .desk-right {
-      right: 15%;
-      bottom: 102px;
-    }
-
-    .audience-row {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 92%;
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      z-index: 3;
-    }
-
-    .audience-row.back {
-      bottom: 34px;
-      opacity: 0.42;
-    }
-
-    .audience-row.front {
-      bottom: 12px;
-      opacity: 0.62;
-    }
-
-    .audience {
-      width: 34px;
-      height: 46px;
-      position: relative;
-    }
-
-    .audience::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.70);
-    }
-
-    .audience::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 24px;
-      height: 26px;
-      border-radius: 12px 12px 6px 6px;
-      background: rgba(255,255,255,0.42);
+    .media-note {
+      color: #b8c7e8;
+      margin-bottom: 0;
     }
 
     .topic-card {
-      padding: 22px;
-      border-radius: 22px;
+      width: 100%;
+      padding: 26px;
+      border-radius: 28px;
       background: linear-gradient(135deg, #7b5cff, #d4af37);
-      margin-bottom: 20px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.26);
     }
 
-    .topic-card h3 {
+    .topic-card h2 {
       margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 18px;
+      margin-bottom: 10px;
+      font-size: clamp(21px, 1.8vw, 28px);
     }
 
     .topic-card p {
       margin: 0;
       color: #ffffff;
-      font-size: 20px;
+      font-size: clamp(18px, 1.6vw, 24px);
       font-weight: 800;
       line-height: 1.4;
     }
 
-    .position-buttons {
+    .position-area {
+      margin-top: 24px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 16px;
+      gap: 18px;
     }
 
     .position-btn {
       padding: 16px;
-      border-radius: 18px;
+      border-radius: 20px;
       border: none;
       cursor: pointer;
       font-size: 16px;
@@ -524,77 +247,167 @@
       filter: brightness(1.1);
     }
 
-    .instruction-box,
-    .rebuttal-box,
-    .opponent-box,
-    .instruction-media,
-    .record-box,
-    .feedback-box {
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      margin-top: 18px;
-    }
-
-    .opponent-box {
-      background: rgba(123, 92, 255, 0.16);
-    }
-
-    .instruction-box ul,
-    .rebuttal-box ul,
-    .feedback-box ul {
-      margin: 10px 0 0 20px;
+    .stage-section {
+      width: 100%;
       padding: 0;
-      color: #d8e3ff;
-      line-height: 1.7;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
 
-    .instruction-media video,
-    .instruction-media audio {
+    .virtual-room {
+      position: relative;
       width: 100%;
-      margin-top: 10px;
-      border-radius: 16px;
+      min-height: 520px;
+      height: 62vh;
+      overflow: hidden;
+      background-image:
+        linear-gradient(rgba(8, 17, 31, 0.20), rgba(8, 17, 31, 0.45)),
+        url("images/bg-unit3.jpg"),
+        linear-gradient(135deg, #2d1b69, #08111f);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        inset 0 -90px 140px rgba(0, 0, 0, 0.46),
+        0 20px 45px rgba(0, 0, 0, 0.28);
     }
 
-    .media-note {
-      font-size: 13px;
-      color: #b8c7e8;
-      margin-bottom: 0;
+    .virtual-room::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top center, rgba(255, 255, 255, 0.12), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.20));
+      z-index: 1;
+      pointer-events: none;
     }
 
-    textarea {
-      width: 100%;
-      min-height: 115px;
-      margin-top: 12px;
-      padding: 16px;
-      border-radius: 18px;
+    .stage-title {
+      position: absolute;
+      top: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(900px, 86vw);
+      padding: 18px 24px;
+      border-radius: 20px;
+      text-align: center;
+      background: rgba(8, 17, 31, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      font-family: "Segoe UI", Arial, sans-serif;
-      font-size: 15px;
-      outline: none;
-      resize: vertical;
+      color: #fff7d6;
+      font-weight: 900;
+      font-size: clamp(18px, 1.6vw, 26px);
+      letter-spacing: 0.4px;
+      z-index: 8;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.25);
     }
 
-    textarea::placeholder {
-      color: #b8c7e8;
+    .stage-subtitle {
+      position: absolute;
+      top: 96px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 9px 20px;
+      border-radius: 999px;
+      background: rgba(123, 92, 255, 0.30);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff7d6;
+      font-size: clamp(13px, 1vw, 16px);
+      font-weight: 800;
+      z-index: 8;
+      white-space: nowrap;
+    }
+
+    .ornament {
+      position: absolute;
+      width: clamp(120px, 12vw, 210px);
+      opacity: 0.30;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .ornament-top {
+      top: 24px;
+      right: 32px;
+    }
+
+    .ornament-bottom {
+      bottom: 28px;
+      left: 32px;
+      transform: rotate(180deg);
+    }
+
+    .avatar-img {
+      position: absolute;
+      z-index: 9;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 28px rgba(0,0,0,0.50));
+    }
+
+    .moderator-avatar {
+      width: clamp(160px, 13vw, 240px);
+      left: 50%;
+      bottom: 13%;
+      transform: translateX(-50%);
+    }
+
+    .speaker-a-avatar {
+      width: clamp(140px, 11vw, 210px);
+      left: 16%;
+      bottom: 11%;
+    }
+
+    .speaker-b-avatar {
+      width: clamp(140px, 11vw, 210px);
+      right: 16%;
+      bottom: 11%;
+    }
+
+    .avatar-label {
+      position: absolute;
+      z-index: 10;
+      font-size: clamp(13px, 1vw, 18px);
+      font-weight: 900;
+      color: #fff7d6;
+      background: rgba(0,0,0,0.50);
+      padding: 7px 14px;
+      border-radius: 999px;
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.28);
+    }
+
+    .moderator-name {
+      left: 50%;
+      bottom: 7%;
+      transform: translateX(-50%);
+    }
+
+    .speaker-a-name {
+      left: 17%;
+      bottom: 5.5%;
+    }
+
+    .speaker-b-name {
+      right: 17%;
+      bottom: 5.5%;
     }
 
     .record-buttons {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin-top: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
     }
 
     .record-btn {
-      padding: 14px;
-      border-radius: 16px;
+      padding: 16px;
+      border-radius: 18px;
       border: none;
       cursor: pointer;
-      font-weight: 800;
+      font-size: 16px;
+      font-weight: 900;
       color: #ffffff;
       transition: 0.25s;
     }
@@ -624,36 +437,33 @@
 
     audio {
       width: 100%;
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
     .status {
-      margin-top: 12px;
-      color: #d8e3ff;
-      font-size: 14px;
-    }
-
-    .ai-note {
       margin-top: 14px;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(123, 92, 255, 0.18);
-      color: #dbeafe;
-      font-size: 14px;
-      line-height: 1.5;
+      color: #d8e3ff;
+      font-size: 15px;
     }
 
-    @media (max-width: 950px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
+    .self-check ul,
+    .rebuttal-box ul {
+      margin: 10px 0 0 22px;
+      padding: 0;
+      color: #d8e3ff;
+      line-height: 1.8;
+      font-size: 16px;
+    }
 
-      h1 {
-        font-size: 32px;
-      }
+    .opponent-box {
+      background: rgba(123, 92, 255, 0.16);
+      border: 1px solid rgba(255,255,255,0.16);
+    }
 
+    @media (max-width: 900px) {
       .topbar {
         flex-direction: column;
+        position: relative;
       }
 
       .back-btn,
@@ -661,75 +471,54 @@
       .unit-label {
         width: 100%;
       }
-    }
 
-    @media (max-width: 780px) {
-      .position-buttons,
+      .full-section,
+      .hero {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .position-area,
       .record-buttons {
         grid-template-columns: 1fr;
       }
 
       .virtual-room {
-        min-height: 540px;
-      }
-
-      .room-screen {
-        width: 86%;
-      }
-
-      .room-banner {
-        top: 86px;
-      }
-
-      .stage-platform {
-        width: 92%;
-        height: 180px;
-      }
-
-      .stage-front {
-        width: 96%;
-      }
-
-      .speaker-a-avatar,
-      .speaker-b-avatar {
-        width: 95px;
-      }
-
-      .moderator-avatar {
-        width: 105px;
+        min-height: 520px;
+        height: 64vh;
       }
 
       .speaker-a-avatar {
-        left: 7%;
+        left: 4%;
+        width: 125px;
       }
 
       .speaker-b-avatar {
-        right: 7%;
+        right: 4%;
+        width: 125px;
+      }
+
+      .moderator-avatar {
+        width: 145px;
       }
 
       .speaker-a-name {
-        left: 7%;
+        left: 5%;
       }
 
       .speaker-b-name {
-        right: 7%;
+        right: 5%;
       }
 
-      .desk-left {
-        left: 4%;
-      }
-
-      .desk-right {
-        right: 4%;
-      }
-
-      .debate-desk {
-        width: 96px;
-        font-size: 11px;
-      }
-
-      .ornament {
-        width: 120px;
+      .stage-subtitle {
+        top: 108px;
+        white-space: normal;
+        text-align: center;
+        width: 80%;
       }
     }
   </style>
@@ -759,138 +548,19 @@
       </p>
     </section>
 
-    <div class="main-grid">
-
-      <section class="panel">
-        <div class="virtual-room">
-          <div class="room-screen">Virtual Debate Room</div>
-          <div class="room-banner">Rebuttal Practice Session</div>
-
-          <img src="images/melayu-ornament.png" class="ornament ornament-top" alt="Malay cultural ornament" onerror="this.style.display='none'">
-          <img src="images/melayu-ornament.png" class="ornament ornament-bottom" alt="Malay cultural ornament" onerror="this.style.display='none'">
-
-          <div class="stage-label">Digital Culture Debate Stage</div>
-          <div class="stage-platform"></div>
-          <div class="stage-front"></div>
-
-          <div class="debate-desk desk-left">Speaker A</div>
-          <div class="debate-desk desk-right">Speaker B</div>
-
-          <img src="images/speaker-a.png" class="avatar-img speaker-a-avatar" alt="Speaker A" onerror="this.style.display='none'; document.querySelector('.fallback-speaker-a').style.display='block';">
-          <img src="images/moderator.png" class="avatar-img moderator-avatar" alt="Moderator" onerror="this.style.display='none'; document.querySelector('.fallback-moderator').style.display='block';">
-          <img src="images/speaker-b.png" class="avatar-img speaker-b-avatar" alt="Speaker B" onerror="this.style.display='none'; document.querySelector('.fallback-speaker-b').style.display='block';">
-
-          <div class="fallback-character fallback-speaker-a">
-            <div class="head"></div>
-            <div class="body"></div>
-            <div class="legs"></div>
-            <div class="label">Speaker A</div>
-          </div>
-
-          <div class="fallback-character fallback-moderator">
-            <div class="head"></div>
-            <div class="body"></div>
-            <div class="legs"></div>
-            <div class="label">Moderator</div>
-          </div>
-
-          <div class="fallback-character fallback-speaker-b">
-            <div class="head"></div>
-            <div class="body"></div>
-            <div class="legs"></div>
-            <div class="label">Speaker B</div>
-          </div>
-
-          <div class="avatar-label speaker-a-name">Speaker A</div>
-          <div class="avatar-label moderator-name">Moderator</div>
-          <div class="avatar-label speaker-b-name">Speaker B</div>
-
-          <div class="audience-row back">
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-          </div>
-
-          <div class="audience-row front">
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-            <div class="audience"></div>
-          </div>
-        </div>
-
-        <div class="topic-card">
-          <h3>Debate Motion</h3>
-          <p>Young people can preserve local culture better through digital media than through traditional community events.</p>
-        </div>
-
-        <h2>Choose Your Position</h2>
-        <p>Select one position before preparing your rebuttal.</p>
-
-        <div class="position-buttons">
-          <button class="position-btn agree" onclick="selectPosition(this, 'Agree')">
-            Agree
-          </button>
-
-          <button class="position-btn disagree" onclick="selectPosition(this, 'Disagree')">
-            Disagree
-          </button>
-        </div>
-
-        <div class="opponent-box">
-          <h2>Opponent’s Argument</h2>
-          <p>
-            Some people argue that traditional community events are still the best way to preserve local culture because they allow young people to experience cultural values directly, not only through screens.
-          </p>
-        </div>
-
-        <div class="rebuttal-box">
-          <h2>Rebuttal Structure</h2>
-          <p>Use this structure to respond politely and clearly:</p>
-
-          <ul>
-            <li><strong>Acknowledge:</strong> I understand the point that ...</li>
-            <li><strong>Disagree or qualify:</strong> However, I believe that ...</li>
-            <li><strong>Reason:</strong> This is because ...</li>
-            <li><strong>Evidence or example:</strong> For example, ...</li>
-            <li><strong>Closing:</strong> Therefore, ...</li>
-          </ul>
-        </div>
-
-        <div class="instruction-box">
-          <h2>Moderator Instruction</h2>
-          <p>
-            Welcome to Unit 3. Please respond to the opponent’s argument. Your task is to give a clear rebuttal while staying polite and logical.
-          </p>
-
-          <ul>
-            <li>Refer briefly to the opponent’s point.</li>
-            <li>Use polite expressions such as “I understand your point, but...”</li>
-            <li>Give one clear reason to support your rebuttal.</li>
-            <li>You may use examples from social media, digital storytelling, local festivals, cultural performances, or youth communities in Kepulauan Riau.</li>
-            <li>Speak for approximately two minutes.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="panel">
+    <section class="full-section">
+      <div class="section-card">
         <h2>Prepare Your Rebuttal</h2>
         <p>
           Write short notes before speaking. Focus on responding to the opposing view. Do not write a full script.
         </p>
 
         <textarea placeholder="Example: I understand the point that traditional community events allow young people to experience culture directly. However, I believe digital media can reach more young people because they use social media every day. For example, Malay poems, traditional music, and local stories can be shared through videos..."></textarea>
+      </div>
+    </section>
 
+    <section class="full-section">
+      <div class="media-grid">
         <div class="instruction-media">
           <h2>Moderator Audio Instruction</h2>
           <p class="media-note">
@@ -914,56 +584,114 @@
             Your browser does not support the video tag.
           </video>
         </div>
+      </div>
+    </section>
 
-        <div class="record-box">
-          <h2>Speaking Recording</h2>
-          <p>
-            Record your rebuttal here. Focus on responding politely, logically, and clearly.
-          </p>
+    <section class="full-section">
+      <div class="topic-card">
+        <h2>Debate Motion</h2>
+        <p>Young people can preserve local culture better through digital media than through traditional community events.</p>
 
-          <div class="record-buttons">
-            <button id="startBtn" class="record-btn start" onclick="startRecording()">
-              Start Recording
-            </button>
+        <div class="position-area">
+          <button class="position-btn agree" onclick="selectPosition(this, 'Agree')">
+            Agree
+          </button>
 
-            <button id="stopBtn" class="record-btn stop" onclick="stopRecording()" disabled>
-              Stop Recording
-            </button>
+          <button class="position-btn disagree" onclick="selectPosition(this, 'Disagree')">
+            Disagree
+          </button>
+        </div>
+      </div>
+    </section>
 
-            <button class="record-btn reset" onclick="resetRecording()">
-              Try Again
-            </button>
-          </div>
+    <section class="stage-section">
+      <div class="virtual-room">
+        <div class="stage-title">Virtual Debate Room</div>
+        <div class="stage-subtitle">Rebuttal Practice Session</div>
 
-          <audio id="audioPlayback" controls></audio>
+        <img src="images/melayu-ornament.png" class="ornament ornament-top" alt="Malay cultural ornament" onerror="this.style.display='none'">
+        <img src="images/melayu-ornament.png" class="ornament ornament-bottom" alt="Malay cultural ornament" onerror="this.style.display='none'">
 
-          <div id="status" class="status">
-            Status: Not recorded yet.
-          </div>
+        <img src="images/speaker-a.png" class="avatar-img speaker-a-avatar" alt="Speaker A" onerror="this.style.display='none'">
+        <img src="images/moderator.png" class="avatar-img moderator-avatar" alt="Moderator" onerror="this.style.display='none'">
+        <img src="images/speaker-b.png" class="avatar-img speaker-b-avatar" alt="Speaker B" onerror="this.style.display='none'">
+
+        <div class="avatar-label speaker-a-name">Speaker A</div>
+        <div class="avatar-label moderator-name">Moderator</div>
+        <div class="avatar-label speaker-b-name">Speaker B</div>
+      </div>
+    </section>
+
+    <section class="full-section">
+      <div class="section-card opponent-box">
+        <h2>Opponent’s Argument</h2>
+        <p>
+          Some people argue that traditional community events are still the best way to preserve local culture because they allow young people to experience cultural values directly, not only through screens.
+        </p>
+      </div>
+    </section>
+
+    <section class="full-section">
+      <div class="section-card rebuttal-box">
+        <h2>Rebuttal Structure</h2>
+        <p>Use this structure to respond politely and clearly:</p>
+        <ul>
+          <li><strong>Acknowledge:</strong> I understand the point that ...</li>
+          <li><strong>Disagree or qualify:</strong> However, I believe that ...</li>
+          <li><strong>Reason:</strong> This is because ...</li>
+          <li><strong>Evidence or example:</strong> For example, ...</li>
+          <li><strong>Closing:</strong> Therefore, ...</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="full-section">
+      <div class="section-card">
+        <h2>Record Your Voice</h2>
+        <p>
+          Record your rebuttal here. Focus on responding politely, logically, and clearly.
+        </p>
+
+        <div class="record-buttons">
+          <button id="startBtn" class="record-btn start" onclick="startRecording()">
+            Start Recording
+          </button>
+
+          <button id="stopBtn" class="record-btn stop" onclick="stopRecording()" disabled>
+            Stop Recording
+          </button>
+
+          <button class="record-btn reset" onclick="resetRecording()">
+            Try Again
+          </button>
         </div>
 
-        <div class="feedback-box">
-          <h3>Self-Check and Future AI Feedback</h3>
-          <p>
-            Later, this section can be connected to AI-driven feedback. For now, students can use the checklist below after speaking.
-          </p>
+        <audio id="audioPlayback" controls></audio>
 
-          <ul>
-            <li>Did I respond to the opponent’s argument?</li>
-            <li>Did I use polite rebuttal language?</li>
-            <li>Did I give a clear reason for my rebuttal?</li>
-            <li>Did I use examples related to local culture or digital media?</li>
-            <li>Did I avoid attacking the speaker personally?</li>
-            <li>Did I speak clearly and confidently?</li>
-          </ul>
-
-          <div class="ai-note">
-            Future AI feedback may include clarity, fluency, grammar, vocabulary, pronunciation, rebuttal structure, politeness, and relevance to local culture.
-          </div>
+        <div id="status" class="status">
+          Status: Not recorded yet.
         </div>
-      </section>
+      </div>
+    </section>
 
-    </div>
+    <section class="full-section self-check">
+      <div class="section-card">
+        <h2>Self-Check and Future AI Feedback</h2>
+        <p>
+          Later, this section can be connected to AI-driven feedback. For now, students can use the checklist below after speaking.
+        </p>
+
+        <ul>
+          <li>Did I respond to the opponent’s argument?</li>
+          <li>Did I use polite rebuttal language?</li>
+          <li>Did I give a clear reason for my rebuttal?</li>
+          <li>Did I use examples related to local culture or digital media?</li>
+          <li>Did I avoid attacking the speaker personally?</li>
+          <li>Did I speak clearly and confidently?</li>
+        </ul>
+      </div>
+    </section>
+
   </div>
 
   <script>
@@ -1007,7 +735,6 @@
         startBtn.disabled = true;
         stopBtn.disabled = false;
         status.innerText = 'Status: Recording... please speak now.';
-
       } catch (error) {
         status.innerText =
           'Status: Microphone access was blocked or unavailable. Please allow microphone permission or open this page through GitHub Pages/HTTPS.';
