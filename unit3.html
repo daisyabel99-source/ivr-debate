@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Unit 3 - IVR Debate Room</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Unit 3 - 3D IVR Debate Room</title>
+
+  <!-- A-Frame for 3D / WebXR virtual room -->
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 
   <style>
     * {
@@ -11,826 +15,717 @@
     }
 
     body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      min-height: 100vh;
       margin: 0;
-      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
       background:
-        linear-gradient(rgba(5, 14, 35, 0.86), rgba(5, 14, 35, 0.96)),
-        radial-gradient(circle at top left, #7b5cff 0, transparent 34%),
-        radial-gradient(circle at bottom right, #d4af37 0, transparent 30%),
-        #08111f;
-      color: #ffffff;
-      overflow-x: hidden;
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.35), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.35), transparent 35%),
+        linear-gradient(135deg, #020617, #0f172a);
+      color: #f8fafc;
+      line-height: 1.6;
     }
 
     .page {
-      width: 100%;
-      margin: 0;
-      padding: 0;
+      width: min(1100px, 94%);
+      margin: 0 auto;
+      padding: 24px 0 50px;
     }
 
-    .topbar {
-      width: 100%;
+    .top-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      padding: 18px 28px;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background: rgba(5, 14, 35, 0.72);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
     }
 
-    .back-btn,
-    .next-btn {
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background: rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-      cursor: pointer;
-      font-size: 14px;
-      transition: 0.25s;
+    .nav-link {
+      color: #dbeafe;
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      transition: 0.2s ease;
     }
 
-    .back-btn:hover,
-    .next-btn:hover {
-      background: rgba(255, 255, 255, 0.22);
-      transform: translateY(-2px);
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
     }
 
     .unit-label {
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #fff7d6;
-      font-weight: 800;
-      font-size: 13px;
-      letter-spacing: 0.8px;
+      font-size: 14px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      text-align: center;
-    }
-
-    .hero {
-      width: 100%;
-      padding: 34px 40px 30px 40px;
-      background: rgba(255, 255, 255, 0.10);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+      color: #93c5fd;
+      margin-bottom: 8px;
     }
 
     h1 {
-      margin: 0 0 12px 0;
-      font-size: clamp(28px, 3vw, 42px);
-      color: #ffffff;
+      font-size: clamp(30px, 5vw, 50px);
+      line-height: 1.1;
+      margin: 0 0 16px;
     }
 
-    .subtitle {
-      margin: 0;
-      max-width: 1100px;
-      font-size: clamp(15px, 1.2vw, 18px);
-      line-height: 1.6;
-      color: #d8e3ff;
-    }
-
-    .full-section {
-      width: 100%;
-      padding: 26px 40px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .section-card {
-      width: 100%;
-      padding: 24px;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.26);
-      backdrop-filter: blur(14px);
-    }
-
-    .section-card h2 {
-      margin-top: 0;
-      margin-bottom: 14px;
-      font-size: clamp(21px, 1.8vw, 28px);
-      color: #ffffff;
-    }
-
-    .section-card p {
-      color: #d8e3ff;
-      line-height: 1.65;
-      font-size: 15px;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 170px;
-      margin-top: 14px;
-      padding: 18px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background: rgba(255, 255, 255, 0.10);
-      color: #ffffff;
-      font-family: "Segoe UI", Arial, sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      outline: none;
-      resize: vertical;
-    }
-
-    textarea::placeholder {
-      color: #b8c7e8;
-    }
-
-    .media-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-      width: 100%;
-    }
-
-    .instruction-media {
-      width: 100%;
-      padding: 24px;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
-    }
-
-    .instruction-media h2 {
+    h2 {
+      font-size: 26px;
       margin-top: 0;
       margin-bottom: 12px;
-      font-size: clamp(21px, 1.7vw, 28px);
+      color: #eff6ff;
     }
 
-    .instruction-media p {
-      color: #d8e3ff;
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    .instruction-media audio,
-    .instruction-media video {
-      width: 100%;
-      margin-top: 12px;
-      border-radius: 18px;
-    }
-
-    .media-note {
-      color: #b8c7e8;
-      margin-bottom: 0;
-    }
-
-    .topic-card {
-      width: 100%;
-      padding: 26px;
-      border-radius: 28px;
-      background: linear-gradient(135deg, #7b5cff, #d4af37);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.26);
-    }
-
-    .topic-card h2 {
+    h3 {
       margin-top: 0;
-      margin-bottom: 10px;
-      font-size: clamp(21px, 1.8vw, 28px);
+      color: #dbeafe;
     }
 
-    .topic-card p {
-      margin: 0;
-      color: #ffffff;
-      font-size: clamp(18px, 1.6vw, 24px);
-      font-weight: 800;
-      line-height: 1.4;
+    p {
+      color: #e2e8f0;
     }
 
-    .position-area {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+    .hero {
+      background: rgba(15, 23, 42, 0.82);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
     }
 
-    .position-btn {
-      padding: 16px;
+    .section {
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 24px;
+      padding: 26px;
+      margin: 22px 0;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    .motion-box {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(124, 58, 237, 0.22));
+      border: 1px solid rgba(191, 219, 254, 0.25);
+      padding: 22px;
       border-radius: 20px;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 800;
+      font-size: 20px;
+      font-weight: 700;
       color: #ffffff;
-      transition: 0.25s;
     }
 
-    .agree {
-      background: linear-gradient(135deg, #0aa6a6, #2dd4bf);
-    }
-
-    .disagree {
-      background: linear-gradient(135deg, #5b5ff5, #9b6dff);
-    }
-
-    .position-btn:hover,
-    .position-btn.active {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
-      filter: brightness(1.1);
-    }
-
-    .stage-section {
-      width: 100%;
-      padding: 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .virtual-room {
-      position: relative;
-      width: 100%;
-      min-height: 520px;
-      height: 62vh;
-      overflow: hidden;
-      background-image:
-        linear-gradient(rgba(8, 17, 31, 0.20), rgba(8, 17, 31, 0.45)),
-        url("images/bg-unit3.jpg"),
-        linear-gradient(135deg, #2d1b69, #08111f);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-top: 1px solid rgba(255, 255, 255, 0.18);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow:
-        inset 0 -90px 140px rgba(0, 0, 0, 0.46),
-        0 20px 45px rgba(0, 0, 0, 0.28);
-    }
-
-    .virtual-room::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top center, rgba(255, 255, 255, 0.12), transparent 32%),
-        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.20));
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .stage-title {
-      position: absolute;
-      top: 26px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(900px, 86vw);
-      padding: 18px 24px;
-      border-radius: 20px;
-      text-align: center;
-      background: rgba(8, 17, 31, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff7d6;
-      font-weight: 900;
-      font-size: clamp(18px, 1.6vw, 26px);
-      letter-spacing: 0.4px;
-      z-index: 8;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.25);
-    }
-
-    .stage-subtitle {
-      position: absolute;
-      top: 96px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 9px 20px;
-      border-radius: 999px;
-      background: rgba(123, 92, 255, 0.30);
-      border: 1px solid rgba(255,255,255,0.22);
-      color: #fff7d6;
-      font-size: clamp(13px, 1vw, 16px);
-      font-weight: 800;
-      z-index: 8;
-      white-space: nowrap;
-    }
-
-    .ornament {
-      position: absolute;
-      width: clamp(120px, 12vw, 210px);
-      opacity: 0.30;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .ornament-top {
-      top: 24px;
-      right: 32px;
-    }
-
-    .ornament-bottom {
-      bottom: 28px;
-      left: 32px;
-      transform: rotate(180deg);
-    }
-
-    .avatar-img {
-      position: absolute;
-      z-index: 9;
-      object-fit: contain;
-      filter: drop-shadow(0 18px 28px rgba(0,0,0,0.50));
-    }
-
-    .moderator-avatar {
-      width: clamp(160px, 13vw, 240px);
-      left: 50%;
-      bottom: 13%;
-      transform: translateX(-50%);
-    }
-
-    .speaker-a-avatar {
-      width: clamp(140px, 11vw, 210px);
-      left: 16%;
-      bottom: 11%;
-    }
-
-    .speaker-b-avatar {
-      width: clamp(140px, 11vw, 210px);
-      right: 16%;
-      bottom: 11%;
-    }
-
-    .avatar-label {
-      position: absolute;
-      z-index: 10;
-      font-size: clamp(13px, 1vw, 18px);
-      font-weight: 900;
-      color: #fff7d6;
-      background: rgba(0,0,0,0.50);
-      padding: 7px 14px;
-      border-radius: 999px;
-      display: inline-block;
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.28);
-    }
-
-    .moderator-name {
-      left: 50%;
-      bottom: 7%;
-      transform: translateX(-50%);
-    }
-
-    .speaker-a-name {
-      left: 17%;
-      bottom: 5.5%;
-    }
-
-    .speaker-b-name {
-      right: 17%;
-      bottom: 5.5%;
-    }
-
-    .record-buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+    .stance-buttons {
+      display: flex;
+      gap: 12px;
       margin-top: 18px;
+      flex-wrap: wrap;
     }
 
+    .stance-btn,
     .record-btn {
-      padding: 16px;
-      border-radius: 18px;
       border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 700;
       cursor: pointer;
-      font-size: 16px;
-      font-weight: 900;
-      color: #ffffff;
-      transition: 0.25s;
+      transition: 0.2s ease;
     }
 
-    .start {
-      background: linear-gradient(135deg, #16a34a, #22c55e);
+    .stance-btn.agree {
+      background: #2563eb;
+      color: white;
     }
 
-    .stop {
-      background: linear-gradient(135deg, #dc2626, #f97316);
+    .stance-btn.disagree {
+      background: #7c3aed;
+      color: white;
     }
 
-    .reset {
-      background: linear-gradient(135deg, #334155, #111827);
-    }
-
-    .download {
-      background: linear-gradient(135deg, #1d4ed8, #d4af37);
-    }
-
+    .stance-btn:hover,
     .record-btn:hover {
       transform: translateY(-2px);
       filter: brightness(1.08);
     }
 
-    .record-btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-      transform: none;
+    .vr-room-wrapper {
+      width: 100%;
+      height: 540px;
+      margin: 24px 0 14px;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 24px 65px rgba(0, 0, 0, 0.45);
+      background: #020617;
+      position: relative;
     }
 
-    audio {
-      width: 100%;
-      margin-top: 18px;
+    .vr-note {
+      font-size: 14px;
+      color: #bfdbfe;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .instruction-note {
+      background: rgba(30, 41, 59, 0.75);
+      border-left: 4px solid #60a5fa;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: #dbeafe;
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #e2e8f0;
+    }
+
+    .recording-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    .record-btn.start {
+      background: #16a34a;
+      color: white;
+    }
+
+    .record-btn.stop {
+      background: #dc2626;
+      color: white;
+    }
+
+    .record-btn.download {
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .record-btn.reset {
+      background: #475569;
+      color: white;
     }
 
     .status {
-      margin-top: 14px;
-      color: #d8e3ff;
-      font-size: 15px;
+      background: rgba(2, 6, 23, 0.5);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 16px;
+      padding: 14px 16px;
+      color: #fef3c7;
+      font-weight: 700;
     }
 
-    .self-check ul,
-    .rebuttal-box ul {
-      margin: 10px 0 0 22px;
-      padding: 0;
-      color: #d8e3ff;
-      line-height: 1.8;
-      font-size: 16px;
+    audio,
+    video {
+      width: 100%;
+      margin-top: 12px;
+      border-radius: 16px;
     }
 
-    .opponent-box {
-      background: rgba(123, 92, 255, 0.16);
-      border: 1px solid rgba(255,255,255,0.16);
+    .small-note {
+      font-size: 14px;
+      color: #cbd5e1;
     }
 
-    @media (max-width: 900px) {
-      .topbar {
-        flex-direction: column;
-        position: relative;
+    footer {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 34px;
+    }
+
+    @media (max-width: 700px) {
+      .hero,
+      .section {
+        padding: 22px;
       }
 
-      .back-btn,
-      .next-btn,
-      .unit-label {
-        width: 100%;
+      .vr-room-wrapper {
+        height: 430px;
       }
 
-      .full-section,
-      .hero {
-        padding-left: 18px;
-        padding-right: 18px;
-      }
-
-      .media-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .position-area,
-      .record-buttons {
-        grid-template-columns: 1fr;
-      }
-
-      .virtual-room {
-        min-height: 520px;
-        height: 64vh;
-      }
-
-      .speaker-a-avatar {
-        left: 4%;
-        width: 125px;
-      }
-
-      .speaker-b-avatar {
-        right: 4%;
-        width: 125px;
-      }
-
-      .moderator-avatar {
-        width: 145px;
-      }
-
-      .speaker-a-name {
-        left: 5%;
-      }
-
-      .speaker-b-name {
-        right: 5%;
-      }
-
-      .stage-subtitle {
-        top: 108px;
-        white-space: normal;
-        text-align: center;
-        width: 80%;
+      .motion-box {
+        font-size: 17px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
+  <main class="page">
 
-    <div class="topbar">
-      <a class="back-btn" href="./unit2.html">
-        ← Back to Unit 2
-      </a>
-
-      <div class="unit-label">
-        Unit 3 · Rebuttal Practice
-      </div>
-
-      <a class="next-btn" href="./unit4.html">
-        Go to Unit 4 →
-      </a>
-    </div>
+    <nav class="top-nav">
+      <a class="nav-link" href="unit2.html">← Back to Unit 2</a>
+      <span class="unit-label">Unit 3 · Rebuttal Practice</span>
+      <a class="nav-link" href="unit4.html">Go to Unit 4 →</a>
+    </nav>
 
     <section class="hero">
+      <div class="unit-label">3D Web-IVR Debate Prototype</div>
       <h1>Unit 3: Rebuttal Practice</h1>
-      <p class="subtitle">
+      <p>
         In this unit, you will practise responding to an opposing argument and giving a clear rebuttal about local culture and digital media.
+      </p>
+      <p class="small-note">
+        This test version includes a 3D virtual debate room. Use your mouse or touch screen to look around the room.
       </p>
     </section>
 
-    <section class="full-section">
-      <div class="section-card">
-        <h2>Prepare Your Rebuttal</h2>
-        <p>
-          Write short notes before speaking. Focus on responding to the opposing view. Do not write a full script.
-        </p>
-
-        <textarea placeholder="Example: I understand the point that traditional community events allow young people to experience culture directly. However, I believe digital media can reach more young people because they use social media every day. For example, Malay poems, traditional music, and local stories can be shared through videos..."></textarea>
-      </div>
+    <section class="section">
+      <h2>Prepare Your Rebuttal</h2>
+      <p>
+        Write short notes before speaking. Focus on responding to the opposing view. Do not write a full script.
+      </p>
     </section>
 
-    <section class="full-section">
-      <div class="media-grid">
-        <div class="instruction-media">
-          <h2>Moderator Audio Instruction</h2>
-          <p class="media-note">Listen to the moderator audio instruction before preparing and recording your rebuttal.</p>
+    <section class="section">
+      <h2>Moderator Audio Instruction</h2>
+      <p>
+        Listen to the moderator audio instruction before preparing and recording your rebuttal.
+      </p>
 
-          <audio controls>
-            <source src="audio/unit3-instruction.webm" type="audio/webm">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
+      <audio controls>
+        <source src="audio/unit3-instruction.webm" type="audio/webm" />
+        <source src="audio/unit3-instruction.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
 
-        <div class="instruction-media">
-          <h2>Moderator Video Instruction</h2>
-          <p class="media-note">Watch the moderator video instruction before entering the rebuttal practice session.</p>
-
-          <video controls>
-            <source src="video/unit3-moderator.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
+      <p class="small-note">
+        If the audio file is not uploaded yet, this section will appear without sound.
+      </p>
     </section>
 
-    <section class="full-section">
-      <div class="topic-card">
-        <h2>Debate Motion</h2>
-        <p>Young people can preserve local culture better through digital media than through traditional community events.</p>
-
-        <div class="position-area">
-          <button class="position-btn agree" onclick="selectPosition(this, 'Agree')">
-            Agree
-          </button>
-
-          <button class="position-btn disagree" onclick="selectPosition(this, 'Disagree')">
-            Disagree
-          </button>
-        </div>
+    <section class="section">
+      <h2>Debate Motion</h2>
+      <div class="motion-box">
+        Young people can preserve local culture better through digital media than through traditional community events.
       </div>
+
+      <div class="stance-buttons">
+        <button class="stance-btn agree" onclick="setStance('Agree')">Agree</button>
+        <button class="stance-btn disagree" onclick="setStance('Disagree')">Disagree</button>
+      </div>
+
+      <p id="stanceStatus" class="small-note">Selected stance: not selected yet.</p>
     </section>
 
-    <section class="stage-section">
-      <div class="virtual-room">
-        <div class="stage-title">Virtual Debate Room</div>
-        <div class="stage-subtitle">Rebuttal Practice Session</div>
+    <section class="section">
+      <h2>Virtual Debate Room</h2>
+      <p>
+        Enter the 3D debate room and prepare your rebuttal. The room includes a debate stage, moderator position, speaker positions, motion screen, and audience area.
+      </p>
 
-        <img src="images/melayu-ornament.png" class="ornament ornament-top" alt="Malay cultural ornament" onerror="this.style.display='none'">
-        <img src="images/melayu-ornament.png" class="ornament ornament-bottom" alt="Malay cultural ornament" onerror="this.style.display='none'">
-
-        <img src="images/speaker-a.png" class="avatar-img speaker-a-avatar" alt="Speaker A" onerror="this.style.display='none'">
-        <img src="images/moderator.png" class="avatar-img moderator-avatar" alt="Moderator" onerror="this.style.display='none'">
-        <img src="images/speaker-b.png" class="avatar-img speaker-b-avatar" alt="Speaker B" onerror="this.style.display='none'">
-
-        <div class="avatar-label speaker-a-name">Speaker A</div>
-        <div class="avatar-label moderator-name">Moderator</div>
-        <div class="avatar-label speaker-b-name">Speaker B</div>
+      <div class="instruction-note">
+        <strong>How to use:</strong> Drag your mouse or move your finger on the screen to look around. On supported devices, you can also try the VR mode button.
       </div>
+
+      <div class="vr-room-wrapper">
+        <a-scene
+          embedded
+          background="color: #07111f"
+          renderer="antialias: true; colorManagement: true"
+          vr-mode-ui="enabled: true"
+          webxr="optionalFeatures: local-floor, bounded-floor"
+        >
+
+          <!-- Camera / student viewpoint -->
+          <a-entity position="0 1.6 6">
+            <a-camera look-controls wasd-controls="enabled: false"></a-camera>
+          </a-entity>
+
+          <!-- Lighting -->
+          <a-entity light="type: ambient; intensity: 0.75"></a-entity>
+          <a-entity light="type: directional; intensity: 0.95" position="0 7 5"></a-entity>
+          <a-entity light="type: point; intensity: 0.65; distance: 8" position="0 3 1"></a-entity>
+
+          <!-- Sky / background -->
+          <a-sky color="#07111f"></a-sky>
+
+          <!-- Floor -->
+          <a-plane
+            position="0 0 0"
+            rotation="-90 0 0"
+            width="14"
+            height="14"
+            color="#1e293b">
+          </a-plane>
+
+          <!-- Floor center carpet -->
+          <a-plane
+            position="0 0.01 1.6"
+            rotation="-90 0 0"
+            width="7"
+            height="4"
+            color="#172554">
+          </a-plane>
+
+          <!-- Back wall -->
+          <a-box
+            position="0 2 -5"
+            width="13"
+            height="4.2"
+            depth="0.2"
+            color="#0f172a">
+          </a-box>
+
+          <!-- Left wall -->
+          <a-box
+            position="-6.5 2 0"
+            width="0.2"
+            height="4.2"
+            depth="10"
+            color="#111827">
+          </a-box>
+
+          <!-- Right wall -->
+          <a-box
+            position="6.5 2 0"
+            width="0.2"
+            height="4.2"
+            depth="10"
+            color="#111827">
+          </a-box>
+
+          <!-- Debate stage -->
+          <a-box
+            position="0 0.25 -2.7"
+            width="9"
+            height="0.5"
+            depth="3.2"
+            color="#334155">
+          </a-box>
+
+          <!-- Stage front line -->
+          <a-box
+            position="0 0.55 -1.05"
+            width="9"
+            height="0.08"
+            depth="0.08"
+            color="#93c5fd">
+          </a-box>
+
+          <!-- Motion screen -->
+          <a-box
+            position="0 2.95 -4.82"
+            width="7.8"
+            height="1.55"
+            depth="0.12"
+            color="#f8fafc">
+          </a-box>
+
+          <a-text
+            value="DEBATE MOTION"
+            position="0 3.35 -4.72"
+            align="center"
+            width="5"
+            color="#1e3a8a">
+          </a-text>
+
+          <a-text
+            value="Young people can preserve local culture better through digital media than through traditional community events."
+            position="0 2.92 -4.70"
+            align="center"
+            width="6.8"
+            color="#0f172a">
+          </a-text>
+
+          <!-- Speaker A podium -->
+          <a-box
+            position="-3.3 0.95 -2.45"
+            width="1.25"
+            height="1.4"
+            depth="0.85"
+            color="#2563eb">
+          </a-box>
+
+          <a-text
+            value="Speaker A"
+            position="-3.3 1.85 -2.35"
+            align="center"
+            width="3"
+            color="#ffffff">
+          </a-text>
+
+          <!-- Speaker A avatar simple body -->
+          <a-cylinder
+            position="-3.3 2.05 -2.45"
+            radius="0.28"
+            height="0.7"
+            color="#dbeafe">
+          </a-cylinder>
+
+          <a-sphere
+            position="-3.3 2.58 -2.45"
+            radius="0.28"
+            color="#facc15">
+          </a-sphere>
+
+          <!-- Moderator desk -->
+          <a-box
+            position="0 0.85 -2.7"
+            width="1.95"
+            height="1.2"
+            depth="0.95"
+            color="#020617">
+          </a-box>
+
+          <a-box
+            position="0 1.48 -2.18"
+            width="1.8"
+            height="0.08"
+            depth="0.08"
+            color="#60a5fa">
+          </a-box>
+
+          <a-text
+            value="Moderator"
+            position="0 1.75 -2.53"
+            align="center"
+            width="3"
+            color="#ffffff">
+          </a-text>
+
+          <!-- Moderator avatar simple body -->
+          <a-cylinder
+            position="0 1.95 -2.7"
+            radius="0.28"
+            height="0.65"
+            color="#e0f2fe">
+          </a-cylinder>
+
+          <a-sphere
+            position="0 2.45 -2.7"
+            radius="0.28"
+            color="#facc15">
+          </a-sphere>
+
+          <!-- Speaker B podium -->
+          <a-box
+            position="3.3 0.95 -2.45"
+            width="1.25"
+            height="1.4"
+            depth="0.85"
+            color="#7c3aed">
+          </a-box>
+
+          <a-text
+            value="Speaker B"
+            position="3.3 1.85 -2.35"
+            align="center"
+            width="3"
+            color="#ffffff">
+          </a-text>
+
+          <!-- Speaker B avatar simple body -->
+          <a-cylinder
+            position="3.3 2.05 -2.45"
+            radius="0.28"
+            height="0.7"
+            color="#ede9fe">
+          </a-cylinder>
+
+          <a-sphere
+            position="3.3 2.58 -2.45"
+            radius="0.28"
+            color="#facc15">
+          </a-sphere>
+
+          <!-- Microphones -->
+          <a-cylinder position="-3.3 1.75 -1.98" radius="0.035" height="0.45" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="-3.3 1.98 -1.88" radius="0.07" color="#111827"></a-sphere>
+
+          <a-cylinder position="0 1.55 -2.05" radius="0.035" height="0.4" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="0 1.74 -1.98" radius="0.07" color="#111827"></a-sphere>
+
+          <a-cylinder position="3.3 1.75 -1.98" radius="0.035" height="0.45" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="3.3 1.98 -1.88" radius="0.07" color="#111827"></a-sphere>
+
+          <!-- Audience seats -->
+          <a-box position="-4.2 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
+          <a-box position="-2.8 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
+          <a-box position="-1.4 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
+          <a-box position="0 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
+          <a-box position="1.4 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
+          <a-box position="2.8 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
+          <a-box position="4.2 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
+
+          <a-box position="-4.2 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
+          <a-box position="-2.8 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
+          <a-box position="-1.4 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
+          <a-box position="0 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
+          <a-box position="1.4 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
+          <a-box position="2.8 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
+          <a-box position="4.2 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
+
+          <!-- Room label -->
+          <a-text
+            value="3D Virtual Debate Room"
+            position="0 4.35 -4.85"
+            align="center"
+            width="7"
+            color="#bfdbfe">
+          </a-text>
+
+        </a-scene>
+      </div>
+
+      <p class="vr-note">
+        This is a prototype 3D debate room. The next version can use realistic 3D avatars, a better debate hall, moderator animation, and AI feedback.
+      </p>
     </section>
 
-    <section class="full-section">
-      <div class="section-card opponent-box">
-        <h2>Opponent’s Argument</h2>
-        <p>
-          Some people argue that traditional community events are still the best way to preserve local culture because they allow young people to experience cultural values directly, not only through screens.
-        </p>
-      </div>
+    <section class="section">
+      <h2>Opponent’s Argument</h2>
+      <p>
+        Some people argue that traditional community events are still the best way to preserve local culture because they allow young people to experience cultural values directly, not only through screens.
+      </p>
     </section>
 
-    <section class="full-section">
-      <div class="section-card rebuttal-box">
-        <h2>Rebuttal Structure</h2>
-        <p>Use this structure to respond politely and clearly:</p>
-        <ul>
-          <li><strong>Acknowledge:</strong> I understand the point that ...</li>
-          <li><strong>Disagree or qualify:</strong> However, I believe that ...</li>
-          <li><strong>Reason:</strong> This is because ...</li>
-          <li><strong>Evidence or example:</strong> For example, ...</li>
-          <li><strong>Closing:</strong> Therefore, ...</li>
-        </ul>
-      </div>
+    <section class="section">
+      <h2>Rebuttal Structure</h2>
+      <p>Use this structure to respond politely and clearly:</p>
+
+      <ul>
+        <li><strong>Acknowledge:</strong> I understand the point that ...</li>
+        <li><strong>Disagree or qualify:</strong> However, I believe that ...</li>
+        <li><strong>Reason:</strong> This is because ...</li>
+        <li><strong>Evidence or example:</strong> For example, ...</li>
+        <li><strong>Closing:</strong> Therefore, ...</li>
+      </ul>
     </section>
 
-    <section class="full-section">
-      <div class="section-card">
-        <h2>Record Your Voice</h2>
-        <p>
-          Record your rebuttal here. Focus on responding politely, logically, and clearly.
-        </p>
+    <section class="section">
+      <h2>Record Your Voice</h2>
+      <p>
+        Record your rebuttal here. Focus on responding politely, logically, and clearly.
+      </p>
 
-        <div class="record-buttons">
-          <button id="startBtn" class="record-btn start" onclick="startRecording()">
-            Start Recording
-          </button>
-
-          <button id="stopBtn" class="record-btn stop" onclick="stopRecording()" disabled>
-            Stop Recording
-          </button>
-
-          <button id="downloadBtn" class="record-btn download" onclick="downloadRecording()" disabled>
-            Download Recording
-          </button>
-
-          <button class="record-btn reset" onclick="resetRecording()">
-            Try Again
-          </button>
-        </div>
-
-        <audio id="audioPlayback" controls></audio>
-
-        <div id="status" class="status">
-          Status: Not recorded yet.
-        </div>
+      <div class="recording-controls">
+        <button class="record-btn start" id="startBtn">Start Recording</button>
+        <button class="record-btn stop" id="stopBtn" disabled>Stop Recording</button>
+        <a class="record-btn download" id="downloadLink" style="display:none;">Download Recording</a>
+        <button class="record-btn reset" id="resetBtn">Try Again</button>
       </div>
+
+      <div class="status" id="recordStatus">Status: Not recorded yet.</div>
+
+      <audio id="audioPlayback" controls style="display:none;"></audio>
     </section>
 
-    <section class="full-section self-check">
-      <div class="section-card">
-        <h2>Self-Check and Future AI Feedback</h2>
-        <p>
-          Later, this section can be connected to AI-driven feedback. For now, students can use the checklist below after speaking.
-        </p>
+    <section class="section">
+      <h2>Self-Check and Future AI Feedback</h2>
+      <p>
+        Later, this section can be connected to AI-driven feedback. For now, students can use the checklist below after speaking.
+      </p>
 
-        <ul>
-          <li>Did I respond to the opponent’s argument?</li>
-          <li>Did I use polite rebuttal language?</li>
-          <li>Did I give a clear reason for my rebuttal?</li>
-          <li>Did I use examples related to local culture or digital media?</li>
-          <li>Did I avoid attacking the speaker personally?</li>
-          <li>Did I speak clearly and confidently?</li>
-        </ul>
-      </div>
+      <ul>
+        <li>Did I respond to the opponent’s argument?</li>
+        <li>Did I use polite rebuttal language?</li>
+        <li>Did I give a clear reason for my rebuttal?</li>
+        <li>Did I use examples related to local culture or digital media?</li>
+        <li>Did I avoid attacking the speaker personally?</li>
+        <li>Did I speak clearly and confidently?</li>
+      </ul>
     </section>
 
-  </div>
+    <footer>
+      Web-based IVR Debate · Unit 3 3D Test Version
+    </footer>
+
+  </main>
 
   <script>
+    function setStance(stance) {
+      const stanceStatus = document.getElementById("stanceStatus");
+      stanceStatus.textContent = "Selected stance: " + stance;
+    }
+
     let mediaRecorder;
     let audioChunks = [];
-    let recordedAudioBlob = null;
+    let audioBlob;
+    let audioUrl;
 
-    function selectPosition(button, position) {
-      const buttons = document.querySelectorAll('.position-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const downloadLink = document.getElementById("downloadLink");
+    const recordStatus = document.getElementById("recordStatus");
+    const audioPlayback = document.getElementById("audioPlayback");
 
-      document.getElementById('status').innerText =
-        'Status: Position selected - ' + position + '. You may prepare your rebuttal and start recording.';
-    }
-
-    function getSupportedAudioMimeType() {
-      if (window.MediaRecorder && MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
-        return 'audio/webm;codecs=opus';
-      }
-
-      if (window.MediaRecorder && MediaRecorder.isTypeSupported('audio/webm')) {
-        return 'audio/webm';
-      }
-
-      return '';
-    }
-
-    async function startRecording() {
-      const status = document.getElementById('status');
-      const startBtn = document.getElementById('startBtn');
-      const stopBtn = document.getElementById('stopBtn');
-      const downloadBtn = document.getElementById('downloadBtn');
-
+    startBtn.addEventListener("click", async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mimeType = getSupportedAudioMimeType();
 
         audioChunks = [];
-        recordedAudioBlob = null;
-        downloadBtn.disabled = true;
+        mediaRecorder = new MediaRecorder(stream);
 
-        mediaRecorder = mimeType
-          ? new MediaRecorder(stream, { mimeType: mimeType })
-          : new MediaRecorder(stream);
-
-        mediaRecorder.ondataavailable = function(event) {
-          if (event.data && event.data.size > 0) {
+        mediaRecorder.ondataavailable = event => {
+          if (event.data.size > 0) {
             audioChunks.push(event.data);
           }
         };
 
-        mediaRecorder.onstop = function() {
-          const finalMimeType = mediaRecorder.mimeType || 'audio/webm';
-          recordedAudioBlob = new Blob(audioChunks, { type: finalMimeType });
-
-          const audioUrl = URL.createObjectURL(recordedAudioBlob);
-          const audioPlayback = document.getElementById('audioPlayback');
+        mediaRecorder.onstop = () => {
+          audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+          audioUrl = URL.createObjectURL(audioBlob);
 
           audioPlayback.src = audioUrl;
-          downloadBtn.disabled = false;
+          audioPlayback.style.display = "block";
 
-          status.innerText =
-            'Status: Recording completed. You can play or download your audio.';
+          downloadLink.href = audioUrl;
+          downloadLink.download = "unit3-rebuttal-recording.webm";
+          downloadLink.style.display = "inline-block";
+
+          recordStatus.textContent = "Status: Recording completed. You can listen or download your audio.";
+
+          stream.getTracks().forEach(track => track.stop());
         };
 
         mediaRecorder.start();
 
         startBtn.disabled = true;
         stopBtn.disabled = false;
-        status.innerText = 'Status: Recording... please speak now.';
+        downloadLink.style.display = "none";
+        audioPlayback.style.display = "none";
+        recordStatus.textContent = "Status: Recording... Please give your rebuttal clearly.";
 
       } catch (error) {
-        status.innerText =
-          'Status: Microphone access was blocked or unavailable. Please allow microphone permission in your browser.';
+        recordStatus.textContent = "Status: Microphone access was denied or unavailable.";
+        alert("Please allow microphone access to record your voice.");
       }
-    }
+    });
 
-    function stopRecording() {
-      const startBtn = document.getElementById('startBtn');
-      const stopBtn = document.getElementById('stopBtn');
-
-      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    stopBtn.addEventListener("click", () => {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
         mediaRecorder.stop();
-
-        mediaRecorder.stream.getTracks().forEach(function(track) {
-          track.stop();
-        });
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
       }
+    });
 
-      startBtn.disabled = false;
-      stopBtn.disabled = true;
-    }
-
-    function downloadRecording() {
-      const status = document.getElementById('status');
-
-      if (!recordedAudioBlob) {
-        status.innerText = 'Status: No recording is available to download yet.';
-        return;
-      }
-
-      const downloadUrl = URL.createObjectURL(recordedAudioBlob);
-      const downloadLink = document.createElement('a');
-
-      downloadLink.href = downloadUrl;
-      downloadLink.download = 'unit3-rebuttal-practice-recording.webm';
-
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-
-      URL.revokeObjectURL(downloadUrl);
-
-      status.innerText =
-        'Status: Recording downloaded. You may upload the file to the submission form.';
-    }
-
-    function resetRecording() {
-      const audioPlayback = document.getElementById('audioPlayback');
-      const status = document.getElementById('status');
-      const startBtn = document.getElementById('startBtn');
-      const stopBtn = document.getElementById('stopBtn');
-      const downloadBtn = document.getElementById('downloadBtn');
-
+    resetBtn.addEventListener("click", () => {
       audioChunks = [];
-      recordedAudioBlob = null;
 
-      audioPlayback.src = '';
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+      }
+
+      audioPlayback.src = "";
+      audioPlayback.style.display = "none";
+      downloadLink.href = "";
+      downloadLink.style.display = "none";
+      recordStatus.textContent = "Status: Not recorded yet.";
+
       startBtn.disabled = false;
       stopBtn.disabled = true;
-      downloadBtn.disabled = true;
-
-      status.innerText = 'Status: Recording reset. You may try again.';
-    }
+    });
   </script>
 </body>
 </html>
