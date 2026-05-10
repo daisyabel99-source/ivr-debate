@@ -396,7 +396,7 @@
 
     .record-buttons {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
       margin-top: 18px;
     }
@@ -422,6 +422,10 @@
 
     .reset {
       background: linear-gradient(135deg, #334155, #111827);
+    }
+
+    .download {
+      background: linear-gradient(135deg, #1d4ed8, #d4af37);
     }
 
     .record-btn:hover {
@@ -643,6 +647,10 @@
             Stop Recording
           </button>
 
+          <button id="downloadBtn" class="record-btn download" onclick="downloadRecording()" disabled>
+            Download Recording
+          </button>
+
           <button class="record-btn reset" onclick="resetRecording()">
             Try Again
           </button>
@@ -679,6 +687,7 @@
   <script>
     let mediaRecorder;
     let audioChunks = [];
+    let recordedAudioBlob = null;
 
     function selectPosition(button, position) {
       const buttons = document.querySelectorAll('.position-btn');
@@ -689,37 +698,65 @@
         'Status: Position selected - ' + position + '. You may prepare your reasons and start recording.';
     }
 
+    function getSupportedAudioMimeType() {
+      if (window.MediaRecorder && MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+        return 'audio/webm;codecs=opus';
+      }
+
+      if (window.MediaRecorder && MediaRecorder.isTypeSupported('audio/webm')) {
+        return 'audio/webm';
+      }
+
+      return '';
+    }
+
     async function startRecording() {
       const status = document.getElementById('status');
       const startBtn = document.getElementById('startBtn');
       const stopBtn = document.getElementById('stopBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const mimeType = getSupportedAudioMimeType();
 
-        mediaRecorder = new MediaRecorder(stream);
         audioChunks = [];
+        recordedAudioBlob = null;
+        downloadBtn.disabled = true;
+
+        mediaRecorder = mimeType
+          ? new MediaRecorder(stream, { mimeType: mimeType })
+          : new MediaRecorder(stream);
 
         mediaRecorder.ondataavailable = function(event) {
-          audioChunks.push(event.data);
+          if (event.data && event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
         };
 
         mediaRecorder.onstop = function() {
-          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-          const audioUrl = URL.createObjectURL(audioBlob);
+          const finalMimeType = mediaRecorder.mimeType || 'audio/webm';
+          recordedAudioBlob = new Blob(audioChunks, { type: finalMimeType });
+
+          const audioUrl = URL.createObjectURL(recordedAudioBlob);
           const audioPlayback = document.getElementById('audioPlayback');
 
           audioPlayback.src = audioUrl;
-          status.innerText = 'Status: Recording completed. You can play your audio.';
+          downloadBtn.disabled = false;
+
+          status.innerText =
+            'Status: Recording completed. You can play or download your audio.';
         };
 
         mediaRecorder.start();
+
         startBtn.disabled = true;
         stopBtn.disabled = false;
         status.innerText = 'Status: Recording... please speak now.';
+
       } catch (error) {
         status.innerText =
-          'Status: Microphone access was blocked or unavailable. Please allow microphone permission or open this page through GitHub Pages/HTTPS.';
+          'Status: Microphone access was blocked or unavailable. Please allow microphone permission in your browser.';
       }
     }
 
@@ -729,6 +766,7 @@
 
       if (mediaRecorder && mediaRecorder.state !== 'inactive') {
         mediaRecorder.stop();
+
         mediaRecorder.stream.getTracks().forEach(function(track) {
           track.stop();
         });
@@ -738,16 +776,44 @@
       stopBtn.disabled = true;
     }
 
+    function downloadRecording() {
+      const status = document.getElementById('status');
+
+      if (!recordedAudioBlob) {
+        status.innerText = 'Status: No recording is available to download yet.';
+        return;
+      }
+
+      const downloadUrl = URL.createObjectURL(recordedAudioBlob);
+      const downloadLink = document.createElement('a');
+
+      downloadLink.href = downloadUrl;
+      downloadLink.download = 'unit2-giving-reasons-recording.webm';
+
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+
+      URL.revokeObjectURL(downloadUrl);
+
+      status.innerText =
+        'Status: Recording downloaded. You may upload the file to the submission form.';
+    }
+
     function resetRecording() {
       const audioPlayback = document.getElementById('audioPlayback');
       const status = document.getElementById('status');
       const startBtn = document.getElementById('startBtn');
       const stopBtn = document.getElementById('stopBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
 
       audioChunks = [];
+      recordedAudioBlob = null;
+
       audioPlayback.src = '';
       startBtn.disabled = false;
       stopBtn.disabled = true;
+      downloadBtn.disabled = true;
 
       status.innerText = 'Status: Recording reset. You may try again.';
     }
