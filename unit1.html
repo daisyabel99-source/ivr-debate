@@ -103,6 +103,7 @@
   <script>
     let mediaRecorder;
     let audioChunks = [];
+    let recordedAudioBlob = null;
     function selectPosition(button, position) {
       const buttons = document.querySelectorAll('.position-btn');
       buttons.forEach(btn => btn.classList.remove('active'));
@@ -113,10 +114,13 @@
       const status = document.getElementById('status');
       const startBtn = document.getElementById('startBtn');
       const stopBtn = document.getElementById('stopBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         mediaRecorder = new MediaRecorder(stream);
         audioChunks = [];
+        recordedAudioBlob = null;
+        downloadBtn.disabled = true;
         mediaRecorder.ondataavailable = function(event) { audioChunks.push(event.data); };
         mediaRecorder.onstop = function() {
           const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
@@ -143,6 +147,27 @@
       startBtn.disabled = false;
       stopBtn.disabled = true;
     }
+    function downloadRecording() {
+      const status = document.getElementById('status');
+
+      if (!recordedAudioBlob) {
+        status.innerText = 'Status: No recording is available to download yet.';
+        return;
+      }
+
+      const downloadUrl = URL.createObjectURL(recordedAudioBlob);
+      const downloadLink = document.createElement('a');
+
+      downloadLink.href = downloadUrl;
+      downloadLink.download = 'unit1-opening-argument-recording.webm';
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+
+      URL.revokeObjectURL(downloadUrl);
+      status.innerText = 'Status: Recording downloaded. You may upload the file to the submission form.';
+    }
+
     function resetRecording() {
       const audioPlayback = document.getElementById('audioPlayback');
       const status = document.getElementById('status');
