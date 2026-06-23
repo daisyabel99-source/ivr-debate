@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Unit 3 - 3D IVR Debate Room</title>
+  <title>Unit 3 - IVR Debate Room</title>
 
   <!-- A-Frame for 3D / WebXR virtual room -->
   <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
@@ -14,21 +14,51 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --navy-950: #020617;
+      --navy-900: #07111f;
+      --navy-800: #0f172a;
+      --navy-700: #172554;
+      --blue: #2563eb;
+      --blue-soft: #93c5fd;
+      --gold: #d4af37;
+      --gold-soft: #f7d774;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --card: rgba(15, 23, 42, 0.82);
+      --line: rgba(212, 175, 55, 0.28);
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(59, 130, 246, 0.35), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.35), transparent 35%),
-        linear-gradient(135deg, #020617, #0f172a);
-      color: #f8fafc;
+        radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.20), transparent 24%),
+        radial-gradient(circle at 90% 20%, rgba(37, 99, 235, 0.28), transparent 30%),
+        radial-gradient(circle at 55% 100%, rgba(14, 116, 144, 0.25), transparent 28%),
+        linear-gradient(135deg, #020617, #081124 55%, #0f172a);
+      color: var(--text);
       line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('images/melayu-ornament.png');
+      background-repeat: no-repeat;
+      background-position: center 32px;
+      background-size: min(780px, 90vw) auto;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .page {
-      width: min(1100px, 94%);
+      width: min(1120px, 94%);
       margin: 0 auto;
-      padding: 24px 0 50px;
+      padding: 24px 0 52px;
     }
 
     .top-nav {
@@ -41,18 +71,19 @@
     }
 
     .nav-link {
-      color: #dbeafe;
+      color: #f8fafc;
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(2, 6, 23, 0.52);
+      border: 1px solid rgba(212, 175, 55, 0.30);
       padding: 10px 16px;
       border-radius: 999px;
       font-size: 14px;
       transition: 0.2s ease;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
     }
 
     .nav-link:hover {
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(212, 175, 55, 0.14);
       transform: translateY(-1px);
     }
 
@@ -60,21 +91,23 @@
       font-size: 14px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #93c5fd;
+      color: var(--gold-soft);
       margin-bottom: 8px;
+      font-weight: 700;
     }
 
     h1 {
-      font-size: clamp(30px, 5vw, 50px);
-      line-height: 1.1;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.08;
       margin: 0 0 16px;
+      letter-spacing: -0.03em;
     }
 
     h2 {
-      font-size: 26px;
+      font-size: 25px;
       margin-top: 0;
       margin-bottom: 12px;
-      color: #eff6ff;
+      color: #ffffff;
     }
 
     h3 {
@@ -87,32 +120,61 @@
     }
 
     .hero {
-      background: rgba(15, 23, 42, 0.82);
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      border-radius: 28px;
-      padding: 34px;
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.78)),
+        url('images/melayu-ornament.png');
+      background-size: cover, min(760px, 95%);
+      background-position: center, center;
+      background-repeat: no-repeat;
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      border-radius: 30px;
+      padding: 38px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
       margin-bottom: 24px;
       backdrop-filter: blur(10px);
     }
 
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 85% 22%, rgba(212, 175, 55, 0.16), transparent 26%);
+      pointer-events: none;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      max-width: 760px;
+      font-size: 17px;
+    }
+
     .section {
-      background: rgba(15, 23, 42, 0.78);
-      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: var(--card);
+      border: 1px solid rgba(212, 175, 55, 0.22);
       border-radius: 24px;
       padding: 26px;
       margin: 22px 0;
-      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.26);
+      backdrop-filter: blur(10px);
     }
 
     .motion-box {
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(124, 58, 237, 0.22));
-      border: 1px solid rgba(191, 219, 254, 0.25);
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(212, 175, 55, 0.18)),
+        rgba(2, 6, 23, 0.42);
+      border: 1px solid rgba(212, 175, 55, 0.35);
       padding: 22px;
       border-radius: 20px;
       font-size: 20px;
       font-weight: 700;
       color: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     .stance-buttons {
@@ -130,15 +192,16 @@
       font-weight: 700;
       cursor: pointer;
       transition: 0.2s ease;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.22);
     }
 
     .stance-btn.agree {
-      background: #2563eb;
+      background: linear-gradient(135deg, #1d4ed8, #60a5fa);
       color: white;
     }
 
     .stance-btn.disagree {
-      background: #7c3aed;
+      background: linear-gradient(135deg, #0f766e, #2dd4bf);
       color: white;
     }
 
@@ -150,29 +213,45 @@
 
     .vr-room-wrapper {
       width: 100%;
-      height: 540px;
+      height: 620px;
       margin: 24px 0 14px;
-      border-radius: 26px;
+      border-radius: 28px;
       overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.22);
-      box-shadow: 0 24px 65px rgba(0, 0, 0, 0.45);
+      border: 2px solid rgba(212, 175, 55, 0.32);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.52);
       background: #020617;
       position: relative;
     }
 
+    .vr-room-wrapper::before {
+      content: "3D Virtual Debate Room";
+      position: absolute;
+      left: 18px;
+      top: 16px;
+      z-index: 3;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(2, 6, 23, 0.64);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      color: #fde68a;
+      font-size: 13px;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
     .vr-note {
       font-size: 14px;
-      color: #bfdbfe;
+      color: #dbeafe;
       text-align: center;
       margin-top: 10px;
     }
 
     .instruction-note {
-      background: rgba(30, 41, 59, 0.75);
-      border-left: 4px solid #60a5fa;
+      background: rgba(2, 6, 23, 0.42);
+      border-left: 4px solid var(--gold);
       padding: 16px 18px;
       border-radius: 16px;
-      color: #dbeafe;
+      color: #f8fafc;
     }
 
     ul {
@@ -192,30 +271,30 @@
     }
 
     .record-btn.start {
-      background: #16a34a;
+      background: linear-gradient(135deg, #15803d, #22c55e);
       color: white;
     }
 
     .record-btn.stop {
-      background: #dc2626;
+      background: linear-gradient(135deg, #b91c1c, #ef4444);
       color: white;
     }
 
     .record-btn.download {
-      background: #2563eb;
+      background: linear-gradient(135deg, #1d4ed8, #60a5fa);
       color: white;
       text-decoration: none;
       display: inline-block;
     }
 
     .record-btn.reset {
-      background: #475569;
+      background: linear-gradient(135deg, #334155, #64748b);
       color: white;
     }
 
     .status {
-      background: rgba(2, 6, 23, 0.5);
-      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(2, 6, 23, 0.48);
+      border: 1px solid rgba(212, 175, 55, 0.26);
       border-radius: 16px;
       padding: 14px 16px;
       color: #fef3c7;
@@ -231,7 +310,7 @@
 
     .small-note {
       font-size: 14px;
-      color: #cbd5e1;
+      color: var(--muted);
     }
 
     footer {
@@ -248,7 +327,7 @@
       }
 
       .vr-room-wrapper {
-        height: 430px;
+        height: 500px;
       }
 
       .motion-box {
@@ -268,13 +347,13 @@
     </nav>
 
     <section class="hero">
-      <div class="unit-label">3D Web-IVR Debate Prototype</div>
+      <div class="unit-label">Web-based IVR Debate Prototype</div>
       <h1>Unit 3: Rebuttal Practice</h1>
       <p>
         In this unit, you will practise responding to an opposing argument and giving a clear rebuttal about local culture and digital media.
       </p>
       <p class="small-note">
-        This test version includes a 3D virtual debate room. Use your mouse or touch screen to look around the room.
+        This version keeps the original visual identity and adds a more polished 3D virtual debate room.
       </p>
     </section>
 
@@ -319,7 +398,7 @@
     <section class="section">
       <h2>Virtual Debate Room</h2>
       <p>
-        Enter the 3D debate room and prepare your rebuttal. The room includes a debate stage, moderator position, speaker positions, motion screen, and audience area.
+        Enter the virtual debate room and prepare your rebuttal. The room uses the original Malay ornament and character images, while the moderator is loaded as a real 3D GLB model.
       </p>
 
       <div class="instruction-note">
@@ -335,15 +414,24 @@
           webxr="optionalFeatures: local-floor, bounded-floor"
         >
 
-          <!-- Camera / student viewpoint -->
-          <a-entity position="0 1.6 6">
+          <a-assets>
+            <img id="ornamentImg" src="images/melayu-ornament.png" crossorigin="anonymous" />
+            <img id="speakerAImg" src="images/speaker-a.png" crossorigin="anonymous" />
+            <a-asset-item id="moderatorModel" src="models/moderator.glb"></a-asset-item>
+            <img id="speakerBImg" src="images/speaker-b.png" crossorigin="anonymous" />
+          </a-assets>
+
+          <!-- Student viewpoint -->
+          <a-entity position="0 1.7 6.2">
             <a-camera look-controls wasd-controls="enabled: false"></a-camera>
           </a-entity>
 
           <!-- Lighting -->
-          <a-entity light="type: ambient; intensity: 0.75"></a-entity>
-          <a-entity light="type: directional; intensity: 0.95" position="0 7 5"></a-entity>
-          <a-entity light="type: point; intensity: 0.65; distance: 8" position="0 3 1"></a-entity>
+          <a-entity light="type: ambient; intensity: 0.82"></a-entity>
+          <a-entity light="type: directional; intensity: 0.9" position="0 7 5"></a-entity>
+          <a-entity light="type: point; intensity: 0.75; distance: 8" position="0 3 1"></a-entity>
+          <a-entity light="type: point; intensity: 0.55; distance: 6" position="-3 3 -1.5"></a-entity>
+          <a-entity light="type: point; intensity: 0.55; distance: 6" position="3 3 -1.5"></a-entity>
 
           <!-- Sky / background -->
           <a-sky color="#07111f"></a-sky>
@@ -352,232 +440,209 @@
           <a-plane
             position="0 0 0"
             rotation="-90 0 0"
-            width="14"
-            height="14"
-            color="#1e293b">
+            width="15"
+            height="15"
+            color="#0b1220">
           </a-plane>
 
-          <!-- Floor center carpet -->
+          <!-- Carpet -->
           <a-plane
-            position="0 0.01 1.6"
+            position="0 0.012 1.4"
             rotation="-90 0 0"
-            width="7"
-            height="4"
-            color="#172554">
+            width="7.8"
+            height="4.5"
+            color="#102a56">
+          </a-plane>
+
+          <a-plane
+            position="0 0.014 1.4"
+            rotation="-90 0 0"
+            width="7.2"
+            height="3.9"
+            color="#132f61"
+            material="opacity: 0.65; transparent: true">
           </a-plane>
 
           <!-- Back wall -->
           <a-box
-            position="0 2 -5"
-            width="13"
-            height="4.2"
-            depth="0.2"
+            position="0 2.2 -5"
+            width="13.4"
+            height="4.4"
+            depth="0.22"
             color="#0f172a">
           </a-box>
 
-          <!-- Left wall -->
+          <!-- Side walls -->
+          <a-box position="-6.7 2.2 0" width="0.22" height="4.4" depth="10.4" color="#08111f"></a-box>
+          <a-box position="6.7 2.2 0" width="0.22" height="4.4" depth="10.4" color="#08111f"></a-box>
+
+          <!-- Decorative Malay ornament on wall -->
+          <a-image
+            src="#ornamentImg"
+            position="0 3.55 -4.86"
+            width="5.9"
+            height="2.0"
+            material="transparent: true; opacity: 0.72">
+          </a-image>
+
+          <!-- Stage -->
           <a-box
-            position="-6.5 2 0"
-            width="0.2"
-            height="4.2"
-            depth="10"
-            color="#111827">
+            position="0 0.28 -2.62"
+            width="9.4"
+            height="0.55"
+            depth="3.3"
+            color="#263449">
           </a-box>
 
-          <!-- Right wall -->
           <a-box
-            position="6.5 2 0"
-            width="0.2"
-            height="4.2"
-            depth="10"
-            color="#111827">
+            position="0 0.61 -1.00"
+            width="9.4"
+            height="0.10"
+            depth="0.10"
+            color="#d4af37">
           </a-box>
 
-          <!-- Debate stage -->
           <a-box
-            position="0 0.25 -2.7"
-            width="9"
-            height="0.5"
-            depth="3.2"
-            color="#334155">
+            position="0 0.66 -1.08"
+            width="9.2"
+            height="0.035"
+            depth="0.04"
+            color="#f7d774">
           </a-box>
 
-          <!-- Stage front line -->
+          <!-- Motion screen frame -->
           <a-box
-            position="0 0.55 -1.05"
-            width="9"
-            height="0.08"
-            depth="0.08"
-            color="#93c5fd">
+            position="0 2.75 -4.76"
+            width="8.2"
+            height="1.72"
+            depth="0.18"
+            color="#d4af37">
           </a-box>
 
-          <!-- Motion screen -->
           <a-box
-            position="0 2.95 -4.82"
-            width="7.8"
-            height="1.55"
+            position="0 2.75 -4.64"
+            width="7.85"
+            height="1.45"
             depth="0.12"
             color="#f8fafc">
           </a-box>
 
           <a-text
             value="DEBATE MOTION"
-            position="0 3.35 -4.72"
+            position="0 3.16 -4.52"
             align="center"
-            width="5"
+            width="5.0"
             color="#1e3a8a">
           </a-text>
 
           <a-text
             value="Young people can preserve local culture better through digital media than through traditional community events."
-            position="0 2.92 -4.70"
+            position="0 2.72 -4.51"
             align="center"
-            width="6.8"
+            width="6.7"
             color="#0f172a">
           </a-text>
 
-          <!-- Speaker A podium -->
-          <a-box
-            position="-3.3 0.95 -2.45"
-            width="1.25"
-            height="1.4"
-            depth="0.85"
-            color="#2563eb">
-          </a-box>
+          <!-- Podiums -->
+          <a-box position="-3.55 0.95 -2.08" width="1.25" height="1.35" depth="0.78" color="#1d4ed8"></a-box>
+          <a-box position="-3.55 1.66 -1.67" width="1.35" height="0.10" depth="0.10" color="#f7d774"></a-box>
 
+          <a-box position="0 0.85 -2.12" width="2.05" height="1.15" depth="0.86" color="#111827"></a-box>
+          <a-box position="0 1.45 -1.67" width="2.0" height="0.10" depth="0.10" color="#f7d774"></a-box>
+
+          <a-box position="3.55 0.95 -2.08" width="1.25" height="1.35" depth="0.78" color="#0f766e"></a-box>
+          <a-box position="3.55 1.66 -1.67" width="1.35" height="0.10" depth="0.10" color="#f7d774"></a-box>
+
+          <!-- Original character images as 2.5D avatars -->
+          <a-image
+            src="#speakerAImg"
+            position="-3.55 2.05 -2.10"
+            rotation="0 12 0"
+            width="1.32"
+            height="3.30"
+            material="transparent: true; side: double">
+          </a-image>
+
+          <!-- Real 3D moderator model from models/moderator.glb -->
+          <a-entity
+            id="moderatorGLB"
+            gltf-model="#moderatorModel"
+            position="0 0.55 -2.22"
+            rotation="0 0 0"
+            scale="1.15 1.15 1.15">
+          </a-entity>
+
+          <!-- Fallback text appears only if the GLB model cannot be loaded -->
           <a-text
-            value="Speaker A"
-            position="-3.3 1.85 -2.35"
+            id="moderatorFallbackText"
+            value="Moderator 3D model not loaded"
+            position="0 2.12 -2.12"
             align="center"
-            width="3"
-            color="#ffffff">
+            width="3.5"
+            color="#fef3c7"
+            visible="false">
           </a-text>
 
-          <!-- Speaker A avatar simple body -->
-          <a-cylinder
-            position="-3.3 2.05 -2.45"
-            radius="0.28"
-            height="0.7"
-            color="#dbeafe">
-          </a-cylinder>
+          <a-image
+            src="#speakerBImg"
+            position="3.55 2.05 -2.10"
+            rotation="0 -12 0"
+            width="1.30"
+            height="3.35"
+            material="transparent: true; side: double">
+          </a-image>
 
-          <a-sphere
-            position="-3.3 2.58 -2.45"
-            radius="0.28"
-            color="#facc15">
-          </a-sphere>
+          <!-- Name labels -->
+          <a-box position="-3.55 0.28 -1.43" width="1.55" height="0.35" depth="0.06" color="#0b1220"></a-box>
+          <a-text value="Speaker A" position="-3.55 0.30 -1.38" align="center" width="3" color="#fef3c7"></a-text>
 
-          <!-- Moderator desk -->
-          <a-box
-            position="0 0.85 -2.7"
-            width="1.95"
-            height="1.2"
-            depth="0.95"
-            color="#020617">
-          </a-box>
+          <a-box position="0 0.28 -1.43" width="1.85" height="0.35" depth="0.06" color="#0b1220"></a-box>
+          <a-text value="Moderator" position="0 0.30 -1.38" align="center" width="3" color="#fef3c7"></a-text>
 
-          <a-box
-            position="0 1.48 -2.18"
-            width="1.8"
-            height="0.08"
-            depth="0.08"
-            color="#60a5fa">
-          </a-box>
-
-          <a-text
-            value="Moderator"
-            position="0 1.75 -2.53"
-            align="center"
-            width="3"
-            color="#ffffff">
-          </a-text>
-
-          <!-- Moderator avatar simple body -->
-          <a-cylinder
-            position="0 1.95 -2.7"
-            radius="0.28"
-            height="0.65"
-            color="#e0f2fe">
-          </a-cylinder>
-
-          <a-sphere
-            position="0 2.45 -2.7"
-            radius="0.28"
-            color="#facc15">
-          </a-sphere>
-
-          <!-- Speaker B podium -->
-          <a-box
-            position="3.3 0.95 -2.45"
-            width="1.25"
-            height="1.4"
-            depth="0.85"
-            color="#7c3aed">
-          </a-box>
-
-          <a-text
-            value="Speaker B"
-            position="3.3 1.85 -2.35"
-            align="center"
-            width="3"
-            color="#ffffff">
-          </a-text>
-
-          <!-- Speaker B avatar simple body -->
-          <a-cylinder
-            position="3.3 2.05 -2.45"
-            radius="0.28"
-            height="0.7"
-            color="#ede9fe">
-          </a-cylinder>
-
-          <a-sphere
-            position="3.3 2.58 -2.45"
-            radius="0.28"
-            color="#facc15">
-          </a-sphere>
+          <a-box position="3.55 0.28 -1.43" width="1.55" height="0.35" depth="0.06" color="#0b1220"></a-box>
+          <a-text value="Speaker B" position="3.55 0.30 -1.38" align="center" width="3" color="#fef3c7"></a-text>
 
           <!-- Microphones -->
-          <a-cylinder position="-3.3 1.75 -1.98" radius="0.035" height="0.45" color="#020617" rotation="25 0 0"></a-cylinder>
-          <a-sphere position="-3.3 1.98 -1.88" radius="0.07" color="#111827"></a-sphere>
+          <a-cylinder position="-3.55 1.78 -1.58" radius="0.025" height="0.45" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="-3.55 1.98 -1.49" radius="0.06" color="#111827"></a-sphere>
 
-          <a-cylinder position="0 1.55 -2.05" radius="0.035" height="0.4" color="#020617" rotation="25 0 0"></a-cylinder>
-          <a-sphere position="0 1.74 -1.98" radius="0.07" color="#111827"></a-sphere>
+          <a-cylinder position="0 1.55 -1.58" radius="0.025" height="0.43" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="0 1.74 -1.49" radius="0.06" color="#111827"></a-sphere>
 
-          <a-cylinder position="3.3 1.75 -1.98" radius="0.035" height="0.45" color="#020617" rotation="25 0 0"></a-cylinder>
-          <a-sphere position="3.3 1.98 -1.88" radius="0.07" color="#111827"></a-sphere>
+          <a-cylinder position="3.55 1.78 -1.58" radius="0.025" height="0.45" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="3.55 1.98 -1.49" radius="0.06" color="#111827"></a-sphere>
 
           <!-- Audience seats -->
-          <a-box position="-4.2 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
-          <a-box position="-2.8 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
-          <a-box position="-1.4 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
-          <a-box position="0 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
-          <a-box position="1.4 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
-          <a-box position="2.8 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
-          <a-box position="4.2 0.25 1.1" width="1.1" height="0.35" depth="0.75" color="#475569"></a-box>
+          <a-box position="-4.5 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
+          <a-box position="-3.0 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
+          <a-box position="-1.5 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
+          <a-box position="0 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
+          <a-box position="1.5 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
+          <a-box position="3.0 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
+          <a-box position="4.5 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
 
-          <a-box position="-4.2 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
-          <a-box position="-2.8 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
-          <a-box position="-1.4 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
-          <a-box position="0 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
-          <a-box position="1.4 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
-          <a-box position="2.8 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
-          <a-box position="4.2 0.25 2.3" width="1.1" height="0.35" depth="0.75" color="#334155"></a-box>
+          <a-box position="-4.5 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
+          <a-box position="-3.0 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
+          <a-box position="-1.5 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
+          <a-box position="0 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
+          <a-box position="1.5 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
+          <a-box position="3.0 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
+          <a-box position="4.5 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
 
-          <!-- Room label -->
+          <!-- Room title -->
           <a-text
-            value="3D Virtual Debate Room"
-            position="0 4.35 -4.85"
+            value="Rebuttal Practice Session"
+            position="0 4.32 -4.76"
             align="center"
             width="7"
-            color="#bfdbfe">
+            color="#fde68a">
           </a-text>
 
         </a-scene>
       </div>
 
       <p class="vr-note">
-        This is a prototype 3D debate room. The next version can use realistic 3D avatars, a better debate hall, moderator animation, and AI feedback.
+        This version keeps Speaker A and Speaker B as image avatars while testing the moderator as a real 3D GLB model.
       </p>
     </section>
 
@@ -636,7 +701,7 @@
     </section>
 
     <footer>
-      Web-based IVR Debate · Unit 3 3D Test Version
+      Web-based IVR Debate · Unit 3 with 3D Moderator
     </footer>
 
   </main>
@@ -726,6 +791,19 @@
       startBtn.disabled = false;
       stopBtn.disabled = true;
     });
+    const moderatorGLB = document.getElementById("moderatorGLB");
+    const moderatorFallbackText = document.getElementById("moderatorFallbackText");
+
+    if (moderatorGLB && moderatorFallbackText) {
+      moderatorGLB.addEventListener("model-loaded", () => {
+        moderatorFallbackText.setAttribute("visible", "false");
+      });
+
+      moderatorGLB.addEventListener("model-error", () => {
+        moderatorFallbackText.setAttribute("visible", "true");
+      });
+    }
+
   </script>
 </body>
 </html>
