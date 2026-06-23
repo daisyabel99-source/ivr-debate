@@ -8,6 +8,7 @@
 
   <!-- A-Frame for 3D / WebXR virtual room -->
   <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
 
   <style>
     * {
@@ -418,6 +419,7 @@
             <img id="ornamentImg" src="images/melayu-ornament.png" crossorigin="anonymous" />
             <img id="speakerAImg" src="images/speaker-a.png" crossorigin="anonymous" />
             <a-asset-item id="moderatorModel" src="models/moderator.glb"></a-asset-item>
+            <img id="moderatorImg" src="images/moderator.png" crossorigin="anonymous" />
             <img id="speakerBImg" src="images/speaker-b.png" crossorigin="anonymous" />
           </a-assets>
 
@@ -564,21 +566,33 @@
           </a-image>
 
           <!-- Real 3D moderator model from models/moderator.glb -->
-          <a-entity
+          <!-- This version uses a direct URL and larger scale to make the GLB easier to see. -->
+          <a-gltf-model
             id="moderatorGLB"
-            gltf-model="#moderatorModel"
-            position="0 0.55 -2.22"
-            rotation="0 0 0"
-            scale="1.15 1.15 1.15">
-          </a-entity>
+            src="models/moderator.glb"
+            position="0 0.10 -1.55"
+            rotation="0 180 0"
+            scale="1.65 1.65 1.65"
+            animation-mixer>
+          </a-gltf-model>
 
-          <!-- Fallback text appears only if the GLB model cannot be loaded -->
+          <!-- Fallback image: shown only if the GLB cannot be loaded -->
+          <a-image
+            id="moderatorFallbackImage"
+            src="#moderatorImg"
+            position="0 2.02 -2.10"
+            width="1.26"
+            height="3.25"
+            visible="false"
+            material="transparent: true; side: double">
+          </a-image>
+
           <a-text
             id="moderatorFallbackText"
-            value="Moderator 3D model not loaded"
-            position="0 2.12 -2.12"
+            value="3D moderator failed to load"
+            position="0 3.95 -2.05"
             align="center"
-            width="3.5"
+            width="3.8"
             color="#fef3c7"
             visible="false">
           </a-text>
@@ -792,16 +806,27 @@
       stopBtn.disabled = true;
     });
     const moderatorGLB = document.getElementById("moderatorGLB");
+    const moderatorFallbackImage = document.getElementById("moderatorFallbackImage");
     const moderatorFallbackText = document.getElementById("moderatorFallbackText");
 
-    if (moderatorGLB && moderatorFallbackText) {
+    if (moderatorGLB && moderatorFallbackImage && moderatorFallbackText) {
       moderatorGLB.addEventListener("model-loaded", () => {
+        moderatorFallbackImage.setAttribute("visible", "false");
         moderatorFallbackText.setAttribute("visible", "false");
       });
 
       moderatorGLB.addEventListener("model-error", () => {
+        moderatorFallbackImage.setAttribute("visible", "true");
         moderatorFallbackText.setAttribute("visible", "true");
       });
+
+      setTimeout(() => {
+        const object3D = moderatorGLB.getObject3D("mesh");
+        if (!object3D) {
+          moderatorFallbackImage.setAttribute("visible", "true");
+          moderatorFallbackText.setAttribute("visible", "true");
+        }
+      }, 6000);
     }
 
   </script>
