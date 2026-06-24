@@ -428,176 +428,134 @@
           </a-assets>
 
           <!-- Student viewpoint -->
-          <a-entity position="0 1.7 6.2">
-            <a-camera look-controls wasd-controls="enabled: false"></a-camera>
+          <a-entity position="0 1.78 6.15">
+            <a-camera look-controls wasd-controls="enabled: false" fov="68"></a-camera>
           </a-entity>
 
-          <!-- Lighting -->
-          <a-entity light="type: ambient; intensity: 0.82"></a-entity>
-          <a-entity light="type: directional; intensity: 0.9" position="0 7 5"></a-entity>
-          <a-entity light="type: point; intensity: 0.75; distance: 8" position="0 3 1"></a-entity>
-          <a-entity light="type: point; intensity: 0.55; distance: 6" position="-3 3 -1.5"></a-entity>
-          <a-entity light="type: point; intensity: 0.55; distance: 6" position="3 3 -1.5"></a-entity>
+          <!-- Balanced lighting -->
+          <a-entity light="type: ambient; intensity: 0.92"></a-entity>
+          <a-entity light="type: directional; intensity: 0.75" position="0 7 5"></a-entity>
+          <a-entity light="type: point; intensity: 0.55; distance: 8" position="0 4.2 1.8"></a-entity>
+          <a-entity light="type: point; intensity: 0.45; distance: 7" position="-3.8 3.2 -1.5"></a-entity>
+          <a-entity light="type: point; intensity: 0.45; distance: 7" position="3.8 3.2 -1.5"></a-entity>
 
-          <!-- Sky / background -->
+          <!-- Clean dark virtual room -->
           <a-sky color="#07111f"></a-sky>
 
-          <!-- Floor -->
+          <!-- Floor and carpet -->
           <a-plane
             position="0 0 0"
             rotation="-90 0 0"
             width="15"
             height="15"
-            color="#0b1220">
-          </a-plane>
-
-          <!-- Carpet -->
-          <a-plane
-            position="0 0.012 1.4"
-            rotation="-90 0 0"
-            width="7.8"
-            height="4.5"
-            color="#102a56">
+            color="#08111f">
           </a-plane>
 
           <a-plane
-            position="0 0.014 1.4"
+            position="0 0.012 1.55"
             rotation="-90 0 0"
-            width="7.2"
-            height="3.9"
-            color="#132f61"
-            material="opacity: 0.65; transparent: true">
-          </a-plane>
-
-          <!-- Back wall -->
-          <a-box
-            position="0 2.2 -5"
-            width="13.4"
+            width="8.0"
             height="4.4"
-            depth="0.22"
-            color="#0f172a">
-          </a-box>
+            color="#102a56"
+            material="opacity: 0.82; transparent: true">
+          </a-plane>
 
-          <!-- Side walls -->
-          <a-box position="-6.7 2.2 0" width="0.22" height="4.4" depth="10.4" color="#08111f"></a-box>
-          <a-box position="6.7 2.2 0" width="0.22" height="4.4" depth="10.4" color="#08111f"></a-box>
+          <!-- Back wall and side walls -->
+          <a-box position="0 2.32 -5.02" width="13.2" height="4.65" depth="0.20" color="#0f172a"></a-box>
+          <a-box position="-6.65 2.32 -0.02" width="0.20" height="4.65" depth="10.0" color="#070d18"></a-box>
+          <a-box position="6.65 2.32 -0.02" width="0.20" height="4.65" depth="10.0" color="#070d18"></a-box>
+          <a-box position="0 4.72 -0.02" width="13.2" height="0.18" depth="10.0" color="#07111f"></a-box>
 
-          <!-- Decorative Malay ornament on wall -->
+          <!-- Subtle Malay ornament, moved behind the title so it does not disturb the text -->
           <a-image
             src="#ornamentImg"
-            position="0 3.55 -4.86"
-            width="5.9"
-            height="2.0"
-            material="transparent: true; opacity: 0.72">
+            position="0 3.58 -4.86"
+            width="4.8"
+            height="1.15"
+            material="transparent: true; opacity: 0.34">
           </a-image>
 
-          <!-- Stage -->
-          <a-box
-            position="0 0.28 -2.62"
-            width="9.4"
-            height="0.55"
-            depth="3.3"
-            color="#263449">
-          </a-box>
+          <!-- Raised stage platform -->
+          <a-box position="0 0.28 -2.55" width="9.2" height="0.55" depth="3.20" color="#263449"></a-box>
+          <a-box position="0 0.59 -1.02" width="9.25" height="0.12" depth="0.12" color="#d4af37"></a-box>
+          <a-box position="0 0.665 -1.07" width="9.05" height="0.035" depth="0.04" color="#f7d774"></a-box>
 
-          <a-box
-            position="0 0.61 -1.00"
-            width="9.4"
-            height="0.10"
-            depth="0.10"
-            color="#d4af37">
-          </a-box>
+          <!-- Title panel, separated from the motion board -->
+          <a-box position="0 3.52 -4.72" width="4.6" height="0.42" depth="0.10" color="#0b1220"></a-box>
+          <a-text
+            value="Rebuttal Practice Session"
+            position="0 3.53 -4.60"
+            align="center"
+            width="5.2"
+            color="#fde68a">
+          </a-text>
 
-          <a-box
-            position="0 0.66 -1.08"
-            width="9.2"
-            height="0.035"
-            depth="0.04"
-            color="#f7d774">
-          </a-box>
-
-          <!-- Motion screen frame -->
-          <a-box
-            position="0 2.75 -4.76"
-            width="8.2"
-            height="1.72"
-            depth="0.18"
-            color="#d4af37">
-          </a-box>
-
-          <a-box
-            position="0 2.75 -4.64"
-            width="7.85"
-            height="1.45"
-            depth="0.12"
-            color="#f8fafc">
-          </a-box>
+          <!-- Motion screen -->
+          <a-box position="0 2.55 -4.76" width="7.35" height="1.28" depth="0.16" color="#d4af37"></a-box>
+          <a-box position="0 2.55 -4.62" width="7.05" height="1.04" depth="0.10" color="#f8fafc"></a-box>
 
           <a-text
             value="DEBATE MOTION"
-            position="0 3.16 -4.52"
+            position="0 2.88 -4.49"
             align="center"
-            width="5.0"
+            width="4.2"
             color="#1e3a8a">
           </a-text>
 
           <a-text
             value="Young people can preserve local culture better through digital media than through traditional community events."
-            position="0 2.72 -4.51"
+            position="0 2.48 -4.48"
             align="center"
-            width="6.7"
+            width="5.9"
             color="#0f172a">
           </a-text>
 
           <!-- Podiums -->
-          <a-box position="-3.55 0.95 -2.08" width="1.25" height="1.35" depth="0.78" color="#1d4ed8"></a-box>
-          <a-box position="-3.55 1.66 -1.67" width="1.35" height="0.10" depth="0.10" color="#f7d774"></a-box>
+          <a-box position="-3.35 0.93 -2.06" width="1.18" height="1.30" depth="0.76" color="#1d4ed8"></a-box>
+          <a-box position="-3.35 1.61 -1.65" width="1.32" height="0.10" depth="0.11" color="#f7d774"></a-box>
 
-          <a-box position="0 0.85 -2.12" width="2.05" height="1.15" depth="0.86" color="#111827"></a-box>
-          <a-box position="0 1.45 -1.67" width="2.0" height="0.10" depth="0.10" color="#f7d774"></a-box>
+          <a-box position="0 0.86 -2.10" width="1.85" height="1.16" depth="0.84" color="#111827"></a-box>
+          <a-box position="0 1.47 -1.65" width="1.95" height="0.10" depth="0.11" color="#f7d774"></a-box>
 
-          <a-box position="3.55 0.95 -2.08" width="1.25" height="1.35" depth="0.78" color="#0f766e"></a-box>
-          <a-box position="3.55 1.66 -1.67" width="1.35" height="0.10" depth="0.10" color="#f7d774"></a-box>
+          <a-box position="3.35 0.93 -2.06" width="1.18" height="1.30" depth="0.76" color="#0f766e"></a-box>
+          <a-box position="3.35 1.61 -1.65" width="1.32" height="0.10" depth="0.11" color="#f7d774"></a-box>
 
-          <!-- Real 3D GLB avatars -->
-          <!-- Speaker A: models/speaker-a.glb -->
+          <!-- Real 3D GLB avatars: clean placement and cache-busting URLs -->
           <a-gltf-model
             id="speakerAGLB"
-            src="models/speaker-a.glb?v=20260624b"
-            position="-3.55 0.18 -1.64"
-            rotation="0 10 0"
-            scale="1.28 1.28 1.28"
+            src="models/speaker-a.glb?v=20260624clean1"
+            position="-3.35 0.18 -1.66"
+            rotation="0 8 0"
+            scale="1.20 1.20 1.20"
             animation-mixer>
           </a-gltf-model>
 
-          <!-- Moderator: models/moderator.glb -->
           <a-gltf-model
             id="moderatorGLB"
-            src="models/moderator.glb?v=20260624b"
-            position="0 0.18 -1.64"
+            src="models/moderator.glb?v=20260624clean1"
+            position="0 0.18 -1.66"
             rotation="0 0 0"
-            scale="1.28 1.28 1.28"
+            scale="1.20 1.20 1.20"
             animation-mixer>
           </a-gltf-model>
 
-          <!-- Speaker B: models/speaker-b.glb -->
           <a-gltf-model
             id="speakerBGLB"
-            src="models/speaker-b.glb?v=20260624b"
-            position="3.55 0.18 -1.64"
-            rotation="0 -10 0"
-            scale="1.28 1.28 1.28"
+            src="models/speaker-b.glb?v=20260624clean1"
+            position="3.35 0.18 -1.66"
+            rotation="0 -8 0"
+            scale="1.20 1.20 1.20"
             animation-mixer>
           </a-gltf-model>
 
-          <!-- Fallback 2.5D image avatars. These appear only if the GLB files fail to load. -->
+          <!-- Fallback 2.5D image avatars. Hidden unless a GLB file fails to load. -->
           <a-image
             id="speakerAFallback"
             src="#speakerAImg"
-            position="-3.55 2.05 -2.10"
-            rotation="0 12 0"
-            width="1.32"
-            height="3.30"
+            position="-3.35 2.00 -2.10"
+            rotation="0 10 0"
+            width="1.20"
+            height="3.05"
             visible="false"
             material="transparent: true; side: double">
           </a-image>
@@ -605,9 +563,9 @@
           <a-image
             id="moderatorFallback"
             src="#moderatorImg"
-            position="0 2.02 -2.22"
-            width="1.26"
-            height="3.25"
+            position="0 1.98 -2.12"
+            width="1.18"
+            height="3.05"
             visible="false"
             material="transparent: true; side: double">
           </a-image>
@@ -615,65 +573,45 @@
           <a-image
             id="speakerBFallback"
             src="#speakerBImg"
-            position="3.55 2.05 -2.10"
-            rotation="0 -12 0"
-            width="1.30"
-            height="3.35"
+            position="3.35 2.00 -2.10"
+            rotation="0 -10 0"
+            width="1.20"
+            height="3.05"
             visible="false"
             material="transparent: true; side: double">
           </a-image>
 
-          <!-- Name labels -->
-          <a-box position="-3.55 0.28 -1.43" width="1.55" height="0.35" depth="0.06" color="#0b1220"></a-box>
-          <a-text value="Speaker A" position="-3.55 0.30 -1.38" align="center" width="3" color="#fef3c7"></a-text>
-
-          <a-box position="0 0.28 -1.43" width="1.85" height="0.35" depth="0.06" color="#0b1220"></a-box>
-          <a-text value="Moderator" position="0 0.30 -1.38" align="center" width="3" color="#fef3c7"></a-text>
-
-          <a-box position="3.55 0.28 -1.43" width="1.55" height="0.35" depth="0.06" color="#0b1220"></a-box>
-          <a-text value="Speaker B" position="3.55 0.30 -1.38" align="center" width="3" color="#fef3c7"></a-text>
-
           <!-- Microphones -->
-          <a-cylinder position="-3.55 1.78 -1.58" radius="0.025" height="0.45" color="#020617" rotation="25 0 0"></a-cylinder>
-          <a-sphere position="-3.55 1.98 -1.49" radius="0.06" color="#111827"></a-sphere>
+          <a-cylinder position="-3.35 1.73 -1.55" radius="0.024" height="0.38" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="-3.35 1.90 -1.46" radius="0.055" color="#111827"></a-sphere>
 
-          <a-cylinder position="0 1.55 -1.58" radius="0.025" height="0.43" color="#020617" rotation="25 0 0"></a-cylinder>
-          <a-sphere position="0 1.74 -1.49" radius="0.06" color="#111827"></a-sphere>
+          <a-cylinder position="0 1.56 -1.55" radius="0.024" height="0.38" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="0 1.73 -1.46" radius="0.055" color="#111827"></a-sphere>
 
-          <a-cylinder position="3.55 1.78 -1.58" radius="0.025" height="0.45" color="#020617" rotation="25 0 0"></a-cylinder>
-          <a-sphere position="3.55 1.98 -1.49" radius="0.06" color="#111827"></a-sphere>
+          <a-cylinder position="3.35 1.73 -1.55" radius="0.024" height="0.38" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="3.35 1.90 -1.46" radius="0.055" color="#111827"></a-sphere>
 
-          <!-- Audience seats -->
-          <a-box position="-4.5 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
-          <a-box position="-3.0 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
-          <a-box position="-1.5 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
-          <a-box position="0 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
-          <a-box position="1.5 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
-          <a-box position="3.0 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
-          <a-box position="4.5 0.25 1.05" width="1.1" height="0.34" depth="0.74" color="#334155"></a-box>
+          <!-- Cleaner audience seating -->
+          <a-box position="-4.4 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="-2.95 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="-1.50 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="0 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="1.50 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="2.95 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="4.4 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
 
-          <a-box position="-4.5 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
-          <a-box position="-3.0 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
-          <a-box position="-1.5 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
-          <a-box position="0 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
-          <a-box position="1.5 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
-          <a-box position="3.0 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
-          <a-box position="4.5 0.25 2.30" width="1.1" height="0.34" depth="0.74" color="#1e293b"></a-box>
-
-          <!-- Room title -->
-          <a-text
-            value="Rebuttal Practice Session"
-            position="0 4.32 -4.76"
-            align="center"
-            width="7"
-            color="#fde68a">
-          </a-text>
+          <a-box position="-3.7 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="-2.25 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="-0.75 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="0.75 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="2.25 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="3.7 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
 
         </a-scene>
       </div>
 
       <p class="vr-note">
-        This version uses real 3D GLB avatars for Speaker A, Moderator, and Speaker B.
+        This cleaned version uses real 3D GLB avatars with a tidier debate stage and simplified background.
       </p>
     </section>
 
@@ -825,6 +763,7 @@
     function setupAvatarFallback(modelId, fallbackId) {
       const model = document.getElementById(modelId);
       const fallback = document.getElementById(fallbackId);
+
       if (!model || !fallback) return;
 
       model.addEventListener("model-loaded", () => {
@@ -846,7 +785,6 @@
     setupAvatarFallback("speakerAGLB", "speakerAFallback");
     setupAvatarFallback("moderatorGLB", "moderatorFallback");
     setupAvatarFallback("speakerBGLB", "speakerBFallback");
-
-  </script>
+</script>
 </body>
 </html>
