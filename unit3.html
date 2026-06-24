@@ -9,6 +9,7 @@
   <!-- A-Frame for 3D / WebXR virtual room -->
   <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
   <style>
     * {
@@ -322,6 +323,68 @@
     }
 
 
+
+    .login-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .login-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .login-field label {
+      color: #fef3c7;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .login-field input {
+      width: 100%;
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(2, 6, 23, 0.62);
+      color: #f8fafc;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .login-field input:focus {
+      border-color: rgba(247, 215, 116, 0.78);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+    }
+
+    .student-card {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(212, 175, 55, 0.10);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      color: #e5e7eb;
+    }
+
+    .student-card strong {
+      color: #fef3c7;
+    }
+
+    .record-btn.submit {
+      background: linear-gradient(135deg, #059669, #34d399);
+      color: #031018;
+    }
+
+    .submission-note {
+      margin-top: 10px;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
     .prep-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -481,6 +544,7 @@
         font-size: 17px;
       }
 
+      .login-grid,
       .prep-grid,
       .score-grid,
       .feedback-columns {
@@ -838,8 +902,13 @@
 
       <div class="feedback-actions">
         <button class="record-btn feedback" id="generateFeedbackBtn">Generate Feedback</button>
+        <button class="record-btn submit" id="downloadSubmissionBtn">Download Submission Folder (.zip)</button>
         <button class="record-btn reset" id="clearTranscriptBtn">Clear Transcript</button>
       </div>
+
+      <p class="submission-note">
+        The ZIP file will contain the student's identity, preparation notes, transcript, feedback summary, and the audio recording when available.
+      </p>
     </section>
 
     <section class="section">
@@ -923,6 +992,8 @@
     let recognitionSupported = false;
     let finalTranscript = "";
     let interimTranscript = "";
+    let latestFeedback = null;
+    let studentProfile = null;
 
     const startBtn = document.getElementById("startBtn");
     const stopBtn = document.getElementById("stopBtn");
@@ -933,6 +1004,98 @@
     const transcriptBox = document.getElementById("speechTranscript");
     const generateFeedbackBtn = document.getElementById("generateFeedbackBtn");
     const clearTranscriptBtn = document.getElementById("clearTranscriptBtn");
+    const downloadSubmissionBtn = document.getElementById("downloadSubmissionBtn");
+
+    const studentNameInput = document.getElementById("studentName");
+    const studentIdInput = document.getElementById("studentId");
+    const studentClassInput = document.getElementById("studentClass");
+    const saveProfileBtn = document.getElementById("saveProfileBtn");
+    const resetProfileBtn = document.getElementById("resetProfileBtn");
+    const studentCard = document.getElementById("studentCard");
+    const studentDisplay = document.getElementById("studentDisplay");
+
+
+    function sanitizeFileName(value) {
+      return (value || "student")
+        .toString()
+        .trim()
+        .replace(/\s+/g, "_")
+        .replace(/[^a-zA-Z0-9_\-]/g, "")
+        .substring(0, 60) || "student";
+    }
+
+    function getDateStamp() {
+      const now = new Date();
+      const pad = value => String(value).padStart(2, "0");
+      return now.getFullYear() +
+        pad(now.getMonth() + 1) +
+        pad(now.getDate()) + "_" +
+        pad(now.getHours()) +
+        pad(now.getMinutes());
+    }
+
+    function saveStudentProfile() {
+      const name = studentNameInput.value.trim();
+      const studentId = studentIdInput.value.trim();
+      const className = studentClassInput.value.trim();
+
+      if (!name) {
+        alert("Please enter your full name before starting.");
+        studentNameInput.focus();
+        return;
+      }
+
+      studentProfile = {
+        name,
+        studentId,
+        className,
+        savedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem("webivr_unit3_student_profile", JSON.stringify(studentProfile));
+      renderStudentProfile();
+    }
+
+    function renderStudentProfile() {
+      if (!studentProfile) {
+        studentCard.style.display = "none";
+        return;
+      }
+
+      studentNameInput.value = studentProfile.name || "";
+      studentIdInput.value = studentProfile.studentId || "";
+      studentClassInput.value = studentProfile.className || "";
+
+      const idPart = studentProfile.studentId ? " · " + studentProfile.studentId : "";
+      const classPart = studentProfile.className ? " · " + studentProfile.className : "";
+      studentDisplay.textContent = studentProfile.name + idPart + classPart;
+      studentCard.style.display = "block";
+    }
+
+    function loadStudentProfile() {
+      try {
+        const saved = localStorage.getItem("webivr_unit3_student_profile");
+        studentProfile = saved ? JSON.parse(saved) : null;
+      } catch (error) {
+        studentProfile = null;
+      }
+      renderStudentProfile();
+    }
+
+    saveProfileBtn.addEventListener("click", saveStudentProfile);
+
+    resetProfileBtn.addEventListener("click", () => {
+      localStorage.removeItem("webivr_unit3_student_profile");
+      studentProfile = null;
+      studentCard.style.display = "none";
+      studentNameInput.value = "";
+      studentIdInput.value = "";
+      studentClassInput.value = "";
+      studentNameInput.focus();
+    });
+
+    loadStudentProfile();
+
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -1070,6 +1233,7 @@
       recordStatus.textContent = "Status: Not recorded yet.";
       transcriptBox.value = "";
 
+      latestFeedback = null;
       document.getElementById("feedbackPanel").style.display = "none";
 
       startBtn.disabled = false;
@@ -1080,10 +1244,12 @@
       transcriptBox.value = "";
       finalTranscript = "";
       interimTranscript = "";
+      latestFeedback = null;
       document.getElementById("feedbackPanel").style.display = "none";
     });
 
     generateFeedbackBtn.addEventListener("click", generateFeedback);
+    downloadSubmissionBtn.addEventListener("click", downloadSubmissionZip);
 
     function containsAny(text, terms) {
       return terms.some(term => text.includes(term));
@@ -1222,6 +1388,26 @@
         strengths.push("You completed the speaking attempt, which is a useful first step for practice.");
       }
 
+      latestFeedback = {
+        generatedAt: new Date().toISOString(),
+        unit: "Unit 3 - Rebuttal Practice",
+        wordCount,
+        level,
+        totalScore: total,
+        maxScore: maxTotal,
+        scores: {
+          rebuttalResponse: rebuttalScore,
+          reasoning: reasoningScore,
+          evidenceExample: evidenceScore,
+          organization: organizationScore,
+          languageUse: languageScore,
+          length: lengthScore
+        },
+        strengths,
+        suggestions,
+        transcript: raw
+      };
+
       document.getElementById("feedbackPanel").style.display = "block";
       document.getElementById("levelBadge").textContent = level + " · " + total + "/" + maxTotal;
       document.getElementById("feedbackSummary").textContent =
@@ -1242,6 +1428,107 @@
 
       document.getElementById("feedbackPanel").scrollIntoView({ behavior: "smooth", block: "start" });
     }
+
+
+    async function downloadSubmissionZip() {
+      if (!studentProfile) {
+        saveStudentProfile();
+        if (!studentProfile) return;
+      }
+
+      const transcript = transcriptBox.value.trim();
+
+      if (!transcript && !audioBlob) {
+        alert("Please record your voice or type your transcript before downloading the submission folder.");
+        return;
+      }
+
+      if (transcript && !latestFeedback) {
+        generateFeedback();
+      }
+
+      if (typeof JSZip === "undefined") {
+        alert("ZIP generator is still loading. Please wait a few seconds and try again.");
+        return;
+      }
+
+      const zip = new JSZip();
+      const folderName =
+        sanitizeFileName(studentProfile.name) + "_" +
+        sanitizeFileName(studentProfile.studentId || "no_id") +
+        "_Unit3_" +
+        getDateStamp();
+
+      const folder = zip.folder(folderName);
+
+      const profileData = {
+        ...studentProfile,
+        downloadedAt: new Date().toISOString(),
+        unit: "Unit 3 - Rebuttal Practice",
+        motion: "Young people can preserve local culture better through digital media than through traditional community events."
+      };
+
+      const notesText =
+        "UNIT 3 - REBUTTAL PRACTICE\\n" +
+        "Student name: " + (studentProfile.name || "-") + "\\n" +
+        "Student ID: " + (studentProfile.studentId || "-") + "\\n" +
+        "Class: " + (studentProfile.className || "-") + "\\n\\n" +
+        "1. Opponent's point I will respond to:\\n" +
+        (document.getElementById("ackNote").value.trim() || "-") + "\\n\\n" +
+        "2. My rebuttal position:\\n" +
+        (document.getElementById("stanceNote").value.trim() || "-") + "\\n\\n" +
+        "3. Reason:\\n" +
+        (document.getElementById("reasonNote").value.trim() || "-") + "\\n\\n" +
+        "4. Example or evidence:\\n" +
+        (document.getElementById("exampleNote").value.trim() || "-") + "\\n";
+
+      let feedbackText = "Feedback has not been generated yet.";
+
+      if (latestFeedback) {
+        feedbackText =
+          "AUTOMATED FORMATIVE FEEDBACK\\n" +
+          "Generated at: " + latestFeedback.generatedAt + "\\n" +
+          "Level: " + latestFeedback.level + "\\n" +
+          "Total score: " + latestFeedback.totalScore + "/" + latestFeedback.maxScore + "\\n" +
+          "Word count: " + latestFeedback.wordCount + "\\n\\n" +
+          "Scores:\\n" +
+          "- Rebuttal response: " + latestFeedback.scores.rebuttalResponse + "/2\\n" +
+          "- Reasoning: " + latestFeedback.scores.reasoning + "/2\\n" +
+          "- Evidence/example: " + latestFeedback.scores.evidenceExample + "/2\\n" +
+          "- Organization: " + latestFeedback.scores.organization + "/2\\n" +
+          "- Language use: " + latestFeedback.scores.languageUse + "/2\\n" +
+          "- Length: " + latestFeedback.scores.length + "/2\\n\\n" +
+          "Strengths:\\n" +
+          latestFeedback.strengths.map(item => "- " + item).join("\\n") + "\\n\\n" +
+          "Suggestions:\\n" +
+          latestFeedback.suggestions.map(item => "- " + item).join("\\n") + "\\n";
+      }
+
+      folder.file("student-info.json", JSON.stringify(profileData, null, 2));
+      folder.file("preparation-notes.txt", notesText);
+      folder.file("speech-transcript.txt", transcript || "No transcript was provided.");
+      folder.file("feedback-summary.txt", feedbackText);
+      folder.file("feedback-data.json", JSON.stringify(latestFeedback || { message: "Feedback not generated." }, null, 2));
+
+      if (audioBlob) {
+        folder.file("unit3-rebuttal-recording.webm", audioBlob);
+      } else {
+        folder.file("recording-note.txt", "No audio recording was available in this submission package.");
+      }
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(zipBlob);
+
+      const tempLink = document.createElement("a");
+      tempLink.href = url;
+      tempLink.download = folderName + ".zip";
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+
+      setTimeout(() => URL.revokeObjectURL(url), 1200);
+    }
+
 
     function setupAvatarFallback(modelId, fallbackId) {
       const model = document.getElementById(modelId);
