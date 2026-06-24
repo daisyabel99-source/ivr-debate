@@ -574,6 +574,43 @@
       </p>
     </section>
 
+    <section class="section" id="loginSection">
+      <h2>Student Login</h2>
+      <p>
+        Enter your identity before starting the activity. This prototype stores the identity in this browser and uses it to name the downloaded submission folder.
+      </p>
+
+      <div class="login-grid">
+        <div class="login-field">
+          <label for="studentName">Full name</label>
+          <input id="studentName" type="text" placeholder="Example: Nur Aisyah" autocomplete="name">
+        </div>
+
+        <div class="login-field">
+          <label for="studentId">Student ID / NIM</label>
+          <input id="studentId" type="text" placeholder="Example: 231234567">
+        </div>
+
+        <div class="login-field">
+          <label for="studentClass">Class</label>
+          <input id="studentClass" type="text" placeholder="Example: 3A / Speaking Class">
+        </div>
+      </div>
+
+      <div class="feedback-actions">
+        <button class="record-btn start" id="saveProfileBtn">Save Student Login</button>
+        <button class="record-btn reset" id="resetProfileBtn">Change Login</button>
+      </div>
+
+      <div class="student-card" id="studentCard">
+        <strong>Logged in as:</strong> <span id="studentDisplay">-</span>
+      </div>
+
+      <p class="submission-note">
+        Note: this is a prototype login, not a password-based account system. It is suitable for classroom trials where students download and submit their own files.
+      </p>
+    </section>
+
     <section class="section">
       <h2>Prepare Your Rebuttal</h2>
       <p>
@@ -1035,13 +1072,13 @@
     }
 
     function saveStudentProfile() {
-      const name = studentNameInput.value.trim();
-      const studentId = studentIdInput.value.trim();
-      const className = studentClassInput.value.trim();
+      const name = studentNameInput ? studentNameInput.value.trim() : "";
+      const studentId = studentIdInput ? studentIdInput.value.trim() : "";
+      const className = studentClassInput ? studentClassInput.value.trim() : "";
 
       if (!name) {
         alert("Please enter your full name before starting.");
-        studentNameInput.focus();
+        if (studentNameInput) studentNameInput.focus();
         return;
       }
 
@@ -1054,22 +1091,25 @@
 
       localStorage.setItem("webivr_unit3_student_profile", JSON.stringify(studentProfile));
       renderStudentProfile();
+      if (recordStatus) {
+        recordStatus.textContent = "Status: Login saved. You can start recording now.";
+      }
     }
 
     function renderStudentProfile() {
       if (!studentProfile) {
-        studentCard.style.display = "none";
+        if (studentCard) studentCard.style.display = "none";
         return;
       }
 
-      studentNameInput.value = studentProfile.name || "";
-      studentIdInput.value = studentProfile.studentId || "";
-      studentClassInput.value = studentProfile.className || "";
+      if (studentNameInput) studentNameInput.value = studentProfile.name || "";
+      if (studentIdInput) studentIdInput.value = studentProfile.studentId || "";
+      if (studentClassInput) studentClassInput.value = studentProfile.className || "";
 
       const idPart = studentProfile.studentId ? " · " + studentProfile.studentId : "";
       const classPart = studentProfile.className ? " · " + studentProfile.className : "";
-      studentDisplay.textContent = studentProfile.name + idPart + classPart;
-      studentCard.style.display = "block";
+      if (studentDisplay) studentDisplay.textContent = studentProfile.name + idPart + classPart;
+      if (studentCard) studentCard.style.display = "block";
     }
 
     function loadStudentProfile() {
@@ -1082,9 +1122,12 @@
       renderStudentProfile();
     }
 
-    saveProfileBtn.addEventListener("click", saveStudentProfile);
+    if (saveProfileBtn) {
+      saveProfileBtn.addEventListener("click", saveStudentProfile);
+    }
 
-    resetProfileBtn.addEventListener("click", () => {
+    if (resetProfileBtn) {
+      resetProfileBtn.addEventListener("click", () => {
       localStorage.removeItem("webivr_unit3_student_profile");
       studentProfile = null;
       studentCard.style.display = "none";
@@ -1092,7 +1135,8 @@
       studentIdInput.value = "";
       studentClassInput.value = "";
       studentNameInput.focus();
-    });
+      });
+    }
 
     loadStudentProfile();
 
@@ -1156,6 +1200,16 @@
     }
 
     startBtn.addEventListener("click", async () => {
+      if (!studentProfile && studentNameInput && studentNameInput.value.trim()) {
+        saveStudentProfile();
+      }
+
+      if (!studentProfile) {
+        alert("Please enter your name and click Save Student Login before recording.");
+        if (studentNameInput) studentNameInput.focus();
+        return;
+      }
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
