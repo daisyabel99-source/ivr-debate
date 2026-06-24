@@ -1,267 +1,630 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>IVR Debate Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web-IVR Debate Room</title>
 
   <style>
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      min-height: 100vh;
       margin: 0;
-      padding: 40px 20px;
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      color: #f8fafc;
       background:
-        linear-gradient(rgba(5, 14, 35, 0.75), rgba(5, 14, 35, 0.88)),
-        radial-gradient(circle at top left, #2d6cdf 0, transparent 35%),
-        radial-gradient(circle at bottom right, #7b5cff 0, transparent 30%),
-        #08111f;
-      color: #ffffff;
+        radial-gradient(circle at top left, rgba(212, 175, 55, 0.22), transparent 32%),
+        radial-gradient(circle at top right, rgba(37, 99, 235, 0.22), transparent 34%),
+        linear-gradient(135deg, #020617, #08111f 52%, #0f172a);
     }
 
-    .box {
-      max-width: 950px;
-      margin: 0 auto;
-      padding: 48px 36px;
-      border-radius: 28px;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(14px);
-    }
-
-    .hero-label {
-      display: inline-block;
-      margin-bottom: 18px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: #dbeafe;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.24);
-    }
-
-    h1 {
-      margin-top: 0;
-      margin-bottom: 12px;
-      font-size: 42px;
-      letter-spacing: 0.5px;
-      color: #ffffff;
-    }
-
-    .subtitle {
-      max-width: 680px;
-      margin: 0 auto 28px auto;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #d8e3ff;
-    }
-
-    .instruction-box {
-      max-width: 820px;
-      margin: 0 auto 34px auto;
-      padding: 24px;
-      border-radius: 24px;
-      text-align: left;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.20);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
-    }
-
-    .instruction-box h2 {
-      margin-top: 0;
-      margin-bottom: 12px;
-      font-size: 22px;
-      color: #ffffff;
-    }
-
-    .instruction-box p {
-      margin-top: 0;
-      color: #d8e3ff;
-      line-height: 1.6;
-    }
-
-    .instruction-box ul {
-      margin: 12px 0 0 20px;
-      padding: 0;
-      color: #d8e3ff;
-      line-height: 1.8;
-    }
-
-    .instruction-box strong {
-      color: #ffffff;
-    }
-
-    .unit-list {
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      min-height: 95px;
-      padding: 20px;
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      border: none;
-      border-radius: 22px;
-      color: #ffffff;
-      cursor: pointer;
-      text-align: left;
+    a {
+      color: inherit;
       text-decoration: none;
-      box-shadow: 0 12px 28px rgba(45, 108, 223, 0.35);
-      transition: all 0.25s ease;
     }
 
-    .btn span {
-      display: block;
-      margin-top: 8px;
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.4;
-      color: rgba(255, 255, 255, 0.85);
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 42px;
     }
 
-    .btn:nth-of-type(1) {
-      background: linear-gradient(135deg, #2d6cdf, #4aa3ff);
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 26px;
     }
 
-    .btn:nth-of-type(2) {
-      background: linear-gradient(135deg, #5b5ff5, #9b6dff);
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #fef3c7;
     }
 
-    .btn:nth-of-type(3) {
-      background: linear-gradient(135deg, #0aa6a6, #2dd4bf);
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #d4af37, #f7d774);
+      color: #08111f;
+      font-weight: 900;
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
     }
 
-    .btn:nth-of-type(4) {
-      background: linear-gradient(135deg, #1d4ed8, #111827);
+    .top-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.38);
-      filter: brightness(1.08);
+    .top-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      background: rgba(15, 23, 42, 0.55);
+      color: #e5e7eb;
+      font-size: 14px;
+      transition: 0.2s ease;
     }
 
-    .btn:active {
+    .top-links a:hover {
+      border-color: rgba(247, 215, 116, 0.72);
       transform: translateY(-1px);
     }
 
-    .footer-note {
-      margin-top: 34px;
-      margin-bottom: 0;
-      font-size: 14px;
-      color: #b8c7e8;
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      padding: clamp(28px, 5vw, 58px);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(8, 17, 31, 0.76)),
+        radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.24), transparent 30%);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.36);
     }
 
-    @media (max-width: 700px) {
-      body {
-        padding: 24px 14px;
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -110px;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.12);
+      filter: blur(2px);
+    }
+
+    .kicker {
+      display: inline-flex;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      color: #fef3c7;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      position: relative;
+      margin: 18px 0 14px;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: 1.05;
+      color: #ffffff;
+      max-width: 880px;
+    }
+
+    .hero p {
+      position: relative;
+      max-width: 780px;
+      margin: 0;
+      color: #dbeafe;
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      transition: 0.2s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, #d4af37, #f7d774);
+      color: #08111f;
+    }
+
+    .btn.secondary {
+      background: rgba(15, 23, 42, 0.72);
+      color: #fef3c7;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.26);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .feature {
+      border-radius: 22px;
+      padding: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.60);
+      min-height: 122px;
+    }
+
+    .feature strong {
+      display: block;
+      color: #fef3c7;
+      margin-bottom: 7px;
+      font-size: 16px;
+    }
+
+    .feature span {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .section {
+      margin-top: 28px;
+      border-radius: 28px;
+      padding: clamp(20px, 4vw, 34px);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      background: rgba(15, 23, 42, 0.68);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.20);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      margin: 0;
+      color: #fef3c7;
+      font-size: clamp(24px, 3.5vw, 34px);
+    }
+
+    .section-subtitle {
+      margin: 8px 0 0;
+      color: #cbd5e1;
+      line-height: 1.65;
+      max-width: 780px;
+    }
+
+    .motion-badge {
+      flex-shrink: 0;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.22);
+      border: 1px solid rgba(147, 197, 253, 0.24);
+      color: #bfdbfe;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .motion-box {
+      border-radius: 20px;
+      padding: 18px 20px;
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(37, 99, 235, 0.08));
+      color: #f8fafc;
+      font-size: 18px;
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .unit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .unit-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background:
+        linear-gradient(135deg, rgba(2, 6, 23, 0.74), rgba(15, 23, 42, 0.66)),
+        radial-gradient(circle at top right, rgba(212, 175, 55, 0.16), transparent 38%);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      transition: 0.24s ease;
+    }
+
+    .unit-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(247, 215, 116, 0.58);
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.28);
+    }
+
+    .unit-number {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(212, 175, 55, 0.16);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      color: #fef3c7;
+      font-weight: 900;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .role {
+      display: inline-flex;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .role.affirmative {
+      background: rgba(37, 99, 235, 0.22);
+      color: #bfdbfe;
+      border: 1px solid rgba(147, 197, 253, 0.22);
+    }
+
+    .role.negative {
+      background: rgba(20, 184, 166, 0.16);
+      color: #99f6e4;
+      border: 1px solid rgba(45, 212, 191, 0.20);
+    }
+
+    .unit-card h3 {
+      margin: 0 0 10px;
+      color: #ffffff;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .unit-card p {
+      margin: 0 0 18px;
+      color: #cbd5e1;
+      line-height: 1.58;
+      font-size: 14px;
+    }
+
+    .unit-link {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.14);
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      color: #fef3c7;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .unit-link:hover {
+      background: linear-gradient(135deg, #d4af37, #f7d774);
+      color: #08111f;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .guide-step {
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(2, 6, 23, 0.36);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .guide-step b {
+      color: #fef3c7;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .guide-step span {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.52;
+    }
+
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 980px) {
+      .features,
+      .unit-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .box {
-        padding: 34px 20px;
-        border-radius: 22px;
+      .guide-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      h1 {
-        font-size: 31px;
+      .section-header {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        width: min(100% - 22px, 1180px);
+        padding-top: 18px;
       }
 
-      .subtitle {
-        font-size: 16px;
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
-      .instruction-box {
-        padding: 20px;
-      }
-
-      .instruction-box h2 {
-        font-size: 20px;
-      }
-
-      .unit-list {
+      .features,
+      .unit-grid,
+      .guide-grid {
         grid-template-columns: 1fr;
-        gap: 14px;
       }
 
-      .btn {
-        min-height: 85px;
-        padding: 18px;
-        font-size: 16px;
+      .hero {
+        border-radius: 26px;
+      }
+
+      .unit-card {
+        min-height: auto;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="box">
-    <div class="hero-label">
-      Web-Based Immersive Virtual Reality Debate
-    </div>
+  <main class="page">
+    <nav class="topbar">
+      <div class="brand">
+        <div class="brand-mark">IVR</div>
+        <div>
+          Web-IVR Debate Room<br>
+          <span style="color:#94a3b8; font-size:13px; font-weight:600;">Speaking Practice · EFL Debate Simulation</span>
+        </div>
+      </div>
 
-    <h1>IVR Debate Room</h1>
+      <div class="top-links">
+        <a href="#motion1">Motion 1</a>
+        <a href="#motion2">Motion 2</a>
+        <a href="#guide">How to Use</a>
+      </div>
+    </nav>
 
-    <p class="subtitle">
-      Choose a debate unit and enter the virtual speaking practice environment.
-    </p>
-
-    <div class="instruction-box">
-      <h2>Before You Start</h2>
-
+    <section class="hero">
+      <span class="kicker">Semi-Immersive Web-Based Debate Practice</span>
+      <h1>Virtual Debate Room for English Speaking Practice</h1>
       <p>
-        Please read these instructions carefully before entering the virtual debate room.
+        This platform guides students through two complete debate motions. Each motion consists of four speaking turns:
+        Affirmative arguments, Negative rebuttal and arguments, Affirmative rebuttal and arguments, and Negative final rebuttal.
       </p>
 
-      <ul>
-        <li>Use a <strong>laptop or desktop computer</strong> for the best experience.</li>
-        <li>Open this website using <strong>Google Chrome</strong>.</li>
-        <li>Allow <strong>microphone access</strong> when the browser asks for permission.</li>
-        <li>Use a <strong>headset or earphones</strong> if available.</li>
-        <li>Complete the units in order: <strong>Unit 1 → Unit 2 → Unit 3 → Unit 4</strong>.</li>
-        <li>Record your answer, listen to your recording, and try again if needed.</li>
-        <li>Speak naturally. Do not read a full script.</li>
-      </ul>
+      <div class="hero-actions">
+        <a class="btn primary" href="unit1.html">Start Motion 1</a>
+        <a class="btn secondary" href="unit5.html">Start Motion 2</a>
+      </div>
+    </section>
+
+    <div class="features">
+      <div class="feature">
+        <strong>Student Login</strong>
+        <span>Students enter name, ID, and class before recording their speech.</span>
+      </div>
+
+      <div class="feature">
+        <strong>3D Debate Room</strong>
+        <span>Each unit uses a virtual stage with 3D avatars for debate practice.</span>
+      </div>
+
+      <div class="feature">
+        <strong>Recording + Transcript</strong>
+        <span>Students can record their voice and edit the speech transcript.</span>
+      </div>
+
+      <div class="feature">
+        <strong>Feedback + ZIP</strong>
+        <span>Students generate feedback and download a submission folder with their name.</span>
+      </div>
     </div>
 
-    <div class="unit-list">
-      <a class="btn" href="./unit1.html">
-        Unit 1 · Opening Argument
-        <span>Present your opening argument about Malay cultural values in Kepulauan Riau.</span>
-      </a>
+    <section class="section" id="motion1">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Motion 1: Digital Media and Local Culture</h2>
+          <p class="section-subtitle">
+            Units 1–4 form one complete debate sequence using the same motion.
+          </p>
+        </div>
+        <span class="motion-badge">Units 1–4</span>
+      </div>
 
-      <a class="btn" href="./unit2.html">
-        Unit 2 · Giving Reasons
-        <span>Develop clear reasons and examples related to local cultural heritage.</span>
-      </a>
+      <div class="motion-box">
+        Young people can preserve local culture better through digital media than through traditional community events.
+      </div>
 
-      <a class="btn" href="./unit3.html">
-        Unit 3 · Rebuttal Practice
-        <span>Respond to opposing views about local culture and digital media.</span>
-      </a>
+      <div class="unit-grid">
+        <article class="unit-card">
+          <div class="unit-number">U1</div>
+          <span class="role affirmative">Affirmative Team</span>
+          <h3>Affirmative Arguments</h3>
+          <p>Support the motion with a clear position, main argument, reason, and evidence.</p>
+          <a class="unit-link" href="unit1.html">Open Unit 1</a>
+        </article>
 
-      <a class="btn" href="./unit4.html">
-        Unit 4 · Final Debate Performance
-        <span>Complete your final debate task in a simulated virtual debate room.</span>
-      </a>
-    </div>
+        <article class="unit-card">
+          <div class="unit-number">U2</div>
+          <span class="role negative">Negative Team</span>
+          <h3>Negative Rebuttal and Arguments</h3>
+          <p>Respond to the Affirmative Team and present a counter-argument.</p>
+          <a class="unit-link" href="unit2.html">Open Unit 2</a>
+        </article>
 
-    <p class="footer-note">
-      Practice speaking, argumentation, and debate performance in a virtual learning space.
-    </p>
-  </div>
+        <article class="unit-card">
+          <div class="unit-number">U3</div>
+          <span class="role affirmative">Affirmative Team</span>
+          <h3>Affirmative Rebuttal and Arguments</h3>
+          <p>Reply to the Negative Team and strengthen the affirmative side.</p>
+          <a class="unit-link" href="unit3.html">Open Unit 3</a>
+        </article>
+
+        <article class="unit-card">
+          <div class="unit-number">U4</div>
+          <span class="role negative">Negative Team</span>
+          <h3>Negative Rebuttal and Arguments</h3>
+          <p>Respond to the affirmative reply and close the negative side of Motion 1.</p>
+          <a class="unit-link" href="unit4.html">Open Unit 4</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="motion2">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Motion 2: Tourism and Malay Culture</h2>
+          <p class="section-subtitle">
+            Units 5–8 form the second complete debate sequence using a new motion.
+          </p>
+        </div>
+        <span class="motion-badge">Units 5–8</span>
+      </div>
+
+      <div class="motion-box">
+        Tourism development in Kepulauan Riau should prioritise local Malay culture over modern entertainment attractions.
+      </div>
+
+      <div class="unit-grid">
+        <article class="unit-card">
+          <div class="unit-number">U5</div>
+          <span class="role affirmative">Affirmative Team</span>
+          <h3>Affirmative Arguments</h3>
+          <p>Support the tourism motion with a clear stance, reason, and example.</p>
+          <a class="unit-link" href="unit5.html">Open Unit 5</a>
+        </article>
+
+        <article class="unit-card">
+          <div class="unit-number">U6</div>
+          <span class="role negative">Negative Team</span>
+          <h3>Negative Rebuttal and Arguments</h3>
+          <p>Respond to the Affirmative Team and build a balanced tourism counter-argument.</p>
+          <a class="unit-link" href="unit6.html">Open Unit 6</a>
+        </article>
+
+        <article class="unit-card">
+          <div class="unit-number">U7</div>
+          <span class="role affirmative">Affirmative Team</span>
+          <h3>Affirmative Rebuttal and Arguments</h3>
+          <p>Defend the importance of local Malay culture as the main tourism identity.</p>
+          <a class="unit-link" href="unit7.html">Open Unit 7</a>
+        </article>
+
+        <article class="unit-card">
+          <div class="unit-number">U8</div>
+          <span class="role negative">Negative Team</span>
+          <h3>Negative Final Rebuttal</h3>
+          <p>Respond to the final affirmative reply and close Motion 2 with a counter-argument.</p>
+          <a class="unit-link" href="unit8.html">Open Unit 8</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">How Students Use Each Unit</h2>
+          <p class="section-subtitle">
+            Each unit follows the same workflow, so students can focus on speaking and argument development.
+          </p>
+        </div>
+      </div>
+
+      <div class="guide-grid">
+        <div class="guide-step">
+          <b>1. Login</b>
+          <span>Enter name, student ID, and class. Save the student login before recording.</span>
+        </div>
+
+        <div class="guide-step">
+          <b>2. Prepare</b>
+          <span>Read the motion and role instruction, then write short notes in the preparation boxes.</span>
+        </div>
+
+        <div class="guide-step">
+          <b>3. Record</b>
+          <span>Click Start Recording, speak clearly, then click Stop Recording.</span>
+        </div>
+
+        <div class="guide-step">
+          <b>4. Feedback</b>
+          <span>Edit the transcript if needed, then click Generate Feedback.</span>
+        </div>
+
+        <div class="guide-step">
+          <b>5. Download</b>
+          <span>Download the ZIP submission folder and submit it to the lecturer.</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Web-IVR Debate Room · PFR 2026<br>
+      Designed for semi-immersive EFL speaking and debate practice.
+    </footer>
+  </main>
 </body>
 </html>
