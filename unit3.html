@@ -321,6 +321,152 @@
       margin-top: 34px;
     }
 
+
+    .prep-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .prep-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      background: rgba(2, 6, 23, 0.32);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .prep-field label {
+      color: #fef3c7;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .prep-field textarea,
+    .transcript-box {
+      width: 100%;
+      min-height: 90px;
+      resize: vertical;
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(2, 6, 23, 0.62);
+      color: #f8fafc;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      outline: none;
+    }
+
+    .prep-field textarea:focus,
+    .transcript-box:focus {
+      border-color: rgba(247, 215, 116, 0.78);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+    }
+
+    .feedback-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+
+    .record-btn.feedback {
+      background: linear-gradient(135deg, #7c3aed, #c084fc);
+      color: white;
+    }
+
+    .feedback-panel {
+      display: none;
+      margin-top: 18px;
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(212, 175, 55, 0.10)),
+        rgba(2, 6, 23, 0.42);
+      padding: 18px;
+    }
+
+    .feedback-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.16);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      color: #fef3c7;
+      font-weight: 800;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .score-card {
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 16px;
+      padding: 13px;
+    }
+
+    .score-card strong {
+      color: #fef3c7;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .score-card span {
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .feedback-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .feedback-box {
+      background: rgba(2, 6, 23, 0.38);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .feedback-box h3 {
+      margin: 0 0 8px;
+      color: #fef3c7;
+      font-size: 17px;
+    }
+
+    .feedback-box ul {
+      margin: 0;
+    }
+
+    .feedback-note {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
     @media (max-width: 700px) {
       .hero,
       .section {
@@ -333,6 +479,12 @@
 
       .motion-box {
         font-size: 17px;
+      }
+
+      .prep-grid,
+      .score-grid,
+      .feedback-columns {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -363,6 +515,28 @@
       <p>
         Write short notes before speaking. Focus on responding to the opposing view. Do not write a full script.
       </p>
+
+      <div class="prep-grid">
+        <div class="prep-field">
+          <label for="ackNote">1. Opponent's point I will respond to</label>
+          <textarea id="ackNote" placeholder="Example: Some people believe traditional events are more meaningful because young people experience culture directly."></textarea>
+        </div>
+
+        <div class="prep-field">
+          <label for="stanceNote">2. My rebuttal position</label>
+          <textarea id="stanceNote" placeholder="Example: However, I believe digital media can reach more young people and make culture more accessible."></textarea>
+        </div>
+
+        <div class="prep-field">
+          <label for="reasonNote">3. Reason</label>
+          <textarea id="reasonNote" placeholder="Example: This is because students use social media every day and can learn culture through videos, podcasts, and online campaigns."></textarea>
+        </div>
+
+        <div class="prep-field">
+          <label for="exampleNote">4. Example or evidence</label>
+          <textarea id="exampleNote" placeholder="Example: For example, Malay pantun, traditional music, and local stories can be shared through TikTok, YouTube, or school websites."></textarea>
+        </div>
+      </div>
     </section>
 
     <section class="section">
@@ -638,7 +812,7 @@
     <section class="section">
       <h2>Record Your Voice</h2>
       <p>
-        Record your rebuttal here. Focus on responding politely, logically, and clearly.
+        Record your rebuttal here. While you speak, the browser will try to generate an English transcript for formative feedback.
       </p>
 
       <div class="recording-controls">
@@ -651,22 +825,81 @@
       <div class="status" id="recordStatus">Status: Not recorded yet.</div>
 
       <audio id="audioPlayback" controls style="display:none;"></audio>
+
+      <p class="small-note">
+        Transcript support works best in Google Chrome. If the transcript is incomplete, students can edit it manually before generating feedback.
+      </p>
+
+      <label for="speechTranscript" class="small-note"><strong>Speech transcript for feedback:</strong></label>
+      <textarea
+        id="speechTranscript"
+        class="transcript-box"
+        placeholder="Your spoken rebuttal transcript will appear here. You may also type or paste your transcript manually."></textarea>
+
+      <div class="feedback-actions">
+        <button class="record-btn feedback" id="generateFeedbackBtn">Generate Feedback</button>
+        <button class="record-btn reset" id="clearTranscriptBtn">Clear Transcript</button>
+      </div>
     </section>
 
     <section class="section">
-      <h2>Self-Check and Future AI Feedback</h2>
+      <h2>Automated Formative Feedback</h2>
       <p>
-        Later, this section can be connected to AI-driven feedback. For now, students can use the checklist below after speaking.
+        This first version gives rule-based feedback on rebuttal structure, clarity, evidence, and delivery indicators. It does not grade pronunciation yet.
       </p>
 
-      <ul>
-        <li>Did I respond to the opponent’s argument?</li>
-        <li>Did I use polite rebuttal language?</li>
-        <li>Did I give a clear reason for my rebuttal?</li>
-        <li>Did I use examples related to local culture or digital media?</li>
-        <li>Did I avoid attacking the speaker personally?</li>
-        <li>Did I speak clearly and confidently?</li>
-      </ul>
+      <div class="feedback-panel" id="feedbackPanel">
+        <div class="feedback-header">
+          <div>
+            <h3 id="feedbackTitle" style="margin:0; color:#fef3c7;">Feedback Summary</h3>
+            <p id="feedbackSummary" class="small-note" style="margin:6px 0 0;">Your feedback will appear here.</p>
+          </div>
+          <div class="level-badge" id="levelBadge">Not generated</div>
+        </div>
+
+        <div class="score-grid">
+          <div class="score-card">
+            <strong>Rebuttal response</strong>
+            <span id="scoreRebuttal">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Reasoning</strong>
+            <span id="scoreReasoning">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Evidence/example</strong>
+            <span id="scoreEvidence">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Organization</strong>
+            <span id="scoreOrganization">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Language use</strong>
+            <span id="scoreLanguage">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Length</strong>
+            <span id="scoreLength">-</span>
+          </div>
+        </div>
+
+        <div class="feedback-columns">
+          <div class="feedback-box">
+            <h3>Strengths</h3>
+            <ul id="strengthList"></ul>
+          </div>
+
+          <div class="feedback-box">
+            <h3>Suggestions</h3>
+            <ul id="suggestionList"></ul>
+          </div>
+        </div>
+
+        <p class="feedback-note">
+          Teacher note: this feedback is generated locally in the browser using simple indicators. It is suitable for early prototype testing and can later be upgraded into AI-supported feedback.
+        </p>
+      </div>
     </section>
 
     <footer>
@@ -686,12 +919,78 @@
     let audioBlob;
     let audioUrl;
 
+    let recognition;
+    let recognitionSupported = false;
+    let finalTranscript = "";
+    let interimTranscript = "";
+
     const startBtn = document.getElementById("startBtn");
     const stopBtn = document.getElementById("stopBtn");
     const resetBtn = document.getElementById("resetBtn");
     const downloadLink = document.getElementById("downloadLink");
     const recordStatus = document.getElementById("recordStatus");
     const audioPlayback = document.getElementById("audioPlayback");
+    const transcriptBox = document.getElementById("speechTranscript");
+    const generateFeedbackBtn = document.getElementById("generateFeedbackBtn");
+    const clearTranscriptBtn = document.getElementById("clearTranscriptBtn");
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      recognitionSupported = true;
+      recognition = new SpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 1;
+
+      recognition.onresult = event => {
+        interimTranscript = "";
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + " ";
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+
+        transcriptBox.value = (finalTranscript + interimTranscript).trim();
+      };
+
+      recognition.onerror = () => {
+        recordStatus.textContent = "Status: Recording continues, but speech transcript is unavailable. You can type the transcript manually.";
+      };
+    }
+
+    function startSpeechRecognition() {
+      if (!recognitionSupported || !recognition) {
+        recordStatus.textContent = "Status: Recording... Transcript is not supported in this browser. Please type the transcript manually after recording.";
+        return;
+      }
+
+      finalTranscript = "";
+      interimTranscript = "";
+      transcriptBox.value = "";
+
+      try {
+        recognition.start();
+      } catch (error) {
+        // Recognition may already be active. Ignore this safely.
+      }
+    }
+
+    function stopSpeechRecognition() {
+      if (recognitionSupported && recognition) {
+        try {
+          recognition.stop();
+        } catch (error) {
+          // Safe to ignore if recognition has already stopped.
+        }
+      }
+    }
 
     startBtn.addEventListener("click", async () => {
       try {
@@ -717,18 +1016,27 @@
           downloadLink.download = "unit3-rebuttal-recording.webm";
           downloadLink.style.display = "inline-block";
 
-          recordStatus.textContent = "Status: Recording completed. You can listen or download your audio.";
+          recordStatus.textContent = "Status: Recording completed. Check the transcript, edit it if needed, then generate feedback.";
 
           stream.getTracks().forEach(track => track.stop());
+
+          setTimeout(() => {
+            if (transcriptBox.value.trim().length > 0) {
+              generateFeedback();
+            }
+          }, 500);
         };
 
         mediaRecorder.start();
+        startSpeechRecognition();
 
         startBtn.disabled = true;
         stopBtn.disabled = false;
         downloadLink.style.display = "none";
         audioPlayback.style.display = "none";
-        recordStatus.textContent = "Status: Recording... Please give your rebuttal clearly.";
+        recordStatus.textContent = recognitionSupported
+          ? "Status: Recording and transcribing... Please give your rebuttal clearly."
+          : "Status: Recording... Speech transcript is not supported in this browser.";
 
       } catch (error) {
         recordStatus.textContent = "Status: Microphone access was denied or unavailable.";
@@ -738,6 +1046,7 @@
 
     stopBtn.addEventListener("click", () => {
       if (mediaRecorder && mediaRecorder.state === "recording") {
+        stopSpeechRecognition();
         mediaRecorder.stop();
         startBtn.disabled = false;
         stopBtn.disabled = true;
@@ -746,6 +1055,9 @@
 
     resetBtn.addEventListener("click", () => {
       audioChunks = [];
+      finalTranscript = "";
+      interimTranscript = "";
+      stopSpeechRecognition();
 
       if (audioUrl) {
         URL.revokeObjectURL(audioUrl);
@@ -756,10 +1068,181 @@
       downloadLink.href = "";
       downloadLink.style.display = "none";
       recordStatus.textContent = "Status: Not recorded yet.";
+      transcriptBox.value = "";
+
+      document.getElementById("feedbackPanel").style.display = "none";
 
       startBtn.disabled = false;
       stopBtn.disabled = true;
     });
+
+    clearTranscriptBtn.addEventListener("click", () => {
+      transcriptBox.value = "";
+      finalTranscript = "";
+      interimTranscript = "";
+      document.getElementById("feedbackPanel").style.display = "none";
+    });
+
+    generateFeedbackBtn.addEventListener("click", generateFeedback);
+
+    function containsAny(text, terms) {
+      return terms.some(term => text.includes(term));
+    }
+
+    function countMatches(text, terms) {
+      return terms.reduce((count, term) => count + (text.includes(term) ? 1 : 0), 0);
+    }
+
+    function scoreItem(score, max, label) {
+      return score + "/" + max + " · " + label;
+    }
+
+    function generateFeedback() {
+      const raw = transcriptBox.value.trim();
+
+      if (!raw) {
+        alert("Please record your voice or type your transcript before generating feedback.");
+        return;
+      }
+
+      const text = raw.toLowerCase();
+      const words = raw.split(/\s+/).filter(Boolean);
+      const wordCount = words.length;
+
+      const acknowledgementTerms = [
+        "i understand", "i see your point", "some people argue", "some people believe",
+        "the opponent", "traditional community", "community events", "directly"
+      ];
+
+      const rebuttalTerms = [
+        "however", "but", "nevertheless", "on the other hand", "i disagree",
+        "i believe", "in my view", "i would argue"
+      ];
+
+      const reasoningTerms = [
+        "because", "this is because", "since", "therefore", "as a result",
+        "so that", "it means", "the reason is"
+      ];
+
+      const evidenceTerms = [
+        "for example", "for instance", "such as", "evidence", "data", "research",
+        "case", "experience", "students can", "young people can"
+      ];
+
+      const topicTerms = [
+        "culture", "local culture", "digital media", "traditional", "community",
+        "young people", "social media", "video", "online", "internet", "malay", "kepulauan riau"
+      ];
+
+      const closingTerms = [
+        "therefore", "in conclusion", "to conclude", "that is why", "for these reasons",
+        "overall", "finally"
+      ];
+
+      const politeTerms = [
+        "i understand", "i respect", "i agree that", "it is true that", "however",
+        "in my opinion", "i believe"
+      ];
+
+      const rebuttalScore =
+        (containsAny(text, acknowledgementTerms) ? 1 : 0) +
+        (containsAny(text, rebuttalTerms) ? 1 : 0);
+
+      const reasoningScore =
+        (containsAny(text, reasoningTerms) ? 1 : 0) +
+        (countMatches(text, topicTerms) >= 2 ? 1 : 0);
+
+      const evidenceScore =
+        (containsAny(text, evidenceTerms) ? 1 : 0) +
+        (countMatches(text, topicTerms) >= 4 ? 1 : 0);
+
+      const organizationScore =
+        (containsAny(text, acknowledgementTerms) ? 1 : 0) +
+        (containsAny(text, closingTerms) ? 1 : 0);
+
+      const languageScore =
+        (containsAny(text, politeTerms) ? 1 : 0) +
+        (wordCount >= 45 && wordCount <= 170 ? 1 : 0);
+
+      const lengthScore =
+        wordCount >= 60 ? 2 : wordCount >= 35 ? 1 : 0;
+
+      const total = rebuttalScore + reasoningScore + evidenceScore + organizationScore + languageScore + lengthScore;
+      const maxTotal = 12;
+
+      let level = "Needs development";
+      if (total >= 10) {
+        level = "Strong";
+      } else if (total >= 8) {
+        level = "Good";
+      } else if (total >= 5) {
+        level = "Developing";
+      }
+
+      const strengths = [];
+      const suggestions = [];
+
+      if (rebuttalScore >= 2) {
+        strengths.push("You responded to the opposing view and signalled your rebuttal clearly.");
+      } else {
+        suggestions.push("Begin by acknowledging the opposing argument, then use a rebuttal phrase such as “However, I believe...”");
+      }
+
+      if (reasoningScore >= 2) {
+        strengths.push("Your rebuttal includes a reason connected to the debate topic.");
+      } else {
+        suggestions.push("Add a clear reason using phrases such as “This is because...” or “The reason is...”.");
+      }
+
+      if (evidenceScore >= 2) {
+        strengths.push("You included topic-related support or examples.");
+      } else {
+        suggestions.push("Give one specific example, such as social media campaigns, videos, online storytelling, Malay culture, or local cultural content.");
+      }
+
+      if (organizationScore >= 2) {
+        strengths.push("Your response has a recognizable structure from response to conclusion.");
+      } else {
+        suggestions.push("End with a short closing sentence, for example “Therefore, digital media can help preserve local culture more effectively.”");
+      }
+
+      if (languageScore >= 2) {
+        strengths.push("Your language is polite and suitable for academic debate practice.");
+      } else {
+        suggestions.push("Use more polite academic debate language, such as “I understand the point, but...” or “In my view...”.");
+      }
+
+      if (lengthScore >= 2) {
+        strengths.push("Your response length is sufficient for a short rebuttal practice.");
+      } else {
+        suggestions.push("Try to speak a little longer. Aim for about 60–120 words for this practice.");
+      }
+
+      if (strengths.length === 0) {
+        strengths.push("You completed the speaking attempt, which is a useful first step for practice.");
+      }
+
+      document.getElementById("feedbackPanel").style.display = "block";
+      document.getElementById("levelBadge").textContent = level + " · " + total + "/" + maxTotal;
+      document.getElementById("feedbackSummary").textContent =
+        "Estimated word count: " + wordCount + ". This feedback focuses on rebuttal structure, topic relevance, and language indicators.";
+
+      document.getElementById("scoreRebuttal").textContent = scoreItem(rebuttalScore, 2, "response to opponent");
+      document.getElementById("scoreReasoning").textContent = scoreItem(reasoningScore, 2, "reason + topic link");
+      document.getElementById("scoreEvidence").textContent = scoreItem(evidenceScore, 2, "example/support");
+      document.getElementById("scoreOrganization").textContent = scoreItem(organizationScore, 2, "opening + closing");
+      document.getElementById("scoreLanguage").textContent = scoreItem(languageScore, 2, "polite academic language");
+      document.getElementById("scoreLength").textContent = scoreItem(lengthScore, 2, "spoken length");
+
+      const strengthList = document.getElementById("strengthList");
+      const suggestionList = document.getElementById("suggestionList");
+
+      strengthList.innerHTML = strengths.map(item => "<li>" + item + "</li>").join("");
+      suggestionList.innerHTML = suggestions.map(item => "<li>" + item + "</li>").join("");
+
+      document.getElementById("feedbackPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
     function setupAvatarFallback(modelId, fallbackId) {
       const model = document.getElementById(modelId);
       const fallback = document.getElementById(fallbackId);
