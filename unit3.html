@@ -354,7 +354,7 @@
         In this unit, you will practise responding to an opposing argument and giving a clear rebuttal about local culture and digital media.
       </p>
       <p class="small-note">
-        This version keeps the original visual identity and adds a more polished 3D virtual debate room.
+        This version keeps the original visual identity and adds real 3D GLB avatars in the virtual debate room.
       </p>
     </section>
 
@@ -399,7 +399,7 @@
     <section class="section">
       <h2>Virtual Debate Room</h2>
       <p>
-        Enter the virtual debate room and prepare your rebuttal. The room uses the original Malay ornament and character images, while the moderator is loaded as a real 3D GLB model.
+        Enter the virtual debate room and prepare your rebuttal. The room uses the original Malay ornament and places Speaker A, Moderator, and Speaker B as real 3D GLB avatars.
       </p>
 
       <div class="instruction-note">
@@ -417,10 +417,16 @@
 
           <a-assets>
             <img id="ornamentImg" src="images/melayu-ornament.png" crossorigin="anonymous" />
+
+            <!-- Fallback image avatars, used only if a GLB model cannot load -->
             <img id="speakerAImg" src="images/speaker-a.png" crossorigin="anonymous" />
-            <a-asset-item id="moderatorModel" src="models/moderator.glb"></a-asset-item>
             <img id="moderatorImg" src="images/moderator.png" crossorigin="anonymous" />
             <img id="speakerBImg" src="images/speaker-b.png" crossorigin="anonymous" />
+
+            <!-- Real 3D GLB avatars -->
+            <a-asset-item id="speakerAModel" src="models/speaker-a.glb"></a-asset-item>
+            <a-asset-item id="moderatorModel" src="models/moderator.glb"></a-asset-item>
+            <a-asset-item id="speakerBModel" src="models/speaker-b.glb"></a-asset-item>
           </a-assets>
 
           <!-- Student viewpoint -->
@@ -555,56 +561,79 @@
           <a-box position="3.55 0.95 -2.08" width="1.25" height="1.35" depth="0.78" color="#0f766e"></a-box>
           <a-box position="3.55 1.66 -1.67" width="1.35" height="0.10" depth="0.10" color="#f7d774"></a-box>
 
-          <!-- Original character images as 2.5D avatars -->
-          <a-image
-            src="#speakerAImg"
-            position="-3.55 2.05 -2.10"
-            rotation="0 12 0"
-            width="1.32"
-            height="3.30"
-            material="transparent: true; side: double">
-          </a-image>
+          <!-- Real 3D GLB avatars -->
+          <!-- Speaker A: models/speaker-a.glb -->
+          <a-gltf-model
+            id="speakerAGLB"
+            src="#speakerAModel"
+            position="-3.55 0.10 -1.62"
+            rotation="0 10 0"
+            scale="1.35 1.35 1.35"
+            animation-mixer>
+          </a-gltf-model>
 
-          <!-- Real 3D moderator model from models/moderator.glb -->
-          <!-- This version uses a direct URL and larger scale to make the GLB easier to see. -->
+          <!-- Moderator: models/moderator.glb -->
           <a-gltf-model
             id="moderatorGLB"
-            src="models/moderator.glb"
+            src="#moderatorModel"
             position="0 0.10 -1.62"
             rotation="0 0 0"
             scale="1.35 1.35 1.35"
             animation-mixer>
           </a-gltf-model>
 
-          <!-- Fallback image: shown only if the GLB cannot be loaded -->
+          <!-- Speaker B: models/speaker-b.glb -->
+          <a-gltf-model
+            id="speakerBGLB"
+            src="#speakerBModel"
+            position="3.55 0.10 -1.62"
+            rotation="0 -10 0"
+            scale="1.35 1.35 1.35"
+            animation-mixer>
+          </a-gltf-model>
+
+          <!-- Fallback 2.5D image avatars. These appear only if the GLB files fail to load. -->
           <a-image
-            id="moderatorFallbackImage"
+            id="speakerAFallback"
+            src="#speakerAImg"
+            position="-3.55 2.05 -2.10"
+            rotation="0 12 0"
+            width="1.32"
+            height="3.30"
+            visible="false"
+            material="transparent: true; side: double">
+          </a-image>
+
+          <a-image
+            id="moderatorFallback"
             src="#moderatorImg"
-            position="0 2.02 -2.10"
+            position="0 2.02 -2.22"
             width="1.26"
             height="3.25"
             visible="false"
             material="transparent: true; side: double">
           </a-image>
 
-          <a-text
-            id="moderatorFallbackText"
-            value="3D moderator failed to load"
-            position="0 3.95 -2.05"
-            align="center"
-            width="3.8"
-            color="#fef3c7"
-            visible="false">
-          </a-text>
-
           <a-image
+            id="speakerBFallback"
             src="#speakerBImg"
             position="3.55 2.05 -2.10"
             rotation="0 -12 0"
             width="1.30"
             height="3.35"
+            visible="false"
             material="transparent: true; side: double">
           </a-image>
+
+          <a-text
+            id="glbFallbackText"
+            value="One or more 3D avatars failed to load"
+            position="0 4.05 -2.05"
+            align="center"
+            width="5"
+            color="#fef3c7"
+            visible="false">
+          </a-text>
 
           <!-- Name labels -->
           <a-box position="-3.55 0.28 -1.43" width="1.55" height="0.35" depth="0.06" color="#0b1220"></a-box>
@@ -656,7 +685,7 @@
       </div>
 
       <p class="vr-note">
-        This version keeps Speaker A and Speaker B as image avatars while testing the moderator as a real 3D GLB model.
+        This version uses real 3D GLB avatars for Speaker A, Moderator, and Speaker B.
       </p>
     </section>
 
@@ -715,7 +744,7 @@
     </section>
 
     <footer>
-      Web-based IVR Debate · Unit 3 with 3D Moderator
+      Web-based IVR Debate · Unit 3 with 3D GLB Avatars
     </footer>
 
   </main>
@@ -805,29 +834,38 @@
       startBtn.disabled = false;
       stopBtn.disabled = true;
     });
-    const moderatorGLB = document.getElementById("moderatorGLB");
-    const moderatorFallbackImage = document.getElementById("moderatorFallbackImage");
-    const moderatorFallbackText = document.getElementById("moderatorFallbackText");
+    function setupAvatarFallback(modelId, fallbackId) {
+      const model = document.getElementById(modelId);
+      const fallback = document.getElementById(fallbackId);
+      const fallbackText = document.getElementById("glbFallbackText");
 
-    if (moderatorGLB && moderatorFallbackImage && moderatorFallbackText) {
-      moderatorGLB.addEventListener("model-loaded", () => {
-        moderatorFallbackImage.setAttribute("visible", "false");
-        moderatorFallbackText.setAttribute("visible", "false");
+      if (!model || !fallback) return;
+
+      model.addEventListener("model-loaded", () => {
+        fallback.setAttribute("visible", "false");
       });
 
-      moderatorGLB.addEventListener("model-error", () => {
-        moderatorFallbackImage.setAttribute("visible", "true");
-        moderatorFallbackText.setAttribute("visible", "true");
+      model.addEventListener("model-error", () => {
+        fallback.setAttribute("visible", "true");
+        if (fallbackText) {
+          fallbackText.setAttribute("visible", "true");
+        }
       });
 
       setTimeout(() => {
-        const object3D = moderatorGLB.getObject3D("mesh");
-        if (!object3D) {
-          moderatorFallbackImage.setAttribute("visible", "true");
-          moderatorFallbackText.setAttribute("visible", "true");
+        const mesh = model.getObject3D("mesh");
+        if (!mesh) {
+          fallback.setAttribute("visible", "true");
+          if (fallbackText) {
+            fallbackText.setAttribute("visible", "true");
+          }
         }
-      }, 6000);
+      }, 7000);
     }
+
+    setupAvatarFallback("speakerAGLB", "speakerAFallback");
+    setupAvatarFallback("moderatorGLB", "moderatorFallback");
+    setupAvatarFallback("speakerBGLB", "speakerBFallback");
 
   </script>
 </body>
