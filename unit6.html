@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Unit 6 - Motion 2 Negative Rebuttal and Arguments</title>
+
+  <!-- A-Frame for 3D / WebXR virtual room -->
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy-950: #020617;
+      --navy-900: #07111f;
+      --navy-800: #0f172a;
+      --navy-700: #172554;
+      --blue: #2563eb;
+      --blue-soft: #93c5fd;
+      --gold: #d4af37;
+      --gold-soft: #f7d774;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --card: rgba(15, 23, 42, 0.82);
+      --line: rgba(212, 175, 55, 0.28);
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.20), transparent 24%),
+        radial-gradient(circle at 90% 20%, rgba(37, 99, 235, 0.28), transparent 30%),
+        radial-gradient(circle at 55% 100%, rgba(14, 116, 144, 0.25), transparent 28%),
+        linear-gradient(135deg, #020617, #081124 55%, #0f172a);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('images/melayu-ornament.png');
+      background-repeat: no-repeat;
+      background-position: center 32px;
+      background-size: min(780px, 90vw) auto;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .page {
+      width: min(1120px, 94%);
+      margin: 0 auto;
+      padding: 24px 0 52px;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: #f8fafc;
+      text-decoration: none;
+      background: rgba(2, 6, 23, 0.52);
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      transition: 0.2s ease;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    }
+
+    .nav-link:hover {
+      background: rgba(212, 175, 55, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .unit-label {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.08;
+      margin: 0 0 16px;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      font-size: 25px;
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #dbeafe;
+    }
+
+    p {
+      color: #e2e8f0;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.78)),
+        url('images/melayu-ornament.png');
+      background-size: cover, min(760px, 95%);
+      background-position: center, center;
+      background-repeat: no-repeat;
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      border-radius: 30px;
+      padding: 38px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 85% 22%, rgba(212, 175, 55, 0.16), transparent 26%);
+      pointer-events: none;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      max-width: 760px;
+      font-size: 17px;
+    }
+
+    .section {
+      background: var(--card);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 24px;
+      padding: 26px;
+      margin: 22px 0;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.26);
+      backdrop-filter: blur(10px);
+    }
+
+    .motion-box {
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(212, 175, 55, 0.18)),
+        rgba(2, 6, 23, 0.42);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 22px;
+      border-radius: 20px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    .stance-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .stance-btn,
+    .record-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.22);
+    }
+
+    .stance-btn.agree {
+      background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+      color: white;
+    }
+
+    .stance-btn.disagree {
+      background: linear-gradient(135deg, #0f766e, #2dd4bf);
+      color: white;
+    }
+
+    .stance-btn:hover,
+    .record-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .vr-room-wrapper {
+      width: 100%;
+      height: 620px;
+      margin: 24px 0 14px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 2px solid rgba(212, 175, 55, 0.32);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.52);
+      background: #020617;
+      position: relative;
+    }
+
+    .vr-room-wrapper::before {
+      content: "3D Virtual Debate Room";
+      position: absolute;
+      left: 18px;
+      top: 16px;
+      z-index: 3;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(2, 6, 23, 0.64);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      color: #fde68a;
+      font-size: 13px;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    .vr-note {
+      font-size: 14px;
+      color: #dbeafe;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .instruction-note {
+      background: rgba(2, 6, 23, 0.42);
+      border-left: 4px solid var(--gold);
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: #f8fafc;
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #e2e8f0;
+    }
+
+    .recording-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    .record-btn.start {
+      background: linear-gradient(135deg, #15803d, #22c55e);
+      color: white;
+    }
+
+    .record-btn.stop {
+      background: linear-gradient(135deg, #b91c1c, #ef4444);
+      color: white;
+    }
+
+    .record-btn.download {
+      background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .record-btn.reset {
+      background: linear-gradient(135deg, #334155, #64748b);
+      color: white;
+    }
+
+    .status {
+      background: rgba(2, 6, 23, 0.48);
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      border-radius: 16px;
+      padding: 14px 16px;
+      color: #fef3c7;
+      font-weight: 700;
+    }
+
+    audio,
+    video {
+      width: 100%;
+      margin-top: 12px;
+      border-radius: 16px;
+    }
+
+    .small-note {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 34px;
+    }
+
+
+
+    .login-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .login-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .login-field label {
+      color: #fef3c7;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .login-field input {
+      width: 100%;
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(2, 6, 23, 0.62);
+      color: #f8fafc;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .login-field input:focus {
+      border-color: rgba(247, 215, 116, 0.78);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+    }
+
+    .student-card {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(212, 175, 55, 0.10);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      color: #e5e7eb;
+    }
+
+    .student-card strong {
+      color: #fef3c7;
+    }
+
+    .record-btn.submit {
+      background: linear-gradient(135deg, #059669, #34d399);
+      color: #031018;
+    }
+
+    .submission-note {
+      margin-top: 10px;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .prep-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .prep-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      background: rgba(2, 6, 23, 0.32);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .prep-field label {
+      color: #fef3c7;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .prep-field textarea,
+    .transcript-box {
+      width: 100%;
+      min-height: 90px;
+      resize: vertical;
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(2, 6, 23, 0.62);
+      color: #f8fafc;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      outline: none;
+    }
+
+    .prep-field textarea:focus,
+    .transcript-box:focus {
+      border-color: rgba(247, 215, 116, 0.78);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+    }
+
+    .feedback-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+
+    .record-btn.feedback {
+      background: linear-gradient(135deg, #7c3aed, #c084fc);
+      color: white;
+    }
+
+    .feedback-panel {
+      display: none;
+      margin-top: 18px;
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(212, 175, 55, 0.10)),
+        rgba(2, 6, 23, 0.42);
+      padding: 18px;
+    }
+
+    .feedback-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.16);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      color: #fef3c7;
+      font-weight: 800;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .score-card {
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 16px;
+      padding: 13px;
+    }
+
+    .score-card strong {
+      color: #fef3c7;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .score-card span {
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .feedback-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .feedback-box {
+      background: rgba(2, 6, 23, 0.38);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .feedback-box h3 {
+      margin: 0 0 8px;
+      color: #fef3c7;
+      font-size: 17px;
+    }
+
+    .feedback-box ul {
+      margin: 0;
+    }
+
+    .feedback-note {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .hero,
+      .section {
+        padding: 22px;
+      }
+
+      .vr-room-wrapper {
+        height: 500px;
+      }
+
+      .motion-box {
+        font-size: 17px;
+      }
+
+      .login-grid,
+      .prep-grid,
+      .score-grid,
+      .feedback-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <nav class="top-nav">
+      <a class="nav-link" href="unit5.html">← Back to Unit 5</a>
+      <span class="unit-label">Motion 2 · Unit 6 · Negative Rebuttal and Arguments</span>
+      <a class="nav-link" href="unit7.html">Go to Unit 7 →</a>
+    </nav>
+
+    <section class="hero">
+      <div class="unit-label">Web-based IVR Debate Prototype</div>
+      <h1>Unit 6: Negative Rebuttal and Arguments</h1>
+      <p>
+        In this unit, you will speak as the Negative Team for Motion 2. Your task is to respond to the Affirmative Team, disagree politely, and build your own counter-argument.
+      </p>
+      <p class="small-note">
+        This unit continues Motion 2 as the second speaking turn in the debate sequence using student login, 3D avatars, recording, transcript, and formative feedback.
+      </p>
+    </section>
+
+    <section class="section" id="loginSection">
+      <h2>Student Login</h2>
+      <p>
+        Enter your identity before starting the activity. This prototype stores the identity in this browser and uses it to name the downloaded submission folder.
+      </p>
+
+      <div class="login-grid">
+        <div class="login-field">
+          <label for="studentName">Full name</label>
+          <input id="studentName" type="text" placeholder="Example: Nur Aisyah" autocomplete="name">
+        </div>
+
+        <div class="login-field">
+          <label for="studentId">Student ID / NIM</label>
+          <input id="studentId" type="text" placeholder="Example: 231234567">
+        </div>
+
+        <div class="login-field">
+          <label for="studentClass">Class</label>
+          <input id="studentClass" type="text" placeholder="Example: 3A / Speaking Class">
+        </div>
+      </div>
+
+      <div class="feedback-actions">
+        <button class="record-btn start" id="saveProfileBtn">Save Student Login</button>
+        <button class="record-btn reset" id="resetProfileBtn">Change Login</button>
+      </div>
+
+      <div class="student-card" id="studentCard">
+        <strong>Logged in as:</strong> <span id="studentDisplay">-</span>
+      </div>
+
+      <p class="submission-note">
+        Note: this is a prototype login, not a password-based account system. It is suitable for classroom trials where students download and submit their own files.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Prepare Your Negative Rebuttal and Argument</h2>
+      <p>
+        Write short notes before speaking. Focus on responding to the Affirmative Team and then presenting your own negative argument. Do not write a full script.
+      </p>
+
+      <div class="prep-grid">
+        <div class="prep-field">
+          <label for="ackNote">1. Affirmative argument I will respond to</label>
+          <textarea id="ackNote" placeholder="Example: The Affirmative Team argues that tourism should prioritise Malay culture because it protects local identity and gives visitors authentic experiences."></textarea>
+        </div>
+
+        <div class="prep-field">
+          <label for="stanceNote">2. My negative rebuttal</label>
+          <textarea id="stanceNote" placeholder="Example: However, our team disagrees because tourism also needs modern entertainment attractions to remain competitive and attract diverse visitors."></textarea>
+        </div>
+
+        <div class="prep-field">
+          <label for="reasonNote">3. My negative argument / reason</label>
+          <textarea id="reasonNote" placeholder="Example: This is because many tourists look for varied experiences, including recreation, family-friendly facilities, modern attractions, and cultural activities together."></textarea>
+        </div>
+
+        <div class="prep-field">
+          <label for="exampleNote">4. Evidence or example</label>
+          <textarea id="exampleNote" placeholder="Example: For example, destinations can combine cultural festivals with waterfront parks, interactive museums, family attractions, and entertainment spaces."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Moderator Audio Instruction</h2>
+      <p>
+        Listen to the moderator audio instruction before preparing and recording your negative rebuttal and argument for Motion 2.
+      </p>
+
+      <audio controls>
+        <source src="audio/unit6-instruction.webm" type="audio/webm" />
+        <source src="audio/unit6-instruction.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+
+      <p class="small-note">
+        If the audio file is not uploaded yet, this section will appear without sound.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Debate Motion</h2>
+      <div class="motion-box">
+        Tourism development in Kepulauan Riau should prioritise local Malay culture over modern entertainment attractions.
+      </div>
+
+      <p class="small-note">
+        <strong>Your role:</strong> Negative Team. You respond to the Affirmative Team, disagree with the motion, and build the counter-argument for Motion 2.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Virtual Debate Room</h2>
+      <p>
+        Enter the virtual debate room and prepare your rebuttal. The room uses the original Malay ornament and places Speaker A, Moderator, and Speaker B as real 3D GLB avatars.
+      </p>
+
+      <div class="instruction-note">
+        <strong>How to use:</strong> Drag your mouse or move your finger on the screen to look around. On supported devices, you can also try the VR mode button.
+      </div>
+
+      <div class="vr-room-wrapper">
+        <a-scene
+          embedded
+          background="color: #07111f"
+          renderer="antialias: true; colorManagement: true"
+          vr-mode-ui="enabled: true"
+          webxr="optionalFeatures: local-floor, bounded-floor"
+        >
+
+          <a-assets>
+            <img id="ornamentImg" src="images/melayu-ornament.png" crossorigin="anonymous" />
+
+            <!-- Fallback image avatars, used only if a GLB model cannot load -->
+            <img id="speakerAImg" src="images/speaker-a.png" crossorigin="anonymous" />
+            <img id="moderatorImg" src="images/moderator.png" crossorigin="anonymous" />
+            <img id="speakerBImg" src="images/speaker-b.png" crossorigin="anonymous" />
+
+            <!-- Real 3D GLB avatars -->
+            <!-- Real 3D GLB avatars are loaded directly below with cache-busting URLs -->
+          </a-assets>
+
+          <!-- Student viewpoint -->
+          <a-entity position="0 1.78 6.15">
+            <a-camera look-controls wasd-controls="enabled: false" fov="68"></a-camera>
+          </a-entity>
+
+          <!-- Balanced lighting -->
+          <a-entity light="type: ambient; intensity: 0.92"></a-entity>
+          <a-entity light="type: directional; intensity: 0.75" position="0 7 5"></a-entity>
+          <a-entity light="type: point; intensity: 0.55; distance: 8" position="0 4.2 1.8"></a-entity>
+          <a-entity light="type: point; intensity: 0.45; distance: 7" position="-3.8 3.2 -1.5"></a-entity>
+          <a-entity light="type: point; intensity: 0.45; distance: 7" position="3.8 3.2 -1.5"></a-entity>
+
+          <!-- Clean dark virtual room -->
+          <a-sky color="#07111f"></a-sky>
+
+          <!-- Floor and carpet -->
+          <a-plane
+            position="0 0 0"
+            rotation="-90 0 0"
+            width="15"
+            height="15"
+            color="#08111f">
+          </a-plane>
+
+          <a-plane
+            position="0 0.012 1.55"
+            rotation="-90 0 0"
+            width="8.0"
+            height="4.4"
+            color="#102a56"
+            material="opacity: 0.82; transparent: true">
+          </a-plane>
+
+          <!-- Back wall and side walls -->
+          <a-box position="0 2.32 -5.02" width="13.2" height="4.65" depth="0.20" color="#0f172a"></a-box>
+          <a-box position="-6.65 2.32 -0.02" width="0.20" height="4.65" depth="10.0" color="#070d18"></a-box>
+          <a-box position="6.65 2.32 -0.02" width="0.20" height="4.65" depth="10.0" color="#070d18"></a-box>
+          <a-box position="0 4.72 -0.02" width="13.2" height="0.18" depth="10.0" color="#07111f"></a-box>
+
+          <!-- Subtle Malay ornament, moved behind the title so it does not disturb the text -->
+          <a-image
+            src="#ornamentImg"
+            position="0 3.58 -4.86"
+            width="4.8"
+            height="1.15"
+            material="transparent: true; opacity: 0.34">
+          </a-image>
+
+          <!-- Raised stage platform -->
+          <a-box position="0 0.28 -2.55" width="9.2" height="0.55" depth="3.20" color="#263449"></a-box>
+          <a-box position="0 0.59 -1.02" width="9.25" height="0.12" depth="0.12" color="#d4af37"></a-box>
+          <a-box position="0 0.665 -1.07" width="9.05" height="0.035" depth="0.04" color="#f7d774"></a-box>
+
+          <!-- Title panel, separated from the motion board -->
+          <a-box position="0 3.52 -4.72" width="4.6" height="0.42" depth="0.10" color="#0b1220"></a-box>
+          <a-text
+            value="Motion 2 Negative Rebuttal and Argument Session"
+            position="0 3.53 -4.60"
+            align="center"
+            width="5.2"
+            color="#fde68a">
+          </a-text>
+
+          <!-- Motion screen -->
+          <a-box position="0 2.55 -4.76" width="7.35" height="1.28" depth="0.16" color="#d4af37"></a-box>
+          <a-box position="0 2.55 -4.62" width="7.05" height="1.04" depth="0.10" color="#f8fafc"></a-box>
+
+          <a-text
+            value="DEBATE MOTION"
+            position="0 2.88 -4.49"
+            align="center"
+            width="4.2"
+            color="#1e3a8a">
+          </a-text>
+
+          <a-text
+            value="Tourism development in Kepulauan Riau should prioritise local Malay culture over modern entertainment attractions."
+            position="0 2.48 -4.48"
+            align="center"
+            width="5.9"
+            color="#0f172a">
+          </a-text>
+
+          <!-- Podiums -->
+          <a-box position="-3.35 0.93 -2.06" width="1.18" height="1.30" depth="0.76" color="#1d4ed8"></a-box>
+          <a-box position="-3.35 1.61 -1.65" width="1.32" height="0.10" depth="0.11" color="#f7d774"></a-box>
+
+          <a-box position="0 0.86 -2.10" width="1.85" height="1.16" depth="0.84" color="#111827"></a-box>
+          <a-box position="0 1.47 -1.65" width="1.95" height="0.10" depth="0.11" color="#f7d774"></a-box>
+
+          <a-box position="3.35 0.93 -2.06" width="1.18" height="1.30" depth="0.76" color="#0f766e"></a-box>
+          <a-box position="3.35 1.61 -1.65" width="1.32" height="0.10" depth="0.11" color="#f7d774"></a-box>
+
+          <!-- Real 3D GLB avatars: clean placement and cache-busting URLs -->
+          <a-gltf-model
+            id="speakerAGLB"
+            src="models/speaker-a.glb?v=20260624clean1"
+            position="-3.35 0.18 -1.66"
+            rotation="0 8 0"
+            scale="1.20 1.20 1.20"
+            animation-mixer>
+          </a-gltf-model>
+
+          <a-gltf-model
+            id="moderatorGLB"
+            src="models/moderator.glb?v=20260624clean1"
+            position="0 0.18 -1.66"
+            rotation="0 0 0"
+            scale="1.20 1.20 1.20"
+            animation-mixer>
+          </a-gltf-model>
+
+          <a-gltf-model
+            id="speakerBGLB"
+            src="models/speaker-b.glb?v=20260624clean1"
+            position="3.35 0.18 -1.66"
+            rotation="0 -8 0"
+            scale="1.20 1.20 1.20"
+            animation-mixer>
+          </a-gltf-model>
+
+          <!-- Fallback 2.5D image avatars. Hidden unless a GLB file fails to load. -->
+          <a-image
+            id="speakerAFallback"
+            src="#speakerAImg"
+            position="-3.35 2.00 -2.10"
+            rotation="0 10 0"
+            width="1.20"
+            height="3.05"
+            visible="false"
+            material="transparent: true; side: double">
+          </a-image>
+
+          <a-image
+            id="moderatorFallback"
+            src="#moderatorImg"
+            position="0 1.98 -2.12"
+            width="1.18"
+            height="3.05"
+            visible="false"
+            material="transparent: true; side: double">
+          </a-image>
+
+          <a-image
+            id="speakerBFallback"
+            src="#speakerBImg"
+            position="3.35 2.00 -2.10"
+            rotation="0 -10 0"
+            width="1.20"
+            height="3.05"
+            visible="false"
+            material="transparent: true; side: double">
+          </a-image>
+
+          <!-- Microphones -->
+          <a-cylinder position="-3.35 1.73 -1.55" radius="0.024" height="0.38" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="-3.35 1.90 -1.46" radius="0.055" color="#111827"></a-sphere>
+
+          <a-cylinder position="0 1.56 -1.55" radius="0.024" height="0.38" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="0 1.73 -1.46" radius="0.055" color="#111827"></a-sphere>
+
+          <a-cylinder position="3.35 1.73 -1.55" radius="0.024" height="0.38" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="3.35 1.90 -1.46" radius="0.055" color="#111827"></a-sphere>
+
+          <!-- Cleaner audience seating -->
+          <a-box position="-4.4 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="-2.95 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="-1.50 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="0 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="1.50 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="2.95 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="4.4 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+
+          <a-box position="-3.7 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="-2.25 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="-0.75 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="0.75 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="2.25 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="3.7 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+
+        </a-scene>
+      </div>
+
+      <p class="vr-note">
+        This unit uses the same 3D debate room for Motion 2 and focuses on the Negative Team's response and counter-argument.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Your Debate Role</h2>
+      <p>
+        You are the first speaker for the Negative Team in Motion 2. Your task is to respond to the Affirmative Team's claim, show why the motion is too narrow, and present a balanced tourism counter-argument.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Negative Rebuttal and Argument Structure</h2>
+      <p>Use this structure to respond politely and build your counter-argument:</p>
+
+      <ul>
+        <li><strong>Acknowledge:</strong> The Affirmative Team argues that local Malay culture should be prioritised in tourism development.</li>
+        <li><strong>Rebuttal:</strong> However, our team disagrees because tourism development also needs modern entertainment attractions to attract different visitor groups.</li>
+        <li><strong>Negative argument:</strong> We believe a balanced tourism strategy is better because it can combine culture, recreation, comfort, and innovation.</li>
+        <li><strong>Evidence or example:</strong> For example, Kepulauan Riau can promote Malay cultural festivals while also developing waterfront spaces, interactive museums, family attractions, and modern facilities.</li>
+        <li><strong>Closing:</strong> Therefore, local Malay culture should be included strongly, but it should not be the only priority in tourism development.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Record Your Motion 2 Negative Rebuttal and Argument</h2>
+      <p>
+        Record your Motion 2 negative rebuttal and argument here. While you speak, the browser will try to generate an English transcript for formative feedback.
+      </p>
+
+      <div class="recording-controls">
+        <button class="record-btn start" id="startBtn">Start Recording</button>
+        <button class="record-btn stop" id="stopBtn" disabled>Stop Recording</button>
+        <a class="record-btn download" id="downloadLink" style="display:none;">Download Recording</a>
+        <button class="record-btn reset" id="resetBtn">Try Again</button>
+      </div>
+
+      <div class="status" id="recordStatus">Status: Not recorded yet.</div>
+
+      <audio id="audioPlayback" controls style="display:none;"></audio>
+
+      <p class="small-note">
+        Transcript support works best in Google Chrome. If the transcript is incomplete, students can edit it manually before generating feedback.
+      </p>
+
+      <label for="speechTranscript" class="small-note"><strong>Speech transcript for feedback:</strong></label>
+      <textarea
+        id="speechTranscript"
+        class="transcript-box"
+        placeholder="Your spoken Motion 2 negative rebuttal and argument transcript will appear here. You may also type or paste your transcript manually."></textarea>
+
+      <div class="feedback-actions">
+        <button class="record-btn feedback" id="generateFeedbackBtn">Generate Feedback</button>
+        <button class="record-btn submit" id="downloadSubmissionBtn">Download Submission Folder (.zip)</button>
+        <button class="record-btn reset" id="clearTranscriptBtn">Clear Transcript</button>
+      </div>
+
+      <p class="submission-note">
+        The ZIP file will contain the student's identity, preparation notes, transcript, feedback summary, and the audio recording when available.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Automated Formative Feedback</h2>
+      <p>
+        This first version gives rule-based feedback on negative rebuttal, tourism-related counter-argument, reasoning, evidence, organization, and delivery indicators. It does not grade pronunciation yet.
+      </p>
+
+      <div class="feedback-panel" id="feedbackPanel">
+        <div class="feedback-header">
+          <div>
+            <h3 id="feedbackTitle" style="margin:0; color:#fef3c7;">Feedback Summary</h3>
+            <p id="feedbackSummary" class="small-note" style="margin:6px 0 0;">Your feedback will appear here.</p>
+          </div>
+          <div class="level-badge" id="levelBadge">Not generated</div>
+        </div>
+
+        <div class="score-grid">
+          <div class="score-card">
+            <strong>Negative rebuttal</strong>
+            <span id="scoreRebuttal">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Reasoning</strong>
+            <span id="scoreReasoning">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Evidence/example</strong>
+            <span id="scoreEvidence">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Organization</strong>
+            <span id="scoreOrganization">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Language use</strong>
+            <span id="scoreLanguage">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Length</strong>
+            <span id="scoreLength">-</span>
+          </div>
+        </div>
+
+        <div class="feedback-columns">
+          <div class="feedback-box">
+            <h3>Strengths</h3>
+            <ul id="strengthList"></ul>
+          </div>
+
+          <div class="feedback-box">
+            <h3>Suggestions</h3>
+            <ul id="suggestionList"></ul>
+          </div>
+        </div>
+
+        <p class="feedback-note">
+          Teacher note: this feedback is generated locally in the browser using simple indicators. It is suitable for early prototype testing and can later be upgraded into AI-supported feedback.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Web-based IVR Debate · Motion 2 · Unit 6 Negative Rebuttal and Arguments
+    </footer>
+
+  </main>
+
+  <script>
+    function setStance(stance) {
+      const stanceStatus = document.getElementById("stanceStatus");
+      stanceStatus.textContent = "Selected stance: " + stance;
+    }
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let audioBlob;
+    let audioUrl;
+
+    let recognition;
+    let recognitionSupported = false;
+    let finalTranscript = "";
+    let interimTranscript = "";
+    let latestFeedback = null;
+    let studentProfile = null;
+
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const downloadLink = document.getElementById("downloadLink");
+    const recordStatus = document.getElementById("recordStatus");
+    const audioPlayback = document.getElementById("audioPlayback");
+    const transcriptBox = document.getElementById("speechTranscript");
+    const generateFeedbackBtn = document.getElementById("generateFeedbackBtn");
+    const clearTranscriptBtn = document.getElementById("clearTranscriptBtn");
+    const downloadSubmissionBtn = document.getElementById("downloadSubmissionBtn");
+
+    const studentNameInput = document.getElementById("studentName");
+    const studentIdInput = document.getElementById("studentId");
+    const studentClassInput = document.getElementById("studentClass");
+    const saveProfileBtn = document.getElementById("saveProfileBtn");
+    const resetProfileBtn = document.getElementById("resetProfileBtn");
+    const studentCard = document.getElementById("studentCard");
+    const studentDisplay = document.getElementById("studentDisplay");
+
+
+    function sanitizeFileName(value) {
+      return (value || "student")
+        .toString()
+        .trim()
+        .replace(/\s+/g, "_")
+        .replace(/[^a-zA-Z0-9_\-]/g, "")
+        .substring(0, 60) || "student";
+    }
+
+    function getDateStamp() {
+      const now = new Date();
+      const pad = value => String(value).padStart(2, "0");
+      return now.getFullYear() +
+        pad(now.getMonth() + 1) +
+        pad(now.getDate()) + "_" +
+        pad(now.getHours()) +
+        pad(now.getMinutes());
+    }
+
+    function saveStudentProfile() {
+      const name = studentNameInput ? studentNameInput.value.trim() : "";
+      const studentId = studentIdInput ? studentIdInput.value.trim() : "";
+      const className = studentClassInput ? studentClassInput.value.trim() : "";
+
+      if (!name) {
+        alert("Please enter your full name before starting.");
+        if (studentNameInput) studentNameInput.focus();
+        return;
+      }
+
+      studentProfile = {
+        name,
+        studentId,
+        className,
+        savedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem("webivr_unit3_student_profile", JSON.stringify(studentProfile));
+      renderStudentProfile();
+      if (recordStatus) {
+        recordStatus.textContent = "Status: Login saved. You can start recording now.";
+      }
+    }
+
+    function renderStudentProfile() {
+      if (!studentProfile) {
+        if (studentCard) studentCard.style.display = "none";
+        return;
+      }
+
+      if (studentNameInput) studentNameInput.value = studentProfile.name || "";
+      if (studentIdInput) studentIdInput.value = studentProfile.studentId || "";
+      if (studentClassInput) studentClassInput.value = studentProfile.className || "";
+
+      const idPart = studentProfile.studentId ? " · " + studentProfile.studentId : "";
+      const classPart = studentProfile.className ? " · " + studentProfile.className : "";
+      if (studentDisplay) studentDisplay.textContent = studentProfile.name + idPart + classPart;
+      if (studentCard) studentCard.style.display = "block";
+    }
+
+    function loadStudentProfile() {
+      try {
+        const saved = localStorage.getItem("webivr_unit3_student_profile");
+        studentProfile = saved ? JSON.parse(saved) : null;
+      } catch (error) {
+        studentProfile = null;
+      }
+      renderStudentProfile();
+    }
+
+    if (saveProfileBtn) {
+      saveProfileBtn.addEventListener("click", saveStudentProfile);
+    }
+
+    if (resetProfileBtn) {
+      resetProfileBtn.addEventListener("click", () => {
+      localStorage.removeItem("webivr_unit3_student_profile");
+      studentProfile = null;
+      studentCard.style.display = "none";
+      studentNameInput.value = "";
+      studentIdInput.value = "";
+      studentClassInput.value = "";
+      studentNameInput.focus();
+      });
+    }
+
+    loadStudentProfile();
+
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      recognitionSupported = true;
+      recognition = new SpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 1;
+
+      recognition.onresult = event => {
+        interimTranscript = "";
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + " ";
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+
+        transcriptBox.value = (finalTranscript + interimTranscript).trim();
+      };
+
+      recognition.onerror = () => {
+        recordStatus.textContent = "Status: Recording continues, but speech transcript is unavailable. You can type the transcript manually.";
+      };
+    }
+
+    function startSpeechRecognition() {
+      if (!recognitionSupported || !recognition) {
+        recordStatus.textContent = "Status: Recording... Transcript is not supported in this browser. Please type the transcript manually after recording.";
+        return;
+      }
+
+      finalTranscript = "";
+      interimTranscript = "";
+      transcriptBox.value = "";
+
+      try {
+        recognition.start();
+      } catch (error) {
+        // Recognition may already be active. Ignore this safely.
+      }
+    }
+
+    function stopSpeechRecognition() {
+      if (recognitionSupported && recognition) {
+        try {
+          recognition.stop();
+        } catch (error) {
+          // Safe to ignore if recognition has already stopped.
+        }
+      }
+    }
+
+    startBtn.addEventListener("click", async () => {
+      if (!studentProfile && studentNameInput && studentNameInput.value.trim()) {
+        saveStudentProfile();
+      }
+
+      if (!studentProfile) {
+        alert("Please enter your name and click Save Student Login before recording.");
+        if (studentNameInput) studentNameInput.focus();
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+        audioChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = event => {
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+          audioUrl = URL.createObjectURL(audioBlob);
+
+          audioPlayback.src = audioUrl;
+          audioPlayback.style.display = "block";
+
+          downloadLink.href = audioUrl;
+          downloadLink.download = "unit6-motion2-negative-rebuttal-arguments-recording.webm";
+          downloadLink.style.display = "inline-block";
+
+          recordStatus.textContent = "Status: Recording completed. Check the transcript, edit it if needed, then generate feedback.";
+
+          stream.getTracks().forEach(track => track.stop());
+
+          setTimeout(() => {
+            if (transcriptBox.value.trim().length > 0) {
+              generateFeedback();
+            }
+          }, 500);
+        };
+
+        mediaRecorder.start();
+        startSpeechRecognition();
+
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        downloadLink.style.display = "none";
+        audioPlayback.style.display = "none";
+        recordStatus.textContent = recognitionSupported
+          ? "Status: Recording and transcribing... Please give your rebuttal clearly."
+          : "Status: Recording... Speech transcript is not supported in this browser.";
+
+      } catch (error) {
+        recordStatus.textContent = "Status: Microphone access was denied or unavailable.";
+        alert("Please allow microphone access to record your voice.");
+      }
+    });
+
+    stopBtn.addEventListener("click", () => {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        stopSpeechRecognition();
+        mediaRecorder.stop();
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+      }
+    });
+
+    resetBtn.addEventListener("click", () => {
+      audioChunks = [];
+      finalTranscript = "";
+      interimTranscript = "";
+      stopSpeechRecognition();
+
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+      }
+
+      audioPlayback.src = "";
+      audioPlayback.style.display = "none";
+      downloadLink.href = "";
+      downloadLink.style.display = "none";
+      recordStatus.textContent = "Status: Not recorded yet.";
+      transcriptBox.value = "";
+
+      latestFeedback = null;
+      document.getElementById("feedbackPanel").style.display = "none";
+
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    });
+
+    clearTranscriptBtn.addEventListener("click", () => {
+      transcriptBox.value = "";
+      finalTranscript = "";
+      interimTranscript = "";
+      latestFeedback = null;
+      document.getElementById("feedbackPanel").style.display = "none";
+    });
+
+    generateFeedbackBtn.addEventListener("click", generateFeedback);
+    downloadSubmissionBtn.addEventListener("click", downloadSubmissionZip);
+
+    function containsAny(text, terms) {
+      return terms.some(term => text.includes(term));
+    }
+
+    function countMatches(text, terms) {
+      return terms.reduce((count, term) => count + (text.includes(term) ? 1 : 0), 0);
+    }
+
+    function scoreItem(score, max, label) {
+      return score + "/" + max + " · " + label;
+    }
+
+    function generateFeedback() {
+      const raw = transcriptBox.value.trim();
+
+      if (!raw) {
+        alert("Please record your voice or type your transcript before generating feedback.");
+        return;
+      }
+
+      const text = raw.toLowerCase();
+      const words = raw.split(/\s+/).filter(Boolean);
+      const wordCount = words.length;
+
+      const acknowledgementTerms = [
+        "the affirmative", "affirmative team", "they argue", "they believe",
+        "some people argue", "some people believe", "i understand", "we understand",
+        "local malay culture", "cultural tourism", "authentic experience"
+      ];
+
+      const rebuttalTerms = [
+        "however", "but", "nevertheless", "on the other hand", "we disagree",
+        "our team disagrees", "negative team", "modern entertainment", "balanced tourism",
+        "not the only priority", "too narrow", "diverse visitors", "visitor groups",
+        "recreation", "innovation", "family attractions"
+      ];
+
+      const reasoningTerms = [
+        "because", "this is because", "since", "therefore", "as a result",
+        "so that", "it means", "the reason is"
+      ];
+
+      const evidenceTerms = [
+        "for example", "for instance", "such as", "evidence", "data", "research",
+        "case", "experience", "students can", "young people can"
+      ];
+
+      const topicTerms = [
+        "tourism", "development", "kepulauan riau", "local culture", "malay culture",
+        "malay", "culture", "heritage", "traditional", "community", "local community",
+        "visitors", "tourists", "authentic", "identity", "entertainment", "attractions",
+        "local food", "crafts", "festival", "performance", "pantun"
+      ];
+
+      const closingTerms = [
+        "therefore", "in conclusion", "to conclude", "that is why", "for these reasons",
+        "overall", "finally"
+      ];
+
+      const politeTerms = [
+        "i understand", "we understand", "it is true that", "however",
+        "our team", "in my opinion", "in my view", "we believe",
+        "we disagree", "for example"
+      ];
+
+      const rebuttalScore =
+        (containsAny(text, acknowledgementTerms) ? 1 : 0) +
+        (containsAny(text, rebuttalTerms) ? 1 : 0);
+
+      const reasoningScore =
+        (containsAny(text, reasoningTerms) ? 1 : 0) +
+        (countMatches(text, topicTerms) >= 2 ? 1 : 0);
+
+      const evidenceScore =
+        (containsAny(text, evidenceTerms) ? 1 : 0) +
+        (countMatches(text, topicTerms) >= 4 ? 1 : 0);
+
+      const organizationScore =
+        (containsAny(text, acknowledgementTerms) ? 1 : 0) +
+        (containsAny(text, closingTerms) ? 1 : 0);
+
+      const languageScore =
+        (containsAny(text, politeTerms) ? 1 : 0) +
+        (wordCount >= 45 && wordCount <= 170 ? 1 : 0);
+
+      const lengthScore =
+        wordCount >= 60 ? 2 : wordCount >= 35 ? 1 : 0;
+
+      const total = rebuttalScore + reasoningScore + evidenceScore + organizationScore + languageScore + lengthScore;
+      const maxTotal = 12;
+
+      let level = "Needs development";
+      if (total >= 10) {
+        level = "Strong";
+      } else if (total >= 8) {
+        level = "Good";
+      } else if (total >= 5) {
+        level = "Developing";
+      }
+
+      const strengths = [];
+      const suggestions = [];
+
+      if (rebuttalScore >= 2) {
+        strengths.push("You responded to the Affirmative Team and signalled your negative position clearly.");
+      } else {
+        suggestions.push("Begin by acknowledging the Affirmative Team, then use a polite rebuttal phrase such as “However, our team disagrees because...”.");
+      }
+
+      if (reasoningScore >= 2) {
+        strengths.push("Your counter-argument includes a reason connected to tourism development and visitor needs.");
+      } else {
+        suggestions.push("Add a clear reason using phrases such as “This is because...” or “The reason is...”.");
+      }
+
+      if (evidenceScore >= 2) {
+        strengths.push("You included topic-related support or examples.");
+      } else {
+        suggestions.push("Give one specific example, such as waterfront spaces, interactive museums, family attractions, modern facilities, entertainment areas, or combined cultural-tourism programmes.");
+      }
+
+      if (organizationScore >= 2) {
+        strengths.push("Your response has a recognizable structure from response to conclusion.");
+      } else {
+        suggestions.push("End with a short closing sentence, for example “Therefore, Kepulauan Riau tourism should balance Malay culture with modern attractions.”");
+      }
+
+      if (languageScore >= 2) {
+        strengths.push("Your language is polite and suitable for academic debate practice.");
+      } else {
+        suggestions.push("Use more polite academic debate language, such as “I understand the point, but...” or “In my view...”.");
+      }
+
+      if (lengthScore >= 2) {
+        strengths.push("Your response length is sufficient for a short rebuttal practice.");
+      } else {
+        suggestions.push("Try to speak a little longer. Aim for about 60–120 words for this practice.");
+      }
+
+      if (strengths.length === 0) {
+        strengths.push("You completed the speaking attempt, which is a useful first step for practice.");
+      }
+
+      latestFeedback = {
+        generatedAt: new Date().toISOString(),
+        unit: "Motion 2 - Unit 6 - Negative Rebuttal and Arguments",
+        wordCount,
+        level,
+        totalScore: total,
+        maxScore: maxTotal,
+        scores: {
+          negativeRebuttal: rebuttalScore,
+          reasoning: reasoningScore,
+          evidenceExample: evidenceScore,
+          organization: organizationScore,
+          languageUse: languageScore,
+          length: lengthScore
+        },
+        strengths,
+        suggestions,
+        transcript: raw
+      };
+
+      document.getElementById("feedbackPanel").style.display = "block";
+      document.getElementById("levelBadge").textContent = level + " · " + total + "/" + maxTotal;
+      document.getElementById("feedbackSummary").textContent =
+        "Estimated word count: " + wordCount + ". This feedback focuses on negative rebuttal structure, tourism-topic relevance, and language indicators.";
+
+      document.getElementById("scoreRebuttal").textContent = scoreItem(rebuttalScore, 2, "response + disagreement");
+      document.getElementById("scoreReasoning").textContent = scoreItem(reasoningScore, 2, "reason + topic link");
+      document.getElementById("scoreEvidence").textContent = scoreItem(evidenceScore, 2, "example/support");
+      document.getElementById("scoreOrganization").textContent = scoreItem(organizationScore, 2, "opening + closing");
+      document.getElementById("scoreLanguage").textContent = scoreItem(languageScore, 2, "polite academic language");
+      document.getElementById("scoreLength").textContent = scoreItem(lengthScore, 2, "spoken length");
+
+      const strengthList = document.getElementById("strengthList");
+      const suggestionList = document.getElementById("suggestionList");
+
+      strengthList.innerHTML = strengths.map(item => "<li>" + item + "</li>").join("");
+      suggestionList.innerHTML = suggestions.map(item => "<li>" + item + "</li>").join("");
+
+      document.getElementById("feedbackPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+
+    async function downloadSubmissionZip() {
+      if (!studentProfile) {
+        saveStudentProfile();
+        if (!studentProfile) return;
+      }
+
+      const transcript = transcriptBox.value.trim();
+
+      if (!transcript && !audioBlob) {
+        alert("Please record your voice or type your transcript before downloading the submission folder.");
+        return;
+      }
+
+      if (transcript && !latestFeedback) {
+        generateFeedback();
+      }
+
+      if (typeof JSZip === "undefined") {
+        alert("ZIP generator is still loading. Please wait a few seconds and try again.");
+        return;
+      }
+
+      const zip = new JSZip();
+      const folderName =
+        sanitizeFileName(studentProfile.name) + "_" +
+        sanitizeFileName(studentProfile.studentId || "no_id") +
+        "_Motion2_Unit6_NegativeRebuttalArguments_" +
+        getDateStamp();
+
+      const folder = zip.folder(folderName);
+
+      const profileData = {
+        ...studentProfile,
+        downloadedAt: new Date().toISOString(),
+        unit: "Motion 2 - Unit 6 - Negative Rebuttal and Arguments",
+        motion: "Tourism development in Kepulauan Riau should prioritise local Malay culture over modern entertainment attractions."
+      };
+
+      const notesText =
+        "UNIT 3 - REBUTTAL PRACTICE\\n" +
+        "Student name: " + (studentProfile.name || "-") + "\\n" +
+        "Student ID: " + (studentProfile.studentId || "-") + "\\n" +
+        "Class: " + (studentProfile.className || "-") + "\\n\\n" +
+        "1. Opponent's point I will respond to:\\n" +
+        (document.getElementById("ackNote").value.trim() || "-") + "\\n\\n" +
+        "2. My rebuttal position:\\n" +
+        (document.getElementById("stanceNote").value.trim() || "-") + "\\n\\n" +
+        "3. Reason:\\n" +
+        (document.getElementById("reasonNote").value.trim() || "-") + "\\n\\n" +
+        "4. Example or evidence:\\n" +
+        (document.getElementById("exampleNote").value.trim() || "-") + "\\n";
+
+      let feedbackText = "Feedback has not been generated yet.";
+
+      if (latestFeedback) {
+        feedbackText =
+          "AUTOMATED FORMATIVE FEEDBACK\\n" +
+          "Generated at: " + latestFeedback.generatedAt + "\\n" +
+          "Level: " + latestFeedback.level + "\\n" +
+          "Total score: " + latestFeedback.totalScore + "/" + latestFeedback.maxScore + "\\n" +
+          "Word count: " + latestFeedback.wordCount + "\\n\\n" +
+          "Scores:\\n" +
+          "- Negative rebuttal: " + latestFeedback.scores.rebuttalResponse + "/2\\n" +
+          "- Reasoning: " + latestFeedback.scores.reasoning + "/2\\n" +
+          "- Evidence/example: " + latestFeedback.scores.evidenceExample + "/2\\n" +
+          "- Organization: " + latestFeedback.scores.organization + "/2\\n" +
+          "- Language use: " + latestFeedback.scores.languageUse + "/2\\n" +
+          "- Length: " + latestFeedback.scores.length + "/2\\n\\n" +
+          "Strengths:\\n" +
+          latestFeedback.strengths.map(item => "- " + item).join("\\n") + "\\n\\n" +
+          "Suggestions:\\n" +
+          latestFeedback.suggestions.map(item => "- " + item).join("\\n") + "\\n";
+      }
+
+      folder.file("student-info.json", JSON.stringify(profileData, null, 2));
+      folder.file("preparation-notes.txt", notesText);
+      folder.file("speech-transcript.txt", transcript || "No transcript was provided.");
+      folder.file("feedback-summary.txt", feedbackText);
+      folder.file("feedback-data.json", JSON.stringify(latestFeedback || { message: "Feedback not generated." }, null, 2));
+
+      if (audioBlob) {
+        folder.file("unit6-motion2-negative-rebuttal-arguments-recording.webm", audioBlob);
+      } else {
+        folder.file("recording-note.txt", "No audio recording was available in this submission package.");
+      }
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(zipBlob);
+
+      const tempLink = document.createElement("a");
+      tempLink.href = url;
+      tempLink.download = folderName + ".zip";
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+
+      setTimeout(() => URL.revokeObjectURL(url), 1200);
+    }
+
+
+    function setupAvatarFallback(modelId, fallbackId) {
+      const model = document.getElementById(modelId);
+      const fallback = document.getElementById(fallbackId);
+
+      if (!model || !fallback) return;
+
+      model.addEventListener("model-loaded", () => {
+        fallback.setAttribute("visible", "false");
+      });
+
+      model.addEventListener("model-error", () => {
+        fallback.setAttribute("visible", "true");
+      });
+
+      setTimeout(() => {
+        const mesh = model.getObject3D("mesh");
+        if (!mesh) {
+          fallback.setAttribute("visible", "true");
+        }
+      }, 7000);
+    }
+
+    setupAvatarFallback("speakerAGLB", "speakerAFallback");
+    setupAvatarFallback("moderatorGLB", "moderatorFallback");
+    setupAvatarFallback("speakerBGLB", "speakerBFallback");
+</script>
+</body>
+</html>
