@@ -1,239 +1,1612 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Unit 1 - IVR Debate Room</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Unit 1 - Motion 1 Affirmative Arguments</title>
+
+  <!-- A-Frame for 3D / WebXR virtual room -->
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
   <style>
-    *{box-sizing:border-box} body{font-family:"Segoe UI",Arial,sans-serif;margin:0;min-height:100vh;background:linear-gradient(rgba(5,14,35,.86),rgba(5,14,35,.96)),radial-gradient(circle at top left,#2d6cdf 0,transparent 34%),radial-gradient(circle at bottom right,#d4af37 0,transparent 30%),#08111f;color:#fff;overflow-x:hidden}.page{width:100%;margin:0;padding:0}.topbar{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 28px;position:sticky;top:0;z-index:999;background:rgba(5,14,35,.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.14)}.back-btn,.next-btn{padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;font-size:14px;transition:.25s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}.back-btn:hover,.next-btn:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}.unit-label{padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff7d6;font-weight:800;font-size:13px;letter-spacing:.8px;text-transform:uppercase;text-align:center}.hero{width:100%;padding:48px 44px 40px;background:rgba(255,255,255,.10);border-bottom:1px solid rgba(255,255,255,.16);box-shadow:0 16px 40px rgba(0,0,0,.24)}h1{margin:0 0 12px;font-size:clamp(34px,4vw,58px);color:#fff}.subtitle{margin:0;max-width:1100px;font-size:clamp(17px,1.5vw,22px);line-height:1.6;color:#d8e3ff}.full-section{width:100%;padding:34px 44px;border-bottom:1px solid rgba(255,255,255,.12)}.section-card{width:100%;padding:30px;border-radius:28px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);box-shadow:0 18px 45px rgba(0,0,0,.26);backdrop-filter:blur(14px)}.section-card h2{margin-top:0;margin-bottom:14px;font-size:clamp(26px,2.5vw,38px);color:#fff}.section-card p{color:#d8e3ff;line-height:1.65;font-size:17px}textarea{width:100%;min-height:170px;margin-top:14px;padding:18px;border-radius:20px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.10);color:#fff;font-family:"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.6;outline:none;resize:vertical}textarea::placeholder{color:#b8c7e8}.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;width:100%}.instruction-media{width:100%;padding:28px;border-radius:28px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 45px rgba(0,0,0,.24)}.instruction-media h2{margin-top:0;margin-bottom:12px;font-size:clamp(24px,2vw,34px)}.instruction-media p{color:#d8e3ff;line-height:1.6}.instruction-media audio,.instruction-media video{width:100%;margin-top:12px;border-radius:18px}.media-note{font-size:15px;color:#b8c7e8;margin-bottom:0}.topic-card{width:100%;padding:32px;border-radius:28px;background:linear-gradient(135deg,#1d4ed8,#d4af37);box-shadow:0 18px 45px rgba(0,0,0,.26)}.topic-card h2{margin-top:0;margin-bottom:10px;font-size:clamp(26px,2.5vw,38px)}.topic-card p{margin:0;color:#fff;font-size:clamp(22px,2vw,34px);font-weight:800;line-height:1.4}.position-area{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:18px}.position-btn{padding:18px;border-radius:20px;border:none;cursor:pointer;font-size:18px;font-weight:800;color:#fff;transition:.25s}.agree{background:linear-gradient(135deg,#0aa6a6,#2dd4bf)}.disagree{background:linear-gradient(135deg,#5b5ff5,#9b6dff)}.position-btn:hover,.position-btn.active{transform:translateY(-3px);box-shadow:0 14px 28px rgba(0,0,0,.28);filter:brightness(1.1)}.stage-section{width:100%;padding:0;border-bottom:1px solid rgba(255,255,255,.12)}.virtual-room{position:relative;width:100%;min-height:780px;height:82vh;overflow:hidden;background-image:linear-gradient(rgba(8,17,31,.20),rgba(8,17,31,.45)),url("images/bg-unit1.jpg"),linear-gradient(135deg,#15305d,#08111f);background-size:cover;background-position:center;background-repeat:no-repeat;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18);box-shadow:inset 0 -90px 140px rgba(0,0,0,.46),0 20px 45px rgba(0,0,0,.28)}.virtual-room::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top center,rgba(255,255,255,.12),transparent 32%),linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.20));z-index:1;pointer-events:none}.stage-title{position:absolute;top:26px;left:50%;transform:translateX(-50%);width:min(900px,86vw);padding:18px 24px;border-radius:20px;text-align:center;background:rgba(8,17,31,.55);border:1px solid rgba(255,255,255,.25);color:#fff7d6;font-weight:900;font-size:clamp(20px,2vw,34px);letter-spacing:.4px;z-index:8;box-shadow:0 10px 26px rgba(0,0,0,.25)}.stage-subtitle{position:absolute;top:96px;left:50%;transform:translateX(-50%);padding:9px 20px;border-radius:999px;background:rgba(212,175,55,.32);border:1px solid rgba(255,255,255,.22);color:#fff7d6;font-size:clamp(14px,1.1vw,18px);font-weight:800;z-index:8;white-space:nowrap}.ornament{position:absolute;width:clamp(150px,16vw,290px);opacity:.30;z-index:5;pointer-events:none}.ornament-top{top:24px;right:32px}.ornament-bottom{bottom:28px;left:32px;transform:rotate(180deg)}.avatar-img{position:absolute;z-index:9;object-fit:contain;filter:drop-shadow(0 18px 28px rgba(0,0,0,.50))}.moderator-avatar{width:clamp(210px,17vw,340px);left:50%;bottom:15%;transform:translateX(-50%)}.speaker-a-avatar{width:clamp(180px,15vw,300px);left:16%;bottom:12%}.speaker-b-avatar{width:clamp(180px,15vw,300px);right:16%;bottom:12%}.avatar-label{position:absolute;z-index:10;font-size:clamp(13px,1vw,18px);font-weight:900;color:#fff7d6;background:rgba(0,0,0,.50);padding:7px 14px;border-radius:999px;display:inline-block;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 18px rgba(0,0,0,.28)}.moderator-name{left:50%;bottom:10%;transform:translateX(-50%)}.speaker-a-name{left:17%;bottom:7.5%}.speaker-b-name{right:17%;bottom:7.5%}.record-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.record-btn{padding:16px;border-radius:18px;border:none;cursor:pointer;font-size:16px;font-weight:900;color:#fff;transition:.25s}.start{background:linear-gradient(135deg,#16a34a,#22c55e)}.stop{background:linear-gradient(135deg,#dc2626,#f97316)}.reset{background:linear-gradient(135deg,#334155,#111827)}.record-btn:hover{transform:translateY(-2px);filter:brightness(1.08)}.record-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}audio{width:100%;margin-top:18px}.status{margin-top:14px;color:#d8e3ff;font-size:15px}.self-check ul{margin:10px 0 0 22px;padding:0;color:#d8e3ff;line-height:1.8;font-size:16px}@media(max-width:900px){.topbar{flex-direction:column;position:relative}.back-btn,.next-btn,.unit-label{width:100%}.full-section,.hero{padding-left:18px;padding-right:18px}.media-grid,.position-area,.record-buttons{grid-template-columns:1fr}.virtual-room{min-height:680px;height:78vh}.speaker-a-avatar{left:4%;width:150px}.speaker-b-avatar{right:4%;width:150px}.moderator-avatar{width:175px}.speaker-a-name{left:5%}.speaker-b-name{right:5%}.stage-subtitle{top:108px;white-space:normal;text-align:center;width:80%}}
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy-950: #020617;
+      --navy-900: #07111f;
+      --navy-800: #0f172a;
+      --navy-700: #172554;
+      --blue: #2563eb;
+      --blue-soft: #93c5fd;
+      --gold: #d4af37;
+      --gold-soft: #f7d774;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --card: rgba(15, 23, 42, 0.82);
+      --line: rgba(212, 175, 55, 0.28);
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.20), transparent 24%),
+        radial-gradient(circle at 90% 20%, rgba(37, 99, 235, 0.28), transparent 30%),
+        radial-gradient(circle at 55% 100%, rgba(14, 116, 144, 0.25), transparent 28%),
+        linear-gradient(135deg, #020617, #081124 55%, #0f172a);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('images/melayu-ornament.png');
+      background-repeat: no-repeat;
+      background-position: center 32px;
+      background-size: min(780px, 90vw) auto;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .page {
+      width: min(1120px, 94%);
+      margin: 0 auto;
+      padding: 24px 0 52px;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: #f8fafc;
+      text-decoration: none;
+      background: rgba(2, 6, 23, 0.52);
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      transition: 0.2s ease;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    }
+
+    .nav-link:hover {
+      background: rgba(212, 175, 55, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .unit-label {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.08;
+      margin: 0 0 16px;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      font-size: 25px;
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #dbeafe;
+    }
+
+    p {
+      color: #e2e8f0;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.78)),
+        url('images/melayu-ornament.png');
+      background-size: cover, min(760px, 95%);
+      background-position: center, center;
+      background-repeat: no-repeat;
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      border-radius: 30px;
+      padding: 38px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 85% 22%, rgba(212, 175, 55, 0.16), transparent 26%);
+      pointer-events: none;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      max-width: 760px;
+      font-size: 17px;
+    }
+
+    .section {
+      background: var(--card);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 24px;
+      padding: 26px;
+      margin: 22px 0;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.26);
+      backdrop-filter: blur(10px);
+    }
+
+    .motion-box {
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(212, 175, 55, 0.18)),
+        rgba(2, 6, 23, 0.42);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 22px;
+      border-radius: 20px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    .stance-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .stance-btn,
+    .record-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.22);
+    }
+
+    .stance-btn.agree {
+      background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+      color: white;
+    }
+
+    .stance-btn.disagree {
+      background: linear-gradient(135deg, #0f766e, #2dd4bf);
+      color: white;
+    }
+
+    .stance-btn:hover,
+    .record-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .vr-room-wrapper {
+      width: 100%;
+      height: 620px;
+      margin: 24px 0 14px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 2px solid rgba(212, 175, 55, 0.32);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.52);
+      background: #020617;
+      position: relative;
+    }
+
+    .vr-room-wrapper::before {
+      content: "3D Virtual Debate Room";
+      position: absolute;
+      left: 18px;
+      top: 16px;
+      z-index: 3;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(2, 6, 23, 0.64);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      color: #fde68a;
+      font-size: 13px;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    .vr-note {
+      font-size: 14px;
+      color: #dbeafe;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .instruction-note {
+      background: rgba(2, 6, 23, 0.42);
+      border-left: 4px solid var(--gold);
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: #f8fafc;
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #e2e8f0;
+    }
+
+    .recording-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    .record-btn.start {
+      background: linear-gradient(135deg, #15803d, #22c55e);
+      color: white;
+    }
+
+    .record-btn.stop {
+      background: linear-gradient(135deg, #b91c1c, #ef4444);
+      color: white;
+    }
+
+    .record-btn.download {
+      background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .record-btn.reset {
+      background: linear-gradient(135deg, #334155, #64748b);
+      color: white;
+    }
+
+    .status {
+      background: rgba(2, 6, 23, 0.48);
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      border-radius: 16px;
+      padding: 14px 16px;
+      color: #fef3c7;
+      font-weight: 700;
+    }
+
+    audio,
+    video {
+      width: 100%;
+      margin-top: 12px;
+      border-radius: 16px;
+    }
+
+    .small-note {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 34px;
+    }
+
+
+
+    .login-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .login-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .login-field label {
+      color: #fef3c7;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .login-field input {
+      width: 100%;
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(2, 6, 23, 0.62);
+      color: #f8fafc;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .login-field input:focus {
+      border-color: rgba(247, 215, 116, 0.78);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+    }
+
+    .student-card {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(212, 175, 55, 0.10);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      color: #e5e7eb;
+    }
+
+    .student-card strong {
+      color: #fef3c7;
+    }
+
+    .record-btn.submit {
+      background: linear-gradient(135deg, #059669, #34d399);
+      color: #031018;
+    }
+
+    .submission-note {
+      margin-top: 10px;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .prep-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .prep-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      background: rgba(2, 6, 23, 0.32);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .prep-field label {
+      color: #fef3c7;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .prep-field textarea,
+    .transcript-box {
+      width: 100%;
+      min-height: 90px;
+      resize: vertical;
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(2, 6, 23, 0.62);
+      color: #f8fafc;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      outline: none;
+    }
+
+    .prep-field textarea:focus,
+    .transcript-box:focus {
+      border-color: rgba(247, 215, 116, 0.78);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+    }
+
+    .feedback-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+
+    .record-btn.feedback {
+      background: linear-gradient(135deg, #7c3aed, #c084fc);
+      color: white;
+    }
+
+    .feedback-panel {
+      display: none;
+      margin-top: 18px;
+      border: 1px solid rgba(212, 175, 55, 0.30);
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(212, 175, 55, 0.10)),
+        rgba(2, 6, 23, 0.42);
+      padding: 18px;
+    }
+
+    .feedback-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.16);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      color: #fef3c7;
+      font-weight: 800;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .score-card {
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 16px;
+      padding: 13px;
+    }
+
+    .score-card strong {
+      color: #fef3c7;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .score-card span {
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .feedback-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .feedback-box {
+      background: rgba(2, 6, 23, 0.38);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .feedback-box h3 {
+      margin: 0 0 8px;
+      color: #fef3c7;
+      font-size: 17px;
+    }
+
+    .feedback-box ul {
+      margin: 0;
+    }
+
+    .feedback-note {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .hero,
+      .section {
+        padding: 22px;
+      }
+
+      .vr-room-wrapper {
+        height: 500px;
+      }
+
+      .motion-box {
+        font-size: 17px;
+      }
+
+      .login-grid,
+      .prep-grid,
+      .score-grid,
+      .feedback-columns {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <div class="page">
-    <div class="topbar">
-      <a class="back-btn" href="./index.html">← Back to Home</a>
-      <div class="unit-label">Unit 1 · Opening Argument Practice</div>
-      <a class="next-btn" href="./unit2.html">Go to Unit 2 →</a>
-    </div>
+  <main class="page">
+
+    <nav class="top-nav">
+      <a class="nav-link" href="index.html">← Back to Home</a>
+      <span class="unit-label">Motion 1 · Unit 1 · Affirmative Arguments</span>
+      <a class="nav-link" href="unit2.html">Go to Unit 2 →</a>
+    </nav>
 
     <section class="hero">
-      <h1>Unit 1: Opening Argument</h1>
-      <p class="subtitle">In this unit, you will enter a simulated debate room and practise presenting an opening argument about local culture in Kepulauan Riau.</p>
+      <div class="unit-label">Web-based IVR Debate Prototype</div>
+      <h1>Unit 1: Affirmative Arguments</h1>
+      <p>
+        In this unit, you will speak as the Affirmative / Positive Team. Your task is to support the motion with a clear argument, reason, and evidence.
+      </p>
+      <p class="small-note">
+        This version begins Motion 1 as a complete debate sequence using student login, 3D avatars, recording, transcript, and formative feedback.
+      </p>
     </section>
 
-    <section class="full-section">
-      <div class="section-card">
-        <h2>Prepare Your Argument</h2>
-        <p>Write short notes before speaking. Do not write a full script. Use this space only to organise your ideas.</p>
-        <textarea placeholder="Example: I agree with the motion because traditional Malay values teach young people politeness, respect, and responsibility in community life..."></textarea>
-      </div>
-    </section>
+    <section class="section" id="loginSection">
+      <h2>Student Login</h2>
+      <p>
+        Enter your identity before starting the activity. This prototype stores the identity in this browser and uses it to name the downloaded submission folder.
+      </p>
 
-    <section class="full-section">
-      <div class="media-grid">
-        <div class="instruction-media">
-          <h2>Moderator Audio Instruction</h2>
-          <p class="media-note">Listen to the moderator audio instruction before preparing and recording your opening argument.</p>
-          <audio controls><source src="audio/unit1-instruction.webm" type="audio/webm">Your browser does not support the audio element.</audio>
+      <div class="login-grid">
+        <div class="login-field">
+          <label for="studentName">Full name</label>
+          <input id="studentName" type="text" placeholder="Example: Nur Aisyah" autocomplete="name">
         </div>
-        <div class="instruction-media">
-          <h2>Moderator Video Instruction</h2>
-          <p class="media-note">Watch the moderator video instruction before entering the opening argument session.</p>
-          <video controls><source src="video/unit1-moderator.mp4" type="video/mp4">Your browser does not support the video tag.</video>
-        </div>
-      </div>
-    </section>
 
-    <section class="full-section">
-      <div class="topic-card">
-        <h2>Debate Motion</h2>
-        <p>Traditional Malay cultural values in Kepulauan Riau should remain central in young people’s lives.</p>
-        <div class="position-area">
-          <button class="position-btn agree" onclick="selectPosition(this, 'Agree')">Agree</button>
-          <button class="position-btn disagree" onclick="selectPosition(this, 'Disagree')">Disagree</button>
+        <div class="login-field">
+          <label for="studentId">Student ID / NIM</label>
+          <input id="studentId" type="text" placeholder="Example: 231234567">
+        </div>
+
+        <div class="login-field">
+          <label for="studentClass">Class</label>
+          <input id="studentClass" type="text" placeholder="Example: 3A / Speaking Class">
         </div>
       </div>
-    </section>
 
-    <section class="stage-section">
-      <div class="virtual-room">
-        <div class="stage-title">Virtual Debate Room</div>
-        <div class="stage-subtitle">Opening Argument Session</div>
-        <img src="images/melayu-ornament.png" class="ornament ornament-top" alt="Malay cultural ornament" onerror="this.style.display='none'">
-        <img src="images/melayu-ornament.png" class="ornament ornament-bottom" alt="Malay cultural ornament" onerror="this.style.display='none'">
-        <img src="images/speaker-a.png" class="avatar-img speaker-a-avatar" alt="Speaker A" onerror="this.style.display='none'">
-        <img src="images/moderator.png" class="avatar-img moderator-avatar" alt="Moderator" onerror="this.style.display='none'">
-        <img src="images/speaker-b.png" class="avatar-img speaker-b-avatar" alt="Speaker B" onerror="this.style.display='none'">
-        <div class="avatar-label speaker-a-name">Speaker A</div>
-        <div class="avatar-label moderator-name">Moderator</div>
-        <div class="avatar-label speaker-b-name">Speaker B</div>
+      <div class="feedback-actions">
+        <button class="record-btn start" id="saveProfileBtn">Save Student Login</button>
+        <button class="record-btn reset" id="resetProfileBtn">Change Login</button>
       </div>
+
+      <div class="student-card" id="studentCard">
+        <strong>Logged in as:</strong> <span id="studentDisplay">-</span>
+      </div>
+
+      <p class="submission-note">
+        Note: this is a prototype login, not a password-based account system. It is suitable for classroom trials where students download and submit their own files.
+      </p>
     </section>
 
-    <section class="full-section">
-      <div class="section-card">
-        <h2>Record Your Voice</h2>
-        <p>Record your opening argument here. After recording, listen to your audio and try again if needed.</p>
-        <div class="record-buttons">
-          <button id="startBtn" class="record-btn start" onclick="startRecording()">Start Recording</button>
-          <button id="stopBtn" class="record-btn stop" onclick="stopRecording()" disabled>Stop Recording</button>
-          <button id="downloadBtn" class="record-btn download" onclick="downloadRecording()" disabled>Download Recording</button>
-          <button class="record-btn reset" onclick="resetRecording()">Try Again</button>
+    <section class="section">
+      <h2>Prepare Your Affirmative Argument</h2>
+      <p>
+        Write short notes before speaking. Focus on supporting the motion clearly. Do not write a full script.
+      </p>
+
+      <div class="prep-grid">
+        <div class="prep-field">
+          <label for="ackNote">1. My affirmative stance</label>
+          <textarea id="ackNote" placeholder="Example: I support the motion because digital media can help young people preserve local culture more widely."></textarea>
         </div>
-        <audio id="audioPlayback" controls></audio>
-        <div id="status" class="status">Status: Not recorded yet.</div>
+
+        <div class="prep-field">
+          <label for="stanceNote">2. My main argument</label>
+          <textarea id="stanceNote" placeholder="Example: Digital media makes local culture easier to access, share, and learn outside traditional events."></textarea>
+        </div>
+
+        <div class="prep-field">
+          <label for="reasonNote">3. Reason</label>
+          <textarea id="reasonNote" placeholder="Example: This is because young people use social media, videos, and online platforms in their daily lives."></textarea>
+        </div>
+
+        <div class="prep-field">
+          <label for="exampleNote">4. Evidence or example</label>
+          <textarea id="exampleNote" placeholder="Example: For example, Malay pantun, traditional songs, local stories, and cultural performances can be documented and shared online."></textarea>
+        </div>
       </div>
     </section>
 
-    <section class="full-section self-check">
-      <div class="section-card">
-        <h2>Self-Check and Future AI Feedback</h2>
-        <p>Later, this section can be connected to AI-driven feedback. For now, students can use the checklist below after speaking.</p>
-        <ul>
-          <li>Did I state my position clearly?</li>
-          <li>Did I give reasons related to local culture?</li>
-          <li>Did I explain the importance of Malay cultural values clearly?</li>
-          <li>Did I use suitable debate expressions?</li>
-          <li>Did I speak clearly and confidently?</li>
-          <li>Did I avoid reading the whole script?</li>
-        </ul>
+    <section class="section">
+      <h2>Moderator Audio Instruction</h2>
+      <p>
+        Listen to the moderator audio instruction before preparing and recording your affirmative argument.
+      </p>
+
+      <audio controls>
+        <source src="audio/unit1-instruction.webm" type="audio/webm" />
+        <source src="audio/unit1-instruction.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+
+      <p class="small-note">
+        If the audio file is not uploaded yet, this section will appear without sound.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Debate Motion</h2>
+      <div class="motion-box">
+        Young people can preserve local culture better through digital media than through traditional community events.
+      </div>
+
+      <p class="small-note">
+        <strong>Your role:</strong> Affirmative / Positive Team. You support the motion and build the first argument for Motion 1.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Virtual Debate Room</h2>
+      <p>
+        Enter the virtual debate room and prepare your rebuttal. The room uses the original Malay ornament and places Speaker A, Moderator, and Speaker B as real 3D GLB avatars.
+      </p>
+
+      <div class="instruction-note">
+        <strong>How to use:</strong> Drag your mouse or move your finger on the screen to look around. On supported devices, you can also try the VR mode button.
+      </div>
+
+      <div class="vr-room-wrapper">
+        <a-scene
+          embedded
+          background="color: #07111f"
+          renderer="antialias: true; colorManagement: true"
+          vr-mode-ui="enabled: true"
+          webxr="optionalFeatures: local-floor, bounded-floor"
+        >
+
+          <a-assets>
+            <img id="ornamentImg" src="images/melayu-ornament.png" crossorigin="anonymous" />
+
+            <!-- Fallback image avatars, used only if a GLB model cannot load -->
+            <img id="speakerAImg" src="images/speaker-a.png" crossorigin="anonymous" />
+            <img id="moderatorImg" src="images/moderator.png" crossorigin="anonymous" />
+            <img id="speakerBImg" src="images/speaker-b.png" crossorigin="anonymous" />
+
+            <!-- Real 3D GLB avatars -->
+            <!-- Real 3D GLB avatars are loaded directly below with cache-busting URLs -->
+          </a-assets>
+
+          <!-- Student viewpoint -->
+          <a-entity position="0 1.78 6.15">
+            <a-camera look-controls wasd-controls="enabled: false" fov="68"></a-camera>
+          </a-entity>
+
+          <!-- Balanced lighting -->
+          <a-entity light="type: ambient; intensity: 0.92"></a-entity>
+          <a-entity light="type: directional; intensity: 0.75" position="0 7 5"></a-entity>
+          <a-entity light="type: point; intensity: 0.55; distance: 8" position="0 4.2 1.8"></a-entity>
+          <a-entity light="type: point; intensity: 0.45; distance: 7" position="-3.8 3.2 -1.5"></a-entity>
+          <a-entity light="type: point; intensity: 0.45; distance: 7" position="3.8 3.2 -1.5"></a-entity>
+
+          <!-- Clean dark virtual room -->
+          <a-sky color="#07111f"></a-sky>
+
+          <!-- Floor and carpet -->
+          <a-plane
+            position="0 0 0"
+            rotation="-90 0 0"
+            width="15"
+            height="15"
+            color="#08111f">
+          </a-plane>
+
+          <a-plane
+            position="0 0.012 1.55"
+            rotation="-90 0 0"
+            width="8.0"
+            height="4.4"
+            color="#102a56"
+            material="opacity: 0.82; transparent: true">
+          </a-plane>
+
+          <!-- Back wall and side walls -->
+          <a-box position="0 2.32 -5.02" width="13.2" height="4.65" depth="0.20" color="#0f172a"></a-box>
+          <a-box position="-6.65 2.32 -0.02" width="0.20" height="4.65" depth="10.0" color="#070d18"></a-box>
+          <a-box position="6.65 2.32 -0.02" width="0.20" height="4.65" depth="10.0" color="#070d18"></a-box>
+          <a-box position="0 4.72 -0.02" width="13.2" height="0.18" depth="10.0" color="#07111f"></a-box>
+
+          <!-- Subtle Malay ornament, moved behind the title so it does not disturb the text -->
+          <a-image
+            src="#ornamentImg"
+            position="0 3.58 -4.86"
+            width="4.8"
+            height="1.15"
+            material="transparent: true; opacity: 0.34">
+          </a-image>
+
+          <!-- Raised stage platform -->
+          <a-box position="0 0.28 -2.55" width="9.2" height="0.55" depth="3.20" color="#263449"></a-box>
+          <a-box position="0 0.59 -1.02" width="9.25" height="0.12" depth="0.12" color="#d4af37"></a-box>
+          <a-box position="0 0.665 -1.07" width="9.05" height="0.035" depth="0.04" color="#f7d774"></a-box>
+
+          <!-- Title panel, separated from the motion board -->
+          <a-box position="0 3.52 -4.72" width="4.6" height="0.42" depth="0.10" color="#0b1220"></a-box>
+          <a-text
+            value="Affirmative Argument Session"
+            position="0 3.53 -4.60"
+            align="center"
+            width="5.2"
+            color="#fde68a">
+          </a-text>
+
+          <!-- Motion screen -->
+          <a-box position="0 2.55 -4.76" width="7.35" height="1.28" depth="0.16" color="#d4af37"></a-box>
+          <a-box position="0 2.55 -4.62" width="7.05" height="1.04" depth="0.10" color="#f8fafc"></a-box>
+
+          <a-text
+            value="DEBATE MOTION"
+            position="0 2.88 -4.49"
+            align="center"
+            width="4.2"
+            color="#1e3a8a">
+          </a-text>
+
+          <a-text
+            value="Young people can preserve local culture better through digital media than through traditional community events."
+            position="0 2.48 -4.48"
+            align="center"
+            width="5.9"
+            color="#0f172a">
+          </a-text>
+
+          <!-- Podiums -->
+          <a-box position="-3.35 0.93 -2.06" width="1.18" height="1.30" depth="0.76" color="#1d4ed8"></a-box>
+          <a-box position="-3.35 1.61 -1.65" width="1.32" height="0.10" depth="0.11" color="#f7d774"></a-box>
+
+          <a-box position="0 0.86 -2.10" width="1.85" height="1.16" depth="0.84" color="#111827"></a-box>
+          <a-box position="0 1.47 -1.65" width="1.95" height="0.10" depth="0.11" color="#f7d774"></a-box>
+
+          <a-box position="3.35 0.93 -2.06" width="1.18" height="1.30" depth="0.76" color="#0f766e"></a-box>
+          <a-box position="3.35 1.61 -1.65" width="1.32" height="0.10" depth="0.11" color="#f7d774"></a-box>
+
+          <!-- Real 3D GLB avatars: clean placement and cache-busting URLs -->
+          <a-gltf-model
+            id="speakerAGLB"
+            src="models/speaker-a.glb?v=20260624clean1"
+            position="-3.35 0.18 -1.66"
+            rotation="0 8 0"
+            scale="1.20 1.20 1.20"
+            animation-mixer>
+          </a-gltf-model>
+
+          <a-gltf-model
+            id="moderatorGLB"
+            src="models/moderator.glb?v=20260624clean1"
+            position="0 0.18 -1.66"
+            rotation="0 0 0"
+            scale="1.20 1.20 1.20"
+            animation-mixer>
+          </a-gltf-model>
+
+          <a-gltf-model
+            id="speakerBGLB"
+            src="models/speaker-b.glb?v=20260624clean1"
+            position="3.35 0.18 -1.66"
+            rotation="0 -8 0"
+            scale="1.20 1.20 1.20"
+            animation-mixer>
+          </a-gltf-model>
+
+          <!-- Fallback 2.5D image avatars. Hidden unless a GLB file fails to load. -->
+          <a-image
+            id="speakerAFallback"
+            src="#speakerAImg"
+            position="-3.35 2.00 -2.10"
+            rotation="0 10 0"
+            width="1.20"
+            height="3.05"
+            visible="false"
+            material="transparent: true; side: double">
+          </a-image>
+
+          <a-image
+            id="moderatorFallback"
+            src="#moderatorImg"
+            position="0 1.98 -2.12"
+            width="1.18"
+            height="3.05"
+            visible="false"
+            material="transparent: true; side: double">
+          </a-image>
+
+          <a-image
+            id="speakerBFallback"
+            src="#speakerBImg"
+            position="3.35 2.00 -2.10"
+            rotation="0 -10 0"
+            width="1.20"
+            height="3.05"
+            visible="false"
+            material="transparent: true; side: double">
+          </a-image>
+
+          <!-- Microphones -->
+          <a-cylinder position="-3.35 1.73 -1.55" radius="0.024" height="0.38" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="-3.35 1.90 -1.46" radius="0.055" color="#111827"></a-sphere>
+
+          <a-cylinder position="0 1.56 -1.55" radius="0.024" height="0.38" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="0 1.73 -1.46" radius="0.055" color="#111827"></a-sphere>
+
+          <a-cylinder position="3.35 1.73 -1.55" radius="0.024" height="0.38" color="#020617" rotation="25 0 0"></a-cylinder>
+          <a-sphere position="3.35 1.90 -1.46" radius="0.055" color="#111827"></a-sphere>
+
+          <!-- Cleaner audience seating -->
+          <a-box position="-4.4 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="-2.95 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="-1.50 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="0 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="1.50 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="2.95 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+          <a-box position="4.4 0.22 1.15" width="1.05" height="0.30" depth="0.68" color="#334155"></a-box>
+
+          <a-box position="-3.7 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="-2.25 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="-0.75 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="0.75 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="2.25 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+          <a-box position="3.7 0.22 2.32" width="1.05" height="0.30" depth="0.68" color="#1e293b"></a-box>
+
+        </a-scene>
+      </div>
+
+      <p class="vr-note">
+        This unit uses the same 3D debate room for Motion 1 and focuses on the Affirmative Team's opening argument.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Your Debate Role</h2>
+      <p>
+        You are the first speaker for the Affirmative / Positive Team. Your task is to introduce your team's support for the motion and explain why digital media can help young people preserve local culture.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Affirmative Argument Structure</h2>
+      <p>Use this structure to present your argument clearly:</p>
+
+      <ul>
+        <li><strong>Position:</strong> Our team supports the motion that ...</li>
+        <li><strong>Main argument:</strong> We believe this is important because ...</li>
+        <li><strong>Reason:</strong> This is because ...</li>
+        <li><strong>Evidence or example:</strong> For example, ...</li>
+        <li><strong>Closing:</strong> Therefore, digital media can help preserve local culture by ...</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Record Your Affirmative Argument</h2>
+      <p>
+        Record your affirmative argument here. While you speak, the browser will try to generate an English transcript for formative feedback.
+      </p>
+
+      <div class="recording-controls">
+        <button class="record-btn start" id="startBtn">Start Recording</button>
+        <button class="record-btn stop" id="stopBtn" disabled>Stop Recording</button>
+        <a class="record-btn download" id="downloadLink" style="display:none;">Download Recording</a>
+        <button class="record-btn reset" id="resetBtn">Try Again</button>
+      </div>
+
+      <div class="status" id="recordStatus">Status: Not recorded yet.</div>
+
+      <audio id="audioPlayback" controls style="display:none;"></audio>
+
+      <p class="small-note">
+        Transcript support works best in Google Chrome. If the transcript is incomplete, students can edit it manually before generating feedback.
+      </p>
+
+      <label for="speechTranscript" class="small-note"><strong>Speech transcript for feedback:</strong></label>
+      <textarea
+        id="speechTranscript"
+        class="transcript-box"
+        placeholder="Your spoken affirmative argument transcript will appear here. You may also type or paste your transcript manually."></textarea>
+
+      <div class="feedback-actions">
+        <button class="record-btn feedback" id="generateFeedbackBtn">Generate Feedback</button>
+        <button class="record-btn submit" id="downloadSubmissionBtn">Download Submission Folder (.zip)</button>
+        <button class="record-btn reset" id="clearTranscriptBtn">Clear Transcript</button>
+      </div>
+
+      <p class="submission-note">
+        The ZIP file will contain the student's identity, preparation notes, transcript, feedback summary, and the audio recording when available.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Automated Formative Feedback</h2>
+      <p>
+        This first version gives rule-based feedback on affirmative stance, reasoning, evidence, organization, and delivery indicators. It does not grade pronunciation yet.
+      </p>
+
+      <div class="feedback-panel" id="feedbackPanel">
+        <div class="feedback-header">
+          <div>
+            <h3 id="feedbackTitle" style="margin:0; color:#fef3c7;">Feedback Summary</h3>
+            <p id="feedbackSummary" class="small-note" style="margin:6px 0 0;">Your feedback will appear here.</p>
+          </div>
+          <div class="level-badge" id="levelBadge">Not generated</div>
+        </div>
+
+        <div class="score-grid">
+          <div class="score-card">
+            <strong>Affirmative stance</strong>
+            <span id="scoreRebuttal">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Reasoning</strong>
+            <span id="scoreReasoning">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Evidence/example</strong>
+            <span id="scoreEvidence">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Organization</strong>
+            <span id="scoreOrganization">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Language use</strong>
+            <span id="scoreLanguage">-</span>
+          </div>
+          <div class="score-card">
+            <strong>Length</strong>
+            <span id="scoreLength">-</span>
+          </div>
+        </div>
+
+        <div class="feedback-columns">
+          <div class="feedback-box">
+            <h3>Strengths</h3>
+            <ul id="strengthList"></ul>
+          </div>
+
+          <div class="feedback-box">
+            <h3>Suggestions</h3>
+            <ul id="suggestionList"></ul>
+          </div>
+        </div>
+
+        <p class="feedback-note">
+          Teacher note: this feedback is generated locally in the browser using simple indicators. It is suitable for early prototype testing and can later be upgraded into AI-supported feedback.
+        </p>
       </div>
     </section>
-  </div>
+
+    <footer>
+      Web-based IVR Debate · Motion 1 · Unit 1 Affirmative Arguments
+    </footer>
+
+  </main>
 
   <script>
+    function setStance(stance) {
+      const stanceStatus = document.getElementById("stanceStatus");
+      stanceStatus.textContent = "Selected stance: " + stance;
+    }
+
     let mediaRecorder;
     let audioChunks = [];
-    let recordedAudioBlob = null;
+    let audioBlob;
+    let audioUrl;
 
-    function selectPosition(button, position) {
-      const buttons = document.querySelectorAll('.position-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+    let recognition;
+    let recognitionSupported = false;
+    let finalTranscript = "";
+    let interimTranscript = "";
+    let latestFeedback = null;
+    let studentProfile = null;
 
-      document.getElementById('status').innerText =
-        'Status: Position selected - ' + position + '. You may prepare and start recording.';
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const downloadLink = document.getElementById("downloadLink");
+    const recordStatus = document.getElementById("recordStatus");
+    const audioPlayback = document.getElementById("audioPlayback");
+    const transcriptBox = document.getElementById("speechTranscript");
+    const generateFeedbackBtn = document.getElementById("generateFeedbackBtn");
+    const clearTranscriptBtn = document.getElementById("clearTranscriptBtn");
+    const downloadSubmissionBtn = document.getElementById("downloadSubmissionBtn");
+
+    const studentNameInput = document.getElementById("studentName");
+    const studentIdInput = document.getElementById("studentId");
+    const studentClassInput = document.getElementById("studentClass");
+    const saveProfileBtn = document.getElementById("saveProfileBtn");
+    const resetProfileBtn = document.getElementById("resetProfileBtn");
+    const studentCard = document.getElementById("studentCard");
+    const studentDisplay = document.getElementById("studentDisplay");
+
+
+    function sanitizeFileName(value) {
+      return (value || "student")
+        .toString()
+        .trim()
+        .replace(/\s+/g, "_")
+        .replace(/[^a-zA-Z0-9_\-]/g, "")
+        .substring(0, 60) || "student";
     }
 
-    function getSupportedAudioMimeType() {
-      if (window.MediaRecorder && MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
-        return 'audio/webm;codecs=opus';
-      }
-
-      if (window.MediaRecorder && MediaRecorder.isTypeSupported('audio/webm')) {
-        return 'audio/webm';
-      }
-
-      return '';
+    function getDateStamp() {
+      const now = new Date();
+      const pad = value => String(value).padStart(2, "0");
+      return now.getFullYear() +
+        pad(now.getMonth() + 1) +
+        pad(now.getDate()) + "_" +
+        pad(now.getHours()) +
+        pad(now.getMinutes());
     }
 
-    async function startRecording() {
-      const status = document.getElementById('status');
-      const startBtn = document.getElementById('startBtn');
-      const stopBtn = document.getElementById('stopBtn');
-      const downloadBtn = document.getElementById('downloadBtn');
+    function saveStudentProfile() {
+      const name = studentNameInput ? studentNameInput.value.trim() : "";
+      const studentId = studentIdInput ? studentIdInput.value.trim() : "";
+      const className = studentClassInput ? studentClassInput.value.trim() : "";
+
+      if (!name) {
+        alert("Please enter your full name before starting.");
+        if (studentNameInput) studentNameInput.focus();
+        return;
+      }
+
+      studentProfile = {
+        name,
+        studentId,
+        className,
+        savedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem("webivr_unit3_student_profile", JSON.stringify(studentProfile));
+      renderStudentProfile();
+      if (recordStatus) {
+        recordStatus.textContent = "Status: Login saved. You can start recording now.";
+      }
+    }
+
+    function renderStudentProfile() {
+      if (!studentProfile) {
+        if (studentCard) studentCard.style.display = "none";
+        return;
+      }
+
+      if (studentNameInput) studentNameInput.value = studentProfile.name || "";
+      if (studentIdInput) studentIdInput.value = studentProfile.studentId || "";
+      if (studentClassInput) studentClassInput.value = studentProfile.className || "";
+
+      const idPart = studentProfile.studentId ? " · " + studentProfile.studentId : "";
+      const classPart = studentProfile.className ? " · " + studentProfile.className : "";
+      if (studentDisplay) studentDisplay.textContent = studentProfile.name + idPart + classPart;
+      if (studentCard) studentCard.style.display = "block";
+    }
+
+    function loadStudentProfile() {
+      try {
+        const saved = localStorage.getItem("webivr_unit3_student_profile");
+        studentProfile = saved ? JSON.parse(saved) : null;
+      } catch (error) {
+        studentProfile = null;
+      }
+      renderStudentProfile();
+    }
+
+    if (saveProfileBtn) {
+      saveProfileBtn.addEventListener("click", saveStudentProfile);
+    }
+
+    if (resetProfileBtn) {
+      resetProfileBtn.addEventListener("click", () => {
+      localStorage.removeItem("webivr_unit3_student_profile");
+      studentProfile = null;
+      studentCard.style.display = "none";
+      studentNameInput.value = "";
+      studentIdInput.value = "";
+      studentClassInput.value = "";
+      studentNameInput.focus();
+      });
+    }
+
+    loadStudentProfile();
+
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      recognitionSupported = true;
+      recognition = new SpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 1;
+
+      recognition.onresult = event => {
+        interimTranscript = "";
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + " ";
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+
+        transcriptBox.value = (finalTranscript + interimTranscript).trim();
+      };
+
+      recognition.onerror = () => {
+        recordStatus.textContent = "Status: Recording continues, but speech transcript is unavailable. You can type the transcript manually.";
+      };
+    }
+
+    function startSpeechRecognition() {
+      if (!recognitionSupported || !recognition) {
+        recordStatus.textContent = "Status: Recording... Transcript is not supported in this browser. Please type the transcript manually after recording.";
+        return;
+      }
+
+      finalTranscript = "";
+      interimTranscript = "";
+      transcriptBox.value = "";
+
+      try {
+        recognition.start();
+      } catch (error) {
+        // Recognition may already be active. Ignore this safely.
+      }
+    }
+
+    function stopSpeechRecognition() {
+      if (recognitionSupported && recognition) {
+        try {
+          recognition.stop();
+        } catch (error) {
+          // Safe to ignore if recognition has already stopped.
+        }
+      }
+    }
+
+    startBtn.addEventListener("click", async () => {
+      if (!studentProfile && studentNameInput && studentNameInput.value.trim()) {
+        saveStudentProfile();
+      }
+
+      if (!studentProfile) {
+        alert("Please enter your name and click Save Student Login before recording.");
+        if (studentNameInput) studentNameInput.focus();
+        return;
+      }
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mimeType = getSupportedAudioMimeType();
 
         audioChunks = [];
-        recordedAudioBlob = null;
-        downloadBtn.disabled = true;
+        mediaRecorder = new MediaRecorder(stream);
 
-        mediaRecorder = mimeType
-          ? new MediaRecorder(stream, { mimeType: mimeType })
-          : new MediaRecorder(stream);
-
-        mediaRecorder.ondataavailable = function(event) {
-          if (event.data && event.data.size > 0) {
+        mediaRecorder.ondataavailable = event => {
+          if (event.data.size > 0) {
             audioChunks.push(event.data);
           }
         };
 
-        mediaRecorder.onstop = function() {
-          const finalMimeType = mediaRecorder.mimeType || 'audio/webm';
-          recordedAudioBlob = new Blob(audioChunks, { type: finalMimeType });
-
-          const audioUrl = URL.createObjectURL(recordedAudioBlob);
-          const audioPlayback = document.getElementById('audioPlayback');
+        mediaRecorder.onstop = () => {
+          audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+          audioUrl = URL.createObjectURL(audioBlob);
 
           audioPlayback.src = audioUrl;
-          downloadBtn.disabled = false;
+          audioPlayback.style.display = "block";
 
-          status.innerText =
-            'Status: Recording completed. You can play or download your audio.';
+          downloadLink.href = audioUrl;
+          downloadLink.download = "unit1-motion1-affirmative-arguments-recording.webm";
+          downloadLink.style.display = "inline-block";
+
+          recordStatus.textContent = "Status: Recording completed. Check the transcript, edit it if needed, then generate feedback.";
+
+          stream.getTracks().forEach(track => track.stop());
+
+          setTimeout(() => {
+            if (transcriptBox.value.trim().length > 0) {
+              generateFeedback();
+            }
+          }, 500);
         };
 
         mediaRecorder.start();
+        startSpeechRecognition();
 
         startBtn.disabled = true;
         stopBtn.disabled = false;
-        status.innerText = 'Status: Recording... please speak now.';
+        downloadLink.style.display = "none";
+        audioPlayback.style.display = "none";
+        recordStatus.textContent = recognitionSupported
+          ? "Status: Recording and transcribing... Please give your rebuttal clearly."
+          : "Status: Recording... Speech transcript is not supported in this browser.";
 
       } catch (error) {
-        status.innerText =
-          'Status: Microphone access was blocked or unavailable. Please allow microphone permission in your browser.';
+        recordStatus.textContent = "Status: Microphone access was denied or unavailable.";
+        alert("Please allow microphone access to record your voice.");
       }
-    }
+    });
 
-    function stopRecording() {
-      const startBtn = document.getElementById('startBtn');
-      const stopBtn = document.getElementById('stopBtn');
-
-      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    stopBtn.addEventListener("click", () => {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        stopSpeechRecognition();
         mediaRecorder.stop();
-
-        mediaRecorder.stream.getTracks().forEach(function(track) {
-          track.stop();
-        });
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
       }
+    });
+
+    resetBtn.addEventListener("click", () => {
+      audioChunks = [];
+      finalTranscript = "";
+      interimTranscript = "";
+      stopSpeechRecognition();
+
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+      }
+
+      audioPlayback.src = "";
+      audioPlayback.style.display = "none";
+      downloadLink.href = "";
+      downloadLink.style.display = "none";
+      recordStatus.textContent = "Status: Not recorded yet.";
+      transcriptBox.value = "";
+
+      latestFeedback = null;
+      document.getElementById("feedbackPanel").style.display = "none";
 
       startBtn.disabled = false;
       stopBtn.disabled = true;
+    });
+
+    clearTranscriptBtn.addEventListener("click", () => {
+      transcriptBox.value = "";
+      finalTranscript = "";
+      interimTranscript = "";
+      latestFeedback = null;
+      document.getElementById("feedbackPanel").style.display = "none";
+    });
+
+    generateFeedbackBtn.addEventListener("click", generateFeedback);
+    downloadSubmissionBtn.addEventListener("click", downloadSubmissionZip);
+
+    function containsAny(text, terms) {
+      return terms.some(term => text.includes(term));
     }
 
-    function downloadRecording() {
-      const status = document.getElementById('status');
+    function countMatches(text, terms) {
+      return terms.reduce((count, term) => count + (text.includes(term) ? 1 : 0), 0);
+    }
 
-      if (!recordedAudioBlob) {
-        status.innerText = 'Status: No recording is available to download yet.';
+    function scoreItem(score, max, label) {
+      return score + "/" + max + " · " + label;
+    }
+
+    function generateFeedback() {
+      const raw = transcriptBox.value.trim();
+
+      if (!raw) {
+        alert("Please record your voice or type your transcript before generating feedback.");
         return;
       }
 
-      const downloadUrl = URL.createObjectURL(recordedAudioBlob);
-      const downloadLink = document.createElement('a');
+      const text = raw.toLowerCase();
+      const words = raw.split(/\s+/).filter(Boolean);
+      const wordCount = words.length;
 
-      downloadLink.href = downloadUrl;
-      downloadLink.download = 'unit1-opening-argument-recording.webm';
+      const acknowledgementTerms = [
+        "i support", "we support", "our team supports", "i agree", "we agree",
+        "affirmative", "positive team", "i believe", "we believe", "in my view",
+        "young people can", "digital media can"
+      ];
 
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
+      const rebuttalTerms = [
+        "should", "can preserve", "better through digital media", "important because",
+        "main argument", "i believe", "we believe", "in my view", "our argument"
+      ];
 
-      URL.revokeObjectURL(downloadUrl);
+      const reasoningTerms = [
+        "because", "this is because", "since", "therefore", "as a result",
+        "so that", "it means", "the reason is"
+      ];
 
-      status.innerText =
-        'Status: Recording downloaded. You may upload the file to the submission form.';
+      const evidenceTerms = [
+        "for example", "for instance", "such as", "evidence", "data", "research",
+        "case", "experience", "students can", "young people can"
+      ];
+
+      const topicTerms = [
+        "culture", "local culture", "digital media", "traditional", "community",
+        "young people", "social media", "video", "online", "internet", "malay", "kepulauan riau"
+      ];
+
+      const closingTerms = [
+        "therefore", "in conclusion", "to conclude", "that is why", "for these reasons",
+        "overall", "finally"
+      ];
+
+      const politeTerms = [
+        "i support", "we support", "our team", "in my opinion", "in my view",
+        "i believe", "we believe", "therefore", "for example"
+      ];
+
+      const rebuttalScore =
+        (containsAny(text, acknowledgementTerms) ? 1 : 0) +
+        (containsAny(text, rebuttalTerms) ? 1 : 0);
+
+      const reasoningScore =
+        (containsAny(text, reasoningTerms) ? 1 : 0) +
+        (countMatches(text, topicTerms) >= 2 ? 1 : 0);
+
+      const evidenceScore =
+        (containsAny(text, evidenceTerms) ? 1 : 0) +
+        (countMatches(text, topicTerms) >= 4 ? 1 : 0);
+
+      const organizationScore =
+        (containsAny(text, acknowledgementTerms) ? 1 : 0) +
+        (containsAny(text, closingTerms) ? 1 : 0);
+
+      const languageScore =
+        (containsAny(text, politeTerms) ? 1 : 0) +
+        (wordCount >= 45 && wordCount <= 170 ? 1 : 0);
+
+      const lengthScore =
+        wordCount >= 60 ? 2 : wordCount >= 35 ? 1 : 0;
+
+      const total = rebuttalScore + reasoningScore + evidenceScore + organizationScore + languageScore + lengthScore;
+      const maxTotal = 12;
+
+      let level = "Needs development";
+      if (total >= 10) {
+        level = "Strong";
+      } else if (total >= 8) {
+        level = "Good";
+      } else if (total >= 5) {
+        level = "Developing";
+      }
+
+      const strengths = [];
+      const suggestions = [];
+
+      if (rebuttalScore >= 2) {
+        strengths.push("You stated an affirmative position and supported the motion clearly.");
+      } else {
+        suggestions.push("Begin with a clear affirmative stance, such as “Our team supports the motion because...”");
+      }
+
+      if (reasoningScore >= 2) {
+        strengths.push("Your argument includes a reason connected to the debate topic.");
+      } else {
+        suggestions.push("Add a clear reason using phrases such as “This is because...” or “The reason is...”.");
+      }
+
+      if (evidenceScore >= 2) {
+        strengths.push("You included topic-related support or examples.");
+      } else {
+        suggestions.push("Give one specific example, such as social media campaigns, videos, online storytelling, Malay culture, or local cultural content.");
+      }
+
+      if (organizationScore >= 2) {
+        strengths.push("Your response has a recognizable structure from response to conclusion.");
+      } else {
+        suggestions.push("End with a short closing sentence, for example “Therefore, digital media can help young people preserve local culture more effectively.”");
+      }
+
+      if (languageScore >= 2) {
+        strengths.push("Your language is polite and suitable for academic debate practice.");
+      } else {
+        suggestions.push("Use more polite academic debate language, such as “I understand the point, but...” or “In my view...”.");
+      }
+
+      if (lengthScore >= 2) {
+        strengths.push("Your response length is sufficient for a short rebuttal practice.");
+      } else {
+        suggestions.push("Try to speak a little longer. Aim for about 60–120 words for this practice.");
+      }
+
+      if (strengths.length === 0) {
+        strengths.push("You completed the speaking attempt, which is a useful first step for practice.");
+      }
+
+      latestFeedback = {
+        generatedAt: new Date().toISOString(),
+        unit: "Motion 1 - Unit 1 - Affirmative Arguments",
+        wordCount,
+        level,
+        totalScore: total,
+        maxScore: maxTotal,
+        scores: {
+          affirmativeStance: rebuttalScore,
+          reasoning: reasoningScore,
+          evidenceExample: evidenceScore,
+          organization: organizationScore,
+          languageUse: languageScore,
+          length: lengthScore
+        },
+        strengths,
+        suggestions,
+        transcript: raw
+      };
+
+      document.getElementById("feedbackPanel").style.display = "block";
+      document.getElementById("levelBadge").textContent = level + " · " + total + "/" + maxTotal;
+      document.getElementById("feedbackSummary").textContent =
+        "Estimated word count: " + wordCount + ". This feedback focuses on affirmative argument structure, topic relevance, and language indicators.";
+
+      document.getElementById("scoreRebuttal").textContent = scoreItem(rebuttalScore, 2, "clear support for motion");
+      document.getElementById("scoreReasoning").textContent = scoreItem(reasoningScore, 2, "reason + topic link");
+      document.getElementById("scoreEvidence").textContent = scoreItem(evidenceScore, 2, "example/support");
+      document.getElementById("scoreOrganization").textContent = scoreItem(organizationScore, 2, "opening + closing");
+      document.getElementById("scoreLanguage").textContent = scoreItem(languageScore, 2, "polite academic language");
+      document.getElementById("scoreLength").textContent = scoreItem(lengthScore, 2, "spoken length");
+
+      const strengthList = document.getElementById("strengthList");
+      const suggestionList = document.getElementById("suggestionList");
+
+      strengthList.innerHTML = strengths.map(item => "<li>" + item + "</li>").join("");
+      suggestionList.innerHTML = suggestions.map(item => "<li>" + item + "</li>").join("");
+
+      document.getElementById("feedbackPanel").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    function resetRecording() {
-      const audioPlayback = document.getElementById('audioPlayback');
-      const status = document.getElementById('status');
-      const startBtn = document.getElementById('startBtn');
-      const stopBtn = document.getElementById('stopBtn');
-      const downloadBtn = document.getElementById('downloadBtn');
 
-      audioChunks = [];
-      recordedAudioBlob = null;
+    async function downloadSubmissionZip() {
+      if (!studentProfile) {
+        saveStudentProfile();
+        if (!studentProfile) return;
+      }
 
-      audioPlayback.src = '';
-      startBtn.disabled = false;
-      stopBtn.disabled = true;
-      downloadBtn.disabled = true;
+      const transcript = transcriptBox.value.trim();
 
-      status.innerText = 'Status: Recording reset. You may try again.';
+      if (!transcript && !audioBlob) {
+        alert("Please record your voice or type your transcript before downloading the submission folder.");
+        return;
+      }
+
+      if (transcript && !latestFeedback) {
+        generateFeedback();
+      }
+
+      if (typeof JSZip === "undefined") {
+        alert("ZIP generator is still loading. Please wait a few seconds and try again.");
+        return;
+      }
+
+      const zip = new JSZip();
+      const folderName =
+        sanitizeFileName(studentProfile.name) + "_" +
+        sanitizeFileName(studentProfile.studentId || "no_id") +
+        "_Motion1_Unit1_AffirmativeArguments_" +
+        getDateStamp();
+
+      const folder = zip.folder(folderName);
+
+      const profileData = {
+        ...studentProfile,
+        downloadedAt: new Date().toISOString(),
+        unit: "Motion 1 - Unit 1 - Affirmative Arguments",
+        motion: "Young people can preserve local culture better through digital media than through traditional community events."
+      };
+
+      const notesText =
+        "UNIT 3 - REBUTTAL PRACTICE\\n" +
+        "Student name: " + (studentProfile.name || "-") + "\\n" +
+        "Student ID: " + (studentProfile.studentId || "-") + "\\n" +
+        "Class: " + (studentProfile.className || "-") + "\\n\\n" +
+        "1. Opponent's point I will respond to:\\n" +
+        (document.getElementById("ackNote").value.trim() || "-") + "\\n\\n" +
+        "2. My rebuttal position:\\n" +
+        (document.getElementById("stanceNote").value.trim() || "-") + "\\n\\n" +
+        "3. Reason:\\n" +
+        (document.getElementById("reasonNote").value.trim() || "-") + "\\n\\n" +
+        "4. Example or evidence:\\n" +
+        (document.getElementById("exampleNote").value.trim() || "-") + "\\n";
+
+      let feedbackText = "Feedback has not been generated yet.";
+
+      if (latestFeedback) {
+        feedbackText =
+          "AUTOMATED FORMATIVE FEEDBACK\\n" +
+          "Generated at: " + latestFeedback.generatedAt + "\\n" +
+          "Level: " + latestFeedback.level + "\\n" +
+          "Total score: " + latestFeedback.totalScore + "/" + latestFeedback.maxScore + "\\n" +
+          "Word count: " + latestFeedback.wordCount + "\\n\\n" +
+          "Scores:\\n" +
+          "- Affirmative stance: " + latestFeedback.scores.rebuttalResponse + "/2\\n" +
+          "- Reasoning: " + latestFeedback.scores.reasoning + "/2\\n" +
+          "- Evidence/example: " + latestFeedback.scores.evidenceExample + "/2\\n" +
+          "- Organization: " + latestFeedback.scores.organization + "/2\\n" +
+          "- Language use: " + latestFeedback.scores.languageUse + "/2\\n" +
+          "- Length: " + latestFeedback.scores.length + "/2\\n\\n" +
+          "Strengths:\\n" +
+          latestFeedback.strengths.map(item => "- " + item).join("\\n") + "\\n\\n" +
+          "Suggestions:\\n" +
+          latestFeedback.suggestions.map(item => "- " + item).join("\\n") + "\\n";
+      }
+
+      folder.file("student-info.json", JSON.stringify(profileData, null, 2));
+      folder.file("preparation-notes.txt", notesText);
+      folder.file("speech-transcript.txt", transcript || "No transcript was provided.");
+      folder.file("feedback-summary.txt", feedbackText);
+      folder.file("feedback-data.json", JSON.stringify(latestFeedback || { message: "Feedback not generated." }, null, 2));
+
+      if (audioBlob) {
+        folder.file("unit1-motion1-affirmative-arguments-recording.webm", audioBlob);
+      } else {
+        folder.file("recording-note.txt", "No audio recording was available in this submission package.");
+      }
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(zipBlob);
+
+      const tempLink = document.createElement("a");
+      tempLink.href = url;
+      tempLink.download = folderName + ".zip";
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+
+      setTimeout(() => URL.revokeObjectURL(url), 1200);
     }
-  </script>
+
+
+    function setupAvatarFallback(modelId, fallbackId) {
+      const model = document.getElementById(modelId);
+      const fallback = document.getElementById(fallbackId);
+
+      if (!model || !fallback) return;
+
+      model.addEventListener("model-loaded", () => {
+        fallback.setAttribute("visible", "false");
+      });
+
+      model.addEventListener("model-error", () => {
+        fallback.setAttribute("visible", "true");
+      });
+
+      setTimeout(() => {
+        const mesh = model.getObject3D("mesh");
+        if (!mesh) {
+          fallback.setAttribute("visible", "true");
+        }
+      }, 7000);
+    }
+
+    setupAvatarFallback("speakerAGLB", "speakerAFallback");
+    setupAvatarFallback("moderatorGLB", "moderatorFallback");
+    setupAvatarFallback("speakerBGLB", "speakerBFallback");
+</script>
 </body>
 </html>
